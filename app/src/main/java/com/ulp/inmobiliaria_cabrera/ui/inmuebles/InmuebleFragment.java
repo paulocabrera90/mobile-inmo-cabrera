@@ -1,4 +1,4 @@
-package com.ulp.inmobiliaria_cabrera.ui.gallery;
+package com.ulp.inmobiliaria_cabrera.ui.inmuebles;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,18 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.ulp.inmobiliaria_cabrera.databinding.FragmentGalleryBinding;
+import com.ulp.inmobiliaria_cabrera.databinding.FragmentInmuebleBinding;
 
-public class GalleryFragment extends Fragment {
+public class InmuebleFragment extends Fragment {
 
-    private FragmentGalleryBinding binding;
+    private FragmentInmuebleBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        GalleryViewModel galleryViewModel =
-                new ViewModelProvider(this).get(GalleryViewModel.class);
+        InmuebleViewModel galleryViewModel =
+                new ViewModelProvider(this).get(InmuebleViewModel.class);
 
-        binding = FragmentGalleryBinding.inflate(inflater, container, false);
+        binding = FragmentInmuebleBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textGallery;

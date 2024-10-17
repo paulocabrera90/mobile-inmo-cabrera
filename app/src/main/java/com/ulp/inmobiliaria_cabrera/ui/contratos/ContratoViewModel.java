@@ -1,14 +1,14 @@
-package com.ulp.inmobiliaria_cabrera.ui.gallery;
+package com.ulp.inmobiliaria_cabrera.ui.contratos;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class GalleryViewModel extends ViewModel {
+public class ContratoViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public GalleryViewModel() {
+    public ContratoViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is gallery fragment");
     }

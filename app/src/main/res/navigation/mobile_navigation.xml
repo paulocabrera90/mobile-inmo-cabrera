@@ -12,14 +12,35 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.ulp.inmobiliaria_cabrera.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_profile"
+        android:name="com.ulp.inmobiliaria_cabrera.ui.register.PerfilFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_perfil" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/realEstateDetailsFragment"
         android:name="com.ulp.inmobiliaria_cabrera.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:label="Detalles de Inmueble" >
+        <action
+            android:id="@+id/action_realEstateDetailsFragment_to_nav_real_estates"
+            app:destination="@id/nav_real_estates" />
+    </fragment>
+    <fragment
+        android:id="@+id/tenantDetailsFragment"
+        android:name="com.ulp.inmobiliaria_cabrera.ui.slideshow.SlideshowFragment"
+        android:label="Detalles de Inquilino">
+        <action
+            android:id="@+id/action_tenantDetailsFragment_to_nav_tenants"
+            app:destination="@id/nav_tenants" />
+    </fragment>
+    <fragment
+        android:id="@+id/contractDetailsFragment"
+        android:name="com.ulp.inmobiliaria_cabrera.ui.contratos.ContratoFragment"
+        android:label="Detalles de Contrato" >
+        <action
+            android:id="@+id/action_contractDetailsFragment_to_nav_contracts"
+            app:destination="@id/nav_contracts" />
+
+    </fragment>
+
 </navigation>

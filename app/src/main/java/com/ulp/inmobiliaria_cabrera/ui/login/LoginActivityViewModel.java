@@ -16,8 +16,7 @@ import com.ulp.inmobiliaria_cabrera.MainActivity;
 import com.ulp.inmobiliaria_cabrera.request.ApiClient;
 import com.ulp.inmobiliaria_cabrera.request.LoginView;
 import com.ulp.inmobiliaria_cabrera.request.response.LoginResponse;
-import com.ulp.inmobiliaria_cabrera.ui.home.HomeFragment;
-import com.ulp.inmobiliaria_cabrera.ui.register.RegistroActivity;
+import com.ulp.inmobiliaria_cabrera.ui.register.PerfilFragment;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,16 +47,17 @@ public class LoginActivityViewModel extends AndroidViewModel {
         return avisoVisibilityMutable;
     }
 
-
     public void login(String email, String contrasena) {
 
-       Call<LoginResponse> call = ApiClient.getApiInmobiliaria().login(new LoginView(email, contrasena));
+       Call<LoginResponse> call = ApiClient.getInmobiliariaService(context)
+               .login(new LoginView(email, contrasena));
 
        call.enqueue(new Callback<LoginResponse>() {
            @Override
            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                if(response.isSuccessful()) {
-                   Log.d("Salida", response.body().token);
+                   Log.d("Salida token", response.body().tokenSession);
+                   ApiClient.guardarToken(context, response.body());
 
                    Intent intent = new Intent(context, MainActivity.class);
                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -89,7 +89,7 @@ public class LoginActivityViewModel extends AndroidViewModel {
     }
 
     public void Registrarse() {
-        Intent intent = new Intent(context, RegistroActivity.class);
+        Intent intent = new Intent(context, PerfilFragment.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }

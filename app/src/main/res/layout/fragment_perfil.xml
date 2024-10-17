@@ -24,7 +24,8 @@
         android:layout_marginTop="16dp"
         android:hint="Contrasena"
         app:layout_constraintTop_toBottomOf="@+id/editTextEmail"
-        tools:layout_editor_absoluteX="1dp" />
+        tools:layout_editor_absoluteX="1dp"
+        tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/editTextDni"
