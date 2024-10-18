@@ -35,6 +35,9 @@ public class PerfilFragment extends Fragment {
 
     private void init() {
 
+        viewModel.getBtnEditVisibility().observe(getViewLifecycleOwner(), visibility -> binding.buttonEdit.setEnabled(visibility));
+        viewModel.getBtnSaveVisibility().observe(getViewLifecycleOwner(), visibility -> binding.buttonSave.setEnabled(visibility));
+
         viewModel.getCurrentUser().observe(
                 getViewLifecycleOwner(), propietario -> {
                     binding.editTextEmail.setText(propietario.getEmail());
@@ -46,9 +49,19 @@ public class PerfilFragment extends Fragment {
                     binding.editTextDireccion.setText(propietario.getDireccion());
                 }
         );
-     //   viewModel.getCurrentUser()
-             //   .observe(getViewLifecycleOwner(), visibility -> binding.buttonEdit.setVisibility(visibility));
-     //   viewModel.getButtonSaveVisibility().observe(getViewLifecycleOwner(), visibility -> binding.buttonSave.setVisibility(visibility));
+
+        viewModel.getEditEnabled().observe(getViewLifecycleOwner(), flag -> {
+            binding.editTextEmail.setEnabled(flag);
+            binding.editTextNombre.setEnabled(flag);
+            binding.editTextApellido.setEnabled(flag);
+            binding.editTextDni.setEnabled(flag);
+            binding.editTextTelefonoArea.setEnabled(flag);
+            binding.editTextTelefonoNumero.setEnabled(flag);
+            binding.editTextDireccion.setEnabled(flag);
+           // binding.fechaNacimiento.setEnabled(flag);
+        });
+
+        binding.buttonEdit.setOnClickListener(view -> viewModel.enableEdit());
 
         viewModel.setCurrentUser();
     }

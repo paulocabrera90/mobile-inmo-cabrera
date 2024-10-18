@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.view.View;
 
 import androidx.activity.result.ActivityResult;
 import androidx.annotation.NonNull;
@@ -26,8 +27,8 @@ public class PerfilViewModel extends AndroidViewModel {
     private MutableLiveData<Integer> avisoVisibilityMutable;
     private MutableLiveData<Uri> uriMutableLiveData;
     private ApiClient.InmobiliariaService api;
-    private MutableLiveData<Integer> buttonEditVisibility;
-    private MutableLiveData<Integer> buttonSaveVisibility;
+    private MutableLiveData<Boolean> buttonEditEnable;
+    private MutableLiveData<Boolean> buttonSaveEnable;
     private MutableLiveData<Integer> buttonDateVisibility;
     private MutableLiveData<Propietario> pMutableLiveData;
     private MutableLiveData<Boolean> editEnabled;
@@ -68,6 +69,20 @@ public class PerfilViewModel extends AndroidViewModel {
         return pMutableLiveData;
     }
 
+    public LiveData<Boolean> getBtnEditVisibility() {
+        if (buttonEditEnable == null) {
+            buttonEditEnable = new MutableLiveData<>();
+        }
+        return buttonEditEnable;
+    }
+
+    public LiveData<Boolean> getBtnSaveVisibility() {
+        if (buttonSaveEnable == null) {
+            buttonSaveEnable = new MutableLiveData<>();
+        }
+        return buttonSaveEnable;
+    }
+
     public LiveData<String> getAvisoMutable() {
         if (avisoMutable == null) {
             avisoMutable = new MutableLiveData<>();
@@ -89,6 +104,23 @@ public class PerfilViewModel extends AndroidViewModel {
         return uriMutableLiveData;
     }
 
+    public LiveData<Boolean> getEditEnabled() {
+        if (editEnabled == null) {
+            editEnabled = new MutableLiveData<>();
+        }
+        return editEnabled;
+    }
+
+    public void enableEdit() {
+        this.buttonEditEnable.setValue(Boolean.FALSE);
+        this.buttonSaveEnable.setValue(Boolean.TRUE);
+        this.editEnabled.setValue(true);
+    }
+
+    public Uri getDefaultImageUri() {
+        return Uri.EMPTY;
+    }
+
     public void recibirFoto(ActivityResult result) {
         if (result.getResultCode() == Activity.RESULT_OK) {
             Intent data = result.getData();
@@ -98,10 +130,5 @@ public class PerfilViewModel extends AndroidViewModel {
                 uriMutableLiveData.setValue(uri);
             }
         }
-    }
-
-    public Uri getDefaultImageUri() {
-        // Uri for default image when no image is provided
-        return Uri.EMPTY; // Use Uri.EMPTY as a placeholder
     }
 }
