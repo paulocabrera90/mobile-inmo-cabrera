@@ -24,35 +24,62 @@ public class PerfilFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity()
+                .getApplication()).create(PerfilViewModel.class);
         binding = FragmentPerfilBinding.inflate(inflater, container, false);
+        init();
+
         return binding.getRoot();
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    private void init() {
 
-        viewModel = new ViewModelProvider(this).get(PerfilViewModel.class);
-       /// abrirGaleria();
+        viewModel.getCurrentUser().observe(
+                getViewLifecycleOwner(), propietario -> {
+                    binding.editTextEmail.setText(propietario.getEmail());
+                    binding.editTextNombre.setText(propietario.getNombre());
+                    binding.editTextApellido.setText(propietario.getApellido());
+                    binding.editTextDni.setText(propietario.getDni());
+                    binding.editTextTelefonoArea.setText(propietario.getTelefonoArea());
+                    binding.editTextTelefonoNumero.setText(propietario.getTelefonoNumero());
+                    binding.editTextDireccion.setText(propietario.getDireccion());
+                }
+        );
+     //   viewModel.getCurrentUser()
+             //   .observe(getViewLifecycleOwner(), visibility -> binding.buttonEdit.setVisibility(visibility));
+     //   viewModel.getButtonSaveVisibility().observe(getViewLifecycleOwner(), visibility -> binding.buttonSave.setVisibility(visibility));
 
-        viewModel.getAvisoMutable().observe(getViewLifecycleOwner(), s -> binding.tvAviso.setText(s));
-        viewModel.getAvisoVisibilityMutable().observe(getViewLifecycleOwner(), visibility -> binding.tvAviso.setVisibility(visibility));
-
-        viewModel.getUriMutable().observe(getViewLifecycleOwner(), uri -> binding.imageViewProfile.setImageURI(uri));
-
-        binding.buttonGaleria.setOnClickListener(v -> arl.launch(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)));
-
-        boolean flag = getActivity().getIntent().getBooleanExtra("isUser", false);
-        binding.buttonRegister.setText(flag ? "Editar" : "Registrar");
-        binding.buttonRegister.setOnClickListener(v -> {
-            String dni = binding.editTextDni.getText().toString();
-            String nombre = binding.editTextNombre.getText().toString();
-            String apellido = binding.editTextApellido.getText().toString();
-            String correo = binding.editTextEmail.getText().toString();
-            String password = binding.editTextContrasena.getText().toString();
-            // Handle save
-        });
+        viewModel.setCurrentUser();
     }
+
+//    @Override
+//    public void onViewCreated(View view, Bundle savedInstanceState) {
+//        super.onViewCreated(view, savedInstanceState);
+//
+//        viewModel = new ViewModelProvider(this).get(PerfilViewModel.class);
+//       /// abrirGaleria();
+//
+//        viewModel.getAvisoMutable().observe(getViewLifecycleOwner(), s -> binding.tvAviso.setText(s));
+//        viewModel.getAvisoVisibilityMutable().observe(getViewLifecycleOwner(), visibility -> binding.tvAviso.setVisibility(visibility));
+//
+//        viewModel.getUriMutable().observe(getViewLifecycleOwner(), uri -> binding.imageViewProfile.setImageURI(uri));
+//
+//        binding.buttonGaleria.setOnClickListener(v -> arl.launch(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)));
+//
+//        boolean flag = getActivity().getIntent().getBooleanExtra("isUser", false);
+//        binding.buttonRegister.setText(flag ? "Editar" : "Registrar");
+//        binding.buttonRegister.setOnClickListener(v -> {
+//            String dni = binding.editTextDni.getText().toString();
+//            String nombre = binding.editTextNombre.getText().toString();
+//            String apellido = binding.editTextApellido.getText().toString();
+//            String correo = binding.editTextEmail.getText().toString();
+//            String password = binding.editTextContrasena.getText().toString();
+//            // Handle save
+//        });
+
+
+//    }
 
 //    private void abrirGaleria() {
 //        intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);

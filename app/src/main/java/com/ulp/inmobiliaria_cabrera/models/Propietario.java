@@ -149,4 +149,22 @@ public class Propietario {
     public void setEstado(int estado) {
         this.estado = estado;
     }
+
+    @Override
+    public String toString() {
+        return "Propietario{" +
+                "id=" + id +
+                ", dni='" + dni + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", email='" + email + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", usuario='" + usuario + '\'' +
+                ", fechaCreacion=" + fechaCreacion +
+                ", fechaActualizacion=" + fechaActualizacion +
+                ", telefonoArea='" + telefonoArea + '\'' +
+                ", telefonoNumero='" + telefonoNumero + '\'' +
+                ", estado=" + estado +
+                '}';
+    }
 }
