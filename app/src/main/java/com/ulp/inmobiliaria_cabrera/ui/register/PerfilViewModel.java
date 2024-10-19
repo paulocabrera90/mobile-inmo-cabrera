@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
@@ -14,7 +15,11 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
+import com.ulp.inmobiliaria_cabrera.MainActivity;
+import com.ulp.inmobiliaria_cabrera.R;
 import com.ulp.inmobiliaria_cabrera.models.Propietario;
 import com.ulp.inmobiliaria_cabrera.request.ApiClient;
 
@@ -31,6 +36,7 @@ public class PerfilViewModel extends AndroidViewModel {
     private MutableLiveData<Boolean> buttonEditEnable;
     private MutableLiveData<Boolean> buttonSaveEnable;
     private MutableLiveData<Propietario> propietarioMutableLiveData;
+    private MutableLiveData<String> navigateToPasswordChange = new MutableLiveData<>();
     private MutableLiveData<Boolean> editEnabled;
     private Uri uri;
     private String uriString;
@@ -43,24 +49,6 @@ public class PerfilViewModel extends AndroidViewModel {
         SharedPreferences sharedPreferences = getApplication().getSharedPreferences("token_prefs", Context.MODE_PRIVATE);
         ID_PROPIETARIO =Integer.parseInt(sharedPreferences.getString("id", null));
     }
-    public void setCurrentUser() {
-
-        api.getPropietario(ID_PROPIETARIO).enqueue(new Callback<Propietario>() {
-            @Override
-            public void onResponse(Call<Propietario> call, Response<Propietario> response) {
-                if (response.isSuccessful()) {
-                    propietarioMutableLiveData.setValue(response.body());
-                } else {
-                    avisoMutable.setValue("Error al obtener el propietario");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Propietario> call, Throwable throwable) {
-                avisoMutable.setValue("Error de conexión");
-            }
-        });
-    }
 
     public LiveData<Propietario> getCurrentUser() {
         if (propietarioMutableLiveData == null) {
@@ -69,14 +57,18 @@ public class PerfilViewModel extends AndroidViewModel {
         return propietarioMutableLiveData;
     }
 
-    public LiveData<Boolean> getBtnEditVisibility() {
+    public LiveData<String> getNavigateToPasswordChange() {
+        return navigateToPasswordChange;
+    }
+
+    public LiveData<Boolean> getBtnEditEnable() {
         if (buttonEditEnable == null) {
             buttonEditEnable = new MutableLiveData<>();
         }
         return buttonEditEnable;
     }
 
-    public LiveData<Boolean> getBtnSaveVisibility() {
+    public LiveData<Boolean> getBtnSaveEnable() {
         if (buttonSaveEnable == null) {
             buttonSaveEnable = new MutableLiveData<>();
         }
@@ -116,6 +108,26 @@ public class PerfilViewModel extends AndroidViewModel {
         this.buttonSaveEnable.setValue(Boolean.TRUE);
         this.editEnabled.setValue(true);
     }
+
+    public void setCurrentUser() {
+
+        api.getPropietario(ID_PROPIETARIO).enqueue(new Callback<Propietario>() {
+            @Override
+            public void onResponse(Call<Propietario> call, Response<Propietario> response) {
+                if (response.isSuccessful()) {
+                    propietarioMutableLiveData.setValue(response.body());
+                } else {
+                    avisoMutable.setValue("Error al obtener el propietario");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Propietario> call, Throwable throwable) {
+                avisoMutable.setValue("Error de conexión");
+            }
+        });
+    }
+
 
     public void saveChanges(Propietario p) {
         if(p.getId() == 0){
@@ -158,5 +170,17 @@ public class PerfilViewModel extends AndroidViewModel {
                 uriMutableLiveData.setValue(uri);
             }
         }
+    }
+
+    public void changePassword() {
+       if (getCurrentUser().getValue() != null){
+           Log.d("Salida token", getCurrentUser().getValue().toString());
+
+           Propietario propietario = getCurrentUser().getValue();
+           if (propietario != null) {
+               String passwordHashed = propietario.getPassword();
+               navigateToPasswordChange.setValue(passwordHashed);
+           }
+       }
     }
 }

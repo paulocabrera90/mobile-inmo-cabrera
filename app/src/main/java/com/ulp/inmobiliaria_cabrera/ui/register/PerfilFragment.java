@@ -12,7 +12,10 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
+import com.ulp.inmobiliaria_cabrera.R;
 import com.ulp.inmobiliaria_cabrera.databinding.FragmentPerfilBinding;
 import com.ulp.inmobiliaria_cabrera.models.Propietario;
 
@@ -50,8 +53,10 @@ public class PerfilFragment extends Fragment {
 
     private void init() {
 
-        viewModel.getBtnEditVisibility().observe(getViewLifecycleOwner(), visibility -> binding.buttonEdit.setEnabled(visibility));
-        viewModel.getBtnSaveVisibility().observe(getViewLifecycleOwner(), visibility -> binding.buttonSave.setEnabled(visibility));
+        viewModel.getBtnEditEnable().observe(getViewLifecycleOwner(),
+                enabled -> binding.buttonEdit.setEnabled(enabled));
+        viewModel.getBtnSaveEnable().observe(getViewLifecycleOwner(),
+                enabled -> binding.buttonSave.setEnabled(enabled));
 
         viewModel.getCurrentUser().observe(
                 getViewLifecycleOwner(), propietario -> {
@@ -76,6 +81,17 @@ public class PerfilFragment extends Fragment {
            // binding.fechaNacimiento.setEnabled(flag);
         });
 
+        viewModel.getNavigateToPasswordChange().observe(getViewLifecycleOwner(), passwordHashed -> {
+            if (passwordHashed != null) {
+                Bundle bundle = new Bundle();
+                bundle.putString("passwordHashed", passwordHashed);
+
+                NavController navController = NavHostFragment.findNavController(this);
+                navController.navigate(R.id.action_nav_profile_to_passFragment, bundle);
+            }
+        });
+
+
         binding.buttonSave.setOnClickListener(view -> {
             Propietario propietario = new Propietario(
                     binding.editTextDni.getText().toString(),
@@ -91,6 +107,7 @@ public class PerfilFragment extends Fragment {
         });
 
         binding.buttonEdit.setOnClickListener(view -> viewModel.enableEdit());
+        binding.buttonChangePassword.setOnClickListener(view -> viewModel.changePassword());
 
         viewModel.setCurrentUser();
     }
