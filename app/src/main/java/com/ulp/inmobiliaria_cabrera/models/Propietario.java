@@ -1,7 +1,7 @@
 package com.ulp.inmobiliaria_cabrera.models;
 
 import java.util.Date;
-import java.util.List;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -25,27 +25,53 @@ public class Propietario {
 
     @NotBlank(message = "La dirección es obligatoria.")
     private String direccion;
-
     private String usuario;
     private String password;
-    private Date fechaCreacion;
-    private Date fechaActualizacion;
+    private Date fecha_creacion;
+    private Date fecha_actualizacion;
 
     @NotBlank(message = "El area es obligatorio.")
     @Pattern(regexp = "^\\d+$", message = "El area solo debe tener dígitos.")
-    private String telefonoArea;
+    private String telefono_area;
 
     @NotBlank(message = "El numero de telefono es obligatorio.")
     @Pattern(regexp = "^\\d+$", message = "El numero solo debe tener dígitos.")
-    private String telefonoNumero;
-
+    private String telefono_numero;
     private int estado = 1;
 
-   // private List<Inmueble> inmuebles;
+    //private List<Inmueble> inmuebles;
 
     public String getNombreCompleto() {
         return apellido + " " + nombre;
     }
+
+    public Propietario(String dni, String nombre, String apellido, String email, String direccion, String telefonoArea, String telefonoNumero) {
+        this.dni = dni;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.direccion = direccion;
+        this.telefono_area = telefonoArea;
+        this.telefono_numero = telefonoNumero;
+        this.estado = 1;
+    }
+
+    public Propietario(int id, String dni, String nombre, String apellido, String email, String direccion, String usuario, String password, Date fechaCreacion, Date fechaActualizacion, String telefonoArea, String telefonoNumero, int estado) {
+        this.id = id;
+        this.dni = dni;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.direccion = direccion;
+        this.usuario = usuario;
+        this.password = password;
+        this.fecha_creacion = fechaCreacion;
+        this.fecha_actualizacion = fechaActualizacion;
+        this.telefono_area = telefonoArea;
+        this.telefono_numero = telefonoNumero;
+        this.estado = estado;
+    }
+
     public int getId() {
         return id;
     }
@@ -110,36 +136,36 @@ public class Propietario {
         this.password = password;
     }
 
-    public Date getFechaCreacion() {
-        return fechaCreacion;
+    public Date getFecha_creacion() {
+        return fecha_creacion;
     }
 
-    public void setFechaCreacion(Date fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
+    public void setFecha_creacion(Date fecha_creacion) {
+        this.fecha_creacion = fecha_creacion;
     }
 
-    public Date getFechaActualizacion() {
-        return fechaActualizacion;
+    public Date getFecha_actualizacion() {
+        return fecha_actualizacion;
     }
 
-    public void setFechaActualizacion(Date fechaActualizacion) {
-        this.fechaActualizacion = fechaActualizacion;
+    public void setFecha_actualizacion(Date fecha_actualizacion) {
+        this.fecha_actualizacion = fecha_actualizacion;
     }
 
-    public @NotBlank(message = "El area es obligatorio.") @Pattern(regexp = "^\\d+$", message = "El area solo debe tener dígitos.") String getTelefonoArea() {
-        return telefonoArea;
+    public @NotBlank(message = "El area es obligatorio.") @Pattern(regexp = "^\\d+$", message = "El area solo debe tener dígitos.") String getTelefono_area() {
+        return telefono_area;
     }
 
-    public void setTelefonoArea(@NotBlank(message = "El area es obligatorio.") @Pattern(regexp = "^\\d+$", message = "El area solo debe tener dígitos.") String telefonoArea) {
-        this.telefonoArea = telefonoArea;
+    public void setTelefono_area(@NotBlank(message = "El area es obligatorio.") @Pattern(regexp = "^\\d+$", message = "El area solo debe tener dígitos.") String telefono_area) {
+        this.telefono_area = telefono_area;
     }
 
-    public @NotBlank(message = "El numero de telefono es obligatorio.") @Pattern(regexp = "^\\d+$", message = "El numero solo debe tener dígitos.") String getTelefonoNumero() {
-        return telefonoNumero;
+    public @NotBlank(message = "El numero de telefono es obligatorio.") @Pattern(regexp = "^\\d+$", message = "El numero solo debe tener dígitos.") String getTelefono_numero() {
+        return telefono_numero;
     }
 
-    public void setTelefonoNumero(@NotBlank(message = "El numero de telefono es obligatorio.") @Pattern(regexp = "^\\d+$", message = "El numero solo debe tener dígitos.") String telefonoNumero) {
-        this.telefonoNumero = telefonoNumero;
+    public void setTelefono_numero(@NotBlank(message = "El numero de telefono es obligatorio.") @Pattern(regexp = "^\\d+$", message = "El numero solo debe tener dígitos.") String telefono_numero) {
+        this.telefono_numero = telefono_numero;
     }
 
     public int getEstado() {
@@ -148,5 +174,22 @@ public class Propietario {
 
     public void setEstado(int estado) {
         this.estado = estado;
+    }
+
+    @Override
+    public String toString() {
+        return "Propietario{" +
+                "id=" + id +
+                ", dni='" + dni + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", email='" + email + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", fecha_Creacion=" + fecha_creacion +
+                ", fecha_Actualizacion=" + fecha_actualizacion +
+                ", telefono_Area='" + telefono_area + '\'' +
+                ", telefono_Numero='" + telefono_numero + '\'' +
+                ", estado=" + estado +
+                '}';
     }
 }

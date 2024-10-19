@@ -1,5 +1,7 @@
 [versions]
 agp = "8.6.0"
+jakartaEl = "3.0.3"
+jakartaValidationApi = "3.0.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -15,6 +17,8 @@ retrofit = "2.11.0"
 converterScalars = "2.11.0"
 
 [libraries]
+jakarta-el = { module = "org.glassfish:jakarta.el", version.ref = "jakartaEl" }
+jakarta-validation-api = { module = "jakarta.validation:jakarta.validation-api", version.ref = "jakartaValidationApi" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

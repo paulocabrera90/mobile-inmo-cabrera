@@ -72,7 +72,6 @@ public class LoginActivity extends AppCompatActivity {
                 && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED){
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1000);
-            Toast.makeText(this, "PERMISSION CONSIDERED", Toast.LENGTH_SHORT).show();
         }
         else{
             Toast.makeText(this, "WITHOUT PERMISSION", Toast.LENGTH_SHORT).show();
