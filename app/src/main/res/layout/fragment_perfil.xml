@@ -6,6 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/tvAviso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text=""
+        android:visibility="invisible"
+        android:layout_marginHorizontal="16dp"
+        tools:ignore="MissingConstraints" />
+
     <ImageView
         android:id="@+id/imageViewProfile"
         android:layout_width="120dp"

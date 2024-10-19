@@ -23,6 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -109,8 +110,8 @@ public class ApiClient {
         Call<Propietario> crearPropietario(@Body Propietario propietario);
 
         // El que va a utilizar el propietario logueado en la app
-        @PUT("propietarios/actualizarpropietario")
-        Call<Propietario> actualizarPropietario(@Body Propietario propietario);
+//        @PUT("propietarios/{id}")
+//        Call<Propietario> actualizarPropietario(@Body Propietario propietario);
 
         @PUT("propietarios/{id}")
         Call<Propietario> actualizarPropietario(@Path("id") int id, @Body Propietario propietario);

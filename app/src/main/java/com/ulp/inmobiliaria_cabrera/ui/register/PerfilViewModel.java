@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 
 import androidx.activity.result.ActivityResult;
@@ -29,44 +30,43 @@ public class PerfilViewModel extends AndroidViewModel {
     private ApiClient.InmobiliariaService api;
     private MutableLiveData<Boolean> buttonEditEnable;
     private MutableLiveData<Boolean> buttonSaveEnable;
-    private MutableLiveData<Integer> buttonDateVisibility;
-    private MutableLiveData<Propietario> pMutableLiveData;
+    private MutableLiveData<Propietario> propietarioMutableLiveData;
     private MutableLiveData<Boolean> editEnabled;
-    private MutableLiveData<String> msgMutableLiveData;
-    private MutableLiveData<Integer> msgVisibility;
     private Uri uri;
     private String uriString;
+    private int ID_PROPIETARIO;
 
     public PerfilViewModel(@NonNull Application application) {
         super(application);
         api = ApiClient.getInmobiliariaService(application.getApplicationContext());
+
+        SharedPreferences sharedPreferences = getApplication().getSharedPreferences("token_prefs", Context.MODE_PRIVATE);
+        ID_PROPIETARIO =Integer.parseInt(sharedPreferences.getString("id", null));
     }
     public void setCurrentUser() {
-        SharedPreferences sharedPreferences = getApplication().getSharedPreferences("token_prefs", Context.MODE_PRIVATE);
-        int id = Integer.parseInt(sharedPreferences.getString("id", null));
 
-        api.getPropietario(id).enqueue(new Callback<Propietario>() {
+        api.getPropietario(ID_PROPIETARIO).enqueue(new Callback<Propietario>() {
             @Override
             public void onResponse(Call<Propietario> call, Response<Propietario> response) {
                 if (response.isSuccessful()) {
-                    pMutableLiveData.setValue(response.body());
+                    propietarioMutableLiveData.setValue(response.body());
                 } else {
-                    msgMutableLiveData.setValue("Error al obtener el propietario");
+                    avisoMutable.setValue("Error al obtener el propietario");
                 }
             }
 
             @Override
             public void onFailure(Call<Propietario> call, Throwable throwable) {
-                msgMutableLiveData.setValue("Error de conexión");
+                avisoMutable.setValue("Error de conexión");
             }
         });
     }
 
     public LiveData<Propietario> getCurrentUser() {
-        if (pMutableLiveData == null) {
-            pMutableLiveData = new MutableLiveData<>();
+        if (propietarioMutableLiveData == null) {
+            propietarioMutableLiveData = new MutableLiveData<>();
         }
-        return pMutableLiveData;
+        return propietarioMutableLiveData;
     }
 
     public LiveData<Boolean> getBtnEditVisibility() {
@@ -115,6 +115,34 @@ public class PerfilViewModel extends AndroidViewModel {
         this.buttonEditEnable.setValue(Boolean.FALSE);
         this.buttonSaveEnable.setValue(Boolean.TRUE);
         this.editEnabled.setValue(true);
+    }
+
+    public void saveChanges(Propietario p) {
+        if(p.getId() == 0){
+            p.setId(ID_PROPIETARIO);
+        }
+
+        api.actualizarPropietario(ID_PROPIETARIO, p).enqueue(new Callback<Propietario>() {
+            @Override
+            public void onResponse(Call<Propietario> call, Response<Propietario> response) {
+                if (response.isSuccessful()) {
+                    propietarioMutableLiveData.setValue(p);
+                    avisoMutable.setValue("Datos guardados.");
+                } else {
+                    Log.d("ProfileViewModel", "Error al guardar los datos: " + call.request().body());
+                    avisoMutable.setValue("Error al guardar los datos");
+                }
+                buttonSaveEnable.setValue(Boolean.FALSE);
+                buttonEditEnable.setValue(Boolean.TRUE);
+                editEnabled.setValue(false);
+                avisoVisibilityMutable.setValue(View.VISIBLE);
+            }
+
+            @Override
+            public void onFailure(Call<Propietario> call, Throwable t) {
+                avisoMutable.setValue("Error de conexión");
+            }
+        });
     }
 
     public Uri getDefaultImageUri() {
