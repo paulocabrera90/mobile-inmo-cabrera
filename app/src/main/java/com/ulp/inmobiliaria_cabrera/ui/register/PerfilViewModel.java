@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
@@ -15,14 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
-
-import com.ulp.inmobiliaria_cabrera.MainActivity;
-import com.ulp.inmobiliaria_cabrera.R;
 import com.ulp.inmobiliaria_cabrera.models.Propietario;
 import com.ulp.inmobiliaria_cabrera.request.ApiClient;
-
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,7 +50,7 @@ public class PerfilViewModel extends AndroidViewModel {
         return propietarioMutableLiveData;
     }
 
-    public LiveData<String> getNavigateToPasswordChange() {
+    public LiveData<String> getNavigateIdPropietario() {
         return navigateToIdPropietario;
     }
 

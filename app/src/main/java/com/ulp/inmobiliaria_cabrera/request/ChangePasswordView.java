@@ -1,13 +1,18 @@
 package com.ulp.inmobiliaria_cabrera.request;
 
+import com.google.gson.annotations.SerializedName;
+
 public class ChangePasswordView {
     public int id;
-    public String email;
-    public String Password;
+    @SerializedName("currentPassword")
+    public String CurrentPassword;
 
-    public ChangePasswordView(int id, String email, String password) {
+    @SerializedName("newPassword")
+    public String NewPassword;
+
+    public ChangePasswordView(int id, String currentPassword, String newPassword) {
         this.id = id;
-        this.email = email;
-        Password = password;
+        CurrentPassword = currentPassword;
+        NewPassword = newPassword;
     }
 }
