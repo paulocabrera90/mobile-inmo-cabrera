@@ -36,7 +36,7 @@ public class PerfilViewModel extends AndroidViewModel {
     private MutableLiveData<Boolean> buttonEditEnable;
     private MutableLiveData<Boolean> buttonSaveEnable;
     private MutableLiveData<Propietario> propietarioMutableLiveData;
-    private MutableLiveData<String> navigateToPasswordChange = new MutableLiveData<>();
+    private MutableLiveData<String> navigateToIdPropietario= new MutableLiveData<>();
     private MutableLiveData<Boolean> editEnabled;
     private Uri uri;
     private String uriString;
@@ -58,7 +58,7 @@ public class PerfilViewModel extends AndroidViewModel {
     }
 
     public LiveData<String> getNavigateToPasswordChange() {
-        return navigateToPasswordChange;
+        return navigateToIdPropietario;
     }
 
     public LiveData<Boolean> getBtnEditEnable() {
@@ -178,8 +178,7 @@ public class PerfilViewModel extends AndroidViewModel {
 
            Propietario propietario = getCurrentUser().getValue();
            if (propietario != null) {
-               String passwordHashed = propietario.getPassword();
-               navigateToPasswordChange.setValue(passwordHashed);
+               navigateToIdPropietario.setValue(String.valueOf(propietario.getId()));
            }
        }
     }

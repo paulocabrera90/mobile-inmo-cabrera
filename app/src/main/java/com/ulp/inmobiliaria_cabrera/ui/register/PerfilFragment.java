@@ -81,14 +81,12 @@ public class PerfilFragment extends Fragment {
            // binding.fechaNacimiento.setEnabled(flag);
         });
 
-        viewModel.getNavigateToPasswordChange().observe(getViewLifecycleOwner(), passwordHashed -> {
-            if (passwordHashed != null) {
+        viewModel.getNavigateToPasswordChange().observe(getViewLifecycleOwner(), idPropietario -> {
                 Bundle bundle = new Bundle();
-                bundle.putString("passwordHashed", passwordHashed);
+                bundle.putString("idPropietario", idPropietario);
 
                 NavController navController = NavHostFragment.findNavController(this);
                 navController.navigate(R.id.action_nav_profile_to_passFragment, bundle);
-            }
         });
 
 
