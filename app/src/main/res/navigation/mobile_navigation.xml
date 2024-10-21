@@ -15,7 +15,20 @@
         android:id="@+id/nav_profile"
         android:name="com.ulp.inmobiliaria_cabrera.ui.register.PerfilFragment"
         android:label="@string/menu_profile"
-        tools:layout="@layout/fragment_perfil" />
+        tools:layout="@layout/fragment_perfil">
+        <action
+            android:id="@+id/action_nav_profile_to_passFragment"
+            app:destination="@id/passFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/passFragment"
+        android:name="com.ulp.inmobiliaria_cabrera.ui.register.PerfilCambioPasswordFragment"
+        android:label="Cambiar Contraseña" >
+        <action
+            android:id="@+id/action_passFragment_to_nav_profile"
+            app:destination="@id/nav_profile" />
+    </fragment>
 
     <fragment
         android:id="@+id/realEstateDetailsFragment"

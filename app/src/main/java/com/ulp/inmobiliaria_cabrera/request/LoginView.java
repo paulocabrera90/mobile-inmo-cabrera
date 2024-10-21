@@ -3,11 +3,11 @@ package com.ulp.inmobiliaria_cabrera.request;
 public class LoginView {
 
     public LoginView(String usuario, String password) {
-        Usuario = usuario;
+        Email = usuario;
         Password = password;
     }
 
-    public String Usuario;
+    public String Email;
 
     public String Password;
 }

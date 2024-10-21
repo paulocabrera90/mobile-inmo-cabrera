@@ -51,4 +51,6 @@
     <string name="pago_num_label">Número de Pago</string>
     <string name="importe_label">Importe</string>
     <string name="fecha_de_pago_label">Fecha de Pago</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
