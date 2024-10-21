@@ -17,6 +17,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -33,7 +34,6 @@ public class ApiClient {
     private static InmobiliariaService inmobiliariaService;
     private static SharedPreferences sharedPreferences;
 
-    // Configuración básica de Retrofit con Interceptor para JWT
     public static InmobiliariaService getInmobiliariaService(Context context) {
         if (inmobiliariaService == null) {
             sharedPreferences = context.getSharedPreferences("token_prefs", Context.MODE_PRIVATE);
@@ -57,6 +57,7 @@ public class ApiClient {
             //Gson gson = new GsonBuilder().setLenient().create();
             Gson gson = new GsonBuilder()
                     .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                    .setLenient()
                     .create();
 
             Retrofit retrofit = new Retrofit.Builder()
@@ -70,7 +71,6 @@ public class ApiClient {
         return inmobiliariaService;
     }
 
-    // Método para guardar el token en SharedPreferences
     public static void guardarToken(Context context, LoginResponse body) {
         if (sharedPreferences == null) {
             sharedPreferences = context.getSharedPreferences("token_prefs", Context.MODE_PRIVATE);
@@ -85,7 +85,6 @@ public class ApiClient {
         editor.apply();
     }
 
-    // Método para eliminar el token de SharedPreferences
     public static void eliminarToken(Context context) {
         if (sharedPreferences == null) {
             sharedPreferences = context.getSharedPreferences("token_prefs", Context.MODE_PRIVATE);
@@ -96,8 +95,12 @@ public class ApiClient {
     }
 
     public interface  InmobiliariaService {
+        //LOGIN Y PASSWORD
         @POST("authentication/login")
         public Call<LoginResponse> login(@Body LoginView login);
+
+        @POST("authentication/changePassword")
+        public Call<ResponseBody> changePassword(@Body ChangePasswordView changePasswordView);
 
         //PROPIETARIO
         @GET("propietarios")

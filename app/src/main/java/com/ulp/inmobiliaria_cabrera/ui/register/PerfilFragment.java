@@ -81,7 +81,7 @@ public class PerfilFragment extends Fragment {
            // binding.fechaNacimiento.setEnabled(flag);
         });
 
-        viewModel.getNavigateToPasswordChange().observe(getViewLifecycleOwner(), idPropietario -> {
+        viewModel.getNavigateIdPropietario().observe(getViewLifecycleOwner(), idPropietario -> {
                 Bundle bundle = new Bundle();
                 bundle.putString("idPropietario", idPropietario);
 

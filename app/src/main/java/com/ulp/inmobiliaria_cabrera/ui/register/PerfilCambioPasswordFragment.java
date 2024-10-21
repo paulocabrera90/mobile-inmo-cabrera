@@ -1,39 +1,63 @@
 package com.ulp.inmobiliaria_cabrera.ui.register;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.ulp.inmobiliaria_cabrera.R;
+import com.ulp.inmobiliaria_cabrera.databinding.FragmentPerfilCambioPasswordBinding;
 
 public class PerfilCambioPasswordFragment extends Fragment {
 
     private PerfilCambioPasswordViewModel viewModel;
+    private FragmentPerfilCambioPasswordBinding binding;
 
-    public static PerfilCambioPasswordFragment newInstance() {
-        return new PerfilCambioPasswordFragment();
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        viewModel = new ViewModelProvider(this)
+                .get(PerfilCambioPasswordViewModel.class);
+        binding = FragmentPerfilCambioPasswordBinding
+                .inflate(inflater, container, false);
+
+        viewModel.getStatusMessage().observe(getViewLifecycleOwner(), message -> {
+            Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+        });
+
+        viewModel.getAvisoMutable().observe(getActivity(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                binding.tvAviso.setText(s);
+            }
+        });
+
+        viewModel.getAvisoVisibilityMutable().observe(getActivity(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer visibility) {
+                binding.tvAviso.setVisibility(visibility);
+            }
+        });
+
+        binding.btnChangePassword.setOnClickListener(v -> {
+            String currentPassword = binding.etCurrentPassword.getText().toString();
+            String newPassword = binding.etNewPassword.getText().toString();
+            String confirmPassword = binding.etConfirmPassword.getText().toString();
+            viewModel.changePassword(currentPassword, newPassword, confirmPassword);
+
+        });
+
+        return binding.getRoot();
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-
-        return inflater.inflate(R.layout.fragment_perfil_cambio_password, container, false);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(PerfilCambioPasswordViewModel.class);
-        // TODO: Use the ViewModel
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 
 }
