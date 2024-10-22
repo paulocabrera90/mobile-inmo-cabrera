@@ -16,6 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Inmobiliariacabrera"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyD6iBpe_qh9U4aZtHo1CNq-GH_ScUlvrps" />
+
         <activity
             android:name=".ui.login.LoginActivity"
             android:exported="true"
