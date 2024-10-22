@@ -123,11 +123,7 @@ public class PerfilViewModel extends AndroidViewModel {
 
 
     public void saveChanges(Propietario p) {
-        if(p.getId() == 0){
-            p.setId(ID_PROPIETARIO);
-        }
-
-        api.actualizarPropietario(ID_PROPIETARIO, p).enqueue(new Callback<Propietario>() {
+        api.actualizarPropietario(p).enqueue(new Callback<Propietario>() {
             @Override
             public void onResponse(Call<Propietario> call, Response<Propietario> response) {
                 if (response.isSuccessful()) {

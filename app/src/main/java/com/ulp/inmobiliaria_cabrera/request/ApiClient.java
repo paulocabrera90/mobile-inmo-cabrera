@@ -117,7 +117,7 @@ public class ApiClient {
 //        Call<Propietario> actualizarPropietario(@Body Propietario propietario);
 
         @PUT("propietarios/{id}")
-        Call<Propietario> actualizarPropietario(@Path("id") int id, @Body Propietario propietario);
+        Call<Propietario> actualizarPropietario(@Body Propietario propietario);
 
         @DELETE("propietarios/{id}")
         Call<Void> eliminarPropietario(@Path("id") int id);

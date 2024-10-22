@@ -36,6 +36,12 @@ public class PerfilCambioPasswordFragment extends Fragment {
             }
         });
 
+        viewModel.getNavigateBack().observe(getViewLifecycleOwner(), shouldNavigateBack -> {
+            if (shouldNavigateBack) {
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
+
         viewModel.getAvisoVisibilityMutable().observe(getActivity(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer visibility) {
