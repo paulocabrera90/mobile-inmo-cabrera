@@ -17,11 +17,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Inmobiliariacabrera"
         tools:targetApi="31">
+
         <activity
-            android:name=".ui.resetear.ResetConfirmPasswordActivity"
+            android:name=".ui.resetear.ResetChangePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.resetear.ConfirmResetActivity"
+            android:name=".ui.resetear.ValidateCodeResetActivity"
             android:exported="false"
             android:theme="@style/Theme.Inmobiliariacabrera" />
 

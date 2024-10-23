@@ -4,31 +4,28 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.EditText;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.ulp.inmobiliaria_cabrera.R;
-import com.ulp.inmobiliaria_cabrera.databinding.ActivityConfirmResetBinding;
+import com.ulp.inmobiliaria_cabrera.databinding.ActivityValidateCodeResetBinding;
 
-public class ConfirmResetActivity extends AppCompatActivity {
+public class ValidateCodeResetActivity extends AppCompatActivity {
 
-    private ActivityConfirmResetBinding binding;
-    private ConfirmResetActivityViewModel viewModel;
+    private ActivityValidateCodeResetBinding binding;
+    private ValidateCodeResetActivityViewModel viewModel;
+    private String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityConfirmResetBinding.inflate(getLayoutInflater());
+        binding = ActivityValidateCodeResetBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication())
-                .create(ConfirmResetActivityViewModel.class);
+                .create(ValidateCodeResetActivityViewModel.class);
+
+        email = getIntent().getStringExtra("email");
 
         binding.etCode.addTextChangedListener(new TextWatcher() {
             @Override
@@ -37,18 +34,19 @@ public class ConfirmResetActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                viewModel.updateCode(s.toString());
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                viewModel.updateCode(s.toString());
+
             }
         });
 
         binding.btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewModel.resetOkPassword();
+                viewModel.resetOkPassword(email);
             }
         });
 

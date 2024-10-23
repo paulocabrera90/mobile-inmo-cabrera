@@ -102,5 +102,9 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="confirmar_codigo">Confirmar Codigo</string>
-    <string name="ingresa_los_6_digitos_de_confirmacion">Ingresa los 6 digitos de confirmacion</string>
+    <string name="ingresa_los_6_digitos_de_confirmacion">Ingresa los 6 digitos.</string>
+    <string name="code_explanation">Se enviará un código de verificación de 6 dígitos a tu correo electrónico.
+        Por favor, ingrésalo a continuación para continuar.
+    </string>
+
 </resources>

@@ -123,5 +123,8 @@ public class ApiClient {
 
         @POST("propietarios/reset-password")
         Call<ResponseBody> resetPassword(@Body ResetPasswordRequest resetPassword);
+
+        @POST("propietarios/validate-code")
+        Call<Boolean> validateCode(@Body ConfirmPasswordResetRequest resetPassword);
     }
 }
