@@ -39,7 +39,6 @@ public class ValidateCodeResetActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
 

@@ -51,8 +51,9 @@ public class ValidateCodeResetActivityViewModel extends AndroidViewModel {
     }
 
     public void resetOkPassword(String email) {
+        String codeValue = code.getValue();
         Call<Boolean> call = ApiClient.getInmobiliariaService(context)
-                .validateCode(new ConfirmPasswordResetRequest(email, code.getValue()));
+                .validateCode(new ConfirmPasswordResetRequest(email, codeValue));
 
         call.enqueue(new Callback<Boolean>() {
             @Override
@@ -61,6 +62,7 @@ public class ValidateCodeResetActivityViewModel extends AndroidViewModel {
                     Intent intent = new Intent(context, ResetChangePasswordActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("email", email);
+                    intent.putExtra("verificationNumber", codeValue);
                     context.startActivity(intent);
                 }else {
                     Toast.makeText(getApplication(),"Error con el codigo de verificacion o tiempo transcurrido.", Toast.LENGTH_SHORT).show();

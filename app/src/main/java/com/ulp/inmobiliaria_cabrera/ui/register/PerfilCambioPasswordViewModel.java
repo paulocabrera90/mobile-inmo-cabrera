@@ -23,7 +23,7 @@ public class PerfilCambioPasswordViewModel extends AndroidViewModel {
     private MutableLiveData<Boolean> navigateBack = new MutableLiveData<>();
 
     private ApiClient.InmobiliariaService api;
-    private int ID_PROPIETARIO;
+    private final int ID_PROPIETARIO;
 
     public PerfilCambioPasswordViewModel(@NonNull Application application) {
         super(application);

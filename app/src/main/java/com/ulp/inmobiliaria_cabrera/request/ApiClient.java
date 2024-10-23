@@ -98,6 +98,9 @@ public class ApiClient {
         @POST("authentication/login")
         public Call<LoginResponse> login(@Body LoginRequest login);
 
+        @POST("authentication/renove-password")
+        Call<ResponseBody> renovePassword(@Body ResetChangePasswordRequest resetChangePasswordRequest);
+
         @POST("authentication/changePassword")
         public Call<ResponseBody> changePassword(@Body ChangePasswordRequest changePasswordView);
 
@@ -110,10 +113,6 @@ public class ApiClient {
 
         @POST("propietarios")
         Call<Propietario> crearPropietario(@Body Propietario propietario);
-
-        // El que va a utilizar el propietario logueado en la app
-//        @PUT("propietarios/{id}")
-//        Call<Propietario> actualizarPropietario(@Body Propietario propietario);
 
         @PUT("propietarios/{id}")
         Call<Propietario> actualizarPropietario(@Body Propietario propietario);

@@ -11,6 +11,7 @@ public class ResetChangePasswordActivity extends AppCompatActivity {
     private ActivityResetChangePasswordBinding binding;
     private ResetChangePasswordActivityViewModel viewModel;
     private String email;
+    private String verificationNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,13 @@ public class ResetChangePasswordActivity extends AppCompatActivity {
                 .create(ResetChangePasswordActivityViewModel.class);
 
         email = getIntent().getStringExtra("email");
+        verificationNumber = getIntent().getStringExtra("verificationNumber");
+
+        binding.btnChangePassword.setOnClickListener(view -> {
+            String newPassword = binding.etNewPassword.getText().toString();
+            String confirmPassword = binding.etConfirmPassword.getText().toString();
+            viewModel.resetPassword(email, newPassword, confirmPassword, verificationNumber);
+        });
 
     }
 }
