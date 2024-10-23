@@ -24,7 +24,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
-import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -97,10 +96,10 @@ public class ApiClient {
     public interface  InmobiliariaService {
         //LOGIN Y PASSWORD
         @POST("authentication/login")
-        public Call<LoginResponse> login(@Body LoginView login);
+        public Call<LoginResponse> login(@Body LoginRequest login);
 
         @POST("authentication/changePassword")
-        public Call<ResponseBody> changePassword(@Body ChangePasswordView changePasswordView);
+        public Call<ResponseBody> changePassword(@Body ChangePasswordRequest changePasswordView);
 
         //PROPIETARIO
         @GET("propietarios")
@@ -121,5 +120,8 @@ public class ApiClient {
 
         @DELETE("propietarios/{id}")
         Call<Void> eliminarPropietario(@Path("id") int id);
+
+        @POST("propietarios/reset-password")
+        Call<ResponseBody> resetPassword(@Body ResetPasswordRequest resetPassword);
     }
 }

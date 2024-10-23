@@ -14,7 +14,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.ulp.inmobiliaria_cabrera.MainActivity;
 import com.ulp.inmobiliaria_cabrera.request.ApiClient;
-import com.ulp.inmobiliaria_cabrera.request.LoginView;
+import com.ulp.inmobiliaria_cabrera.request.LoginRequest;
 import com.ulp.inmobiliaria_cabrera.request.response.LoginResponse;
 import com.ulp.inmobiliaria_cabrera.ui.register.PerfilFragment;
 
@@ -50,7 +50,7 @@ public class LoginActivityViewModel extends AndroidViewModel {
     public void login(String email, String contrasena) {
 
        Call<LoginResponse> call = ApiClient.getInmobiliariaService(context)
-               .login(new LoginView(email, contrasena));
+               .login(new LoginRequest(email, contrasena));
 
        call.enqueue(new Callback<LoginResponse>() {
            @Override
@@ -88,9 +88,10 @@ public class LoginActivityViewModel extends AndroidViewModel {
 //        }
     }
 
-    public void Registrarse() {
-        Intent intent = new Intent(context, PerfilFragment.class);
+    public void reset() {
+        Intent intent = new Intent(context, ResetPasswordActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("isUser", true);
         context.startActivity(intent);
     }
 }

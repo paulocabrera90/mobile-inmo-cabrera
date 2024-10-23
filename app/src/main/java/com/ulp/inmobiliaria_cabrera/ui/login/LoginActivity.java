@@ -53,10 +53,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        binding.registrarButton.setOnClickListener(new View.OnClickListener() {
+        binding.resetTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewModel.Registrarse();
+                viewModel.reset();
             }
         });
     }
