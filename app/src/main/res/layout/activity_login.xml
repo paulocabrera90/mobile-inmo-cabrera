@@ -49,11 +49,24 @@
             android:layout_marginTop="24dp"
             android:text="Iniciar sesión" />
 
-        <Button
+       <!-- <Button
             android:id="@+id/registrarButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Registrar" />
+            android:text="Registrar" /> -->
+
+        <TextView
+            android:id="@+id/resetTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/olvid_mi_contrase_a"
+            android:textColor="@color/white"
+            android:textStyle="normal"
+            android:gravity="center_horizontal"
+            android:autoLink="web"
+            android:linksClickable="true" />
+
 
 </LinearLayout>

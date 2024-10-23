@@ -12,7 +12,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import com.ulp.inmobiliaria_cabrera.request.ApiClient;
-import com.ulp.inmobiliaria_cabrera.request.ChangePasswordView;
+import com.ulp.inmobiliaria_cabrera.request.ChangePasswordRequest;
 
 import retrofit2.Response;
 
@@ -23,7 +23,7 @@ public class PerfilCambioPasswordViewModel extends AndroidViewModel {
     private MutableLiveData<Boolean> navigateBack = new MutableLiveData<>();
 
     private ApiClient.InmobiliariaService api;
-    private int ID_PROPIETARIO;
+    private final int ID_PROPIETARIO;
 
     public PerfilCambioPasswordViewModel(@NonNull Application application) {
         super(application);
@@ -55,8 +55,8 @@ public class PerfilCambioPasswordViewModel extends AndroidViewModel {
     }
 
     public void changePassword(String currentPassword, String newPassword, String confirmPassword) {
-        ChangePasswordView changePasswordView =
-                new ChangePasswordView(ID_PROPIETARIO, currentPassword, newPassword);
+        ChangePasswordRequest changePasswordView =
+                new ChangePasswordRequest(ID_PROPIETARIO, currentPassword, newPassword);
 
         if (newPassword.equals(confirmPassword)) {
             api.changePassword(changePasswordView).enqueue(new Callback<ResponseBody>() {
