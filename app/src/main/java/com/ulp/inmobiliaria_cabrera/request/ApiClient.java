@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.ulp.inmobiliaria_cabrera.models.Inmueble;
 import com.ulp.inmobiliaria_cabrera.models.Propietario;
 import com.ulp.inmobiliaria_cabrera.request.response.LoginResponse;
 
@@ -125,5 +126,9 @@ public class ApiClient {
 
         @POST("propietarios/validate-code")
         Call<Boolean> validateCode(@Body ConfirmPasswordResetRequest resetPassword);
+
+        //INMUEBLE
+        @GET("inmuebles/by-propietario/{id}")
+        Call<List<Inmueble>> getInmueblesByPropietarioId(@Path("id") int id);
     }
 }

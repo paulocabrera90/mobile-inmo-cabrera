@@ -8,25 +8,49 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.ulp.inmobiliaria_cabrera.R;
 import com.ulp.inmobiliaria_cabrera.databinding.FragmentInmuebleBinding;
+import com.ulp.inmobiliaria_cabrera.models.Inmueble;
+
+import java.util.List;
 
 public class InmuebleFragment extends Fragment {
 
+    private RecyclerView recyclerViewInmueble;
     private FragmentInmuebleBinding binding;
+    private InmuebleViewModel viewModel;
+    private InmuebleAdapter inmuebleAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        InmuebleViewModel galleryViewModel =
-                new ViewModelProvider(this).get(InmuebleViewModel.class);
 
+        viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity()
+                .getApplication()).create(InmuebleViewModel.class);
         binding = FragmentInmuebleBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
 
-        final TextView textView = binding.textGallery;
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
+        final View rootView = binding.getRoot();
+
+        recyclerViewInmueble = (RecyclerView) rootView.findViewById(R.id.rv_inmuebles);
+        recyclerViewInmueble.addItemDecoration(new DividerItemDecoration(this.getContext() , DividerItemDecoration.VERTICAL));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
+        recyclerViewInmueble.setLayoutManager(linearLayoutManager);
+
+        viewModel.getListaInmuebles().observe(getViewLifecycleOwner(), new Observer<List<Inmueble>>() {
+            @Override
+            public void onChanged(List<Inmueble> inmuebles) {
+                inmuebleAdapter = new InmuebleAdapter(inmuebles, rootView.getContext(), inflater);
+                recyclerViewInmueble.setAdapter(inmuebleAdapter);
+            }
+        });
+        viewModel.setListaInmuebles();
+
+        return rootView;
     }
 
     @Override

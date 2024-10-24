@@ -1,12 +1,8 @@
 package com.ulp.inmobiliaria_cabrera;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -18,11 +14,8 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.gson.Gson;
 import com.ulp.inmobiliaria_cabrera.databinding.ActivityMainBinding;
 import com.ulp.inmobiliaria_cabrera.databinding.NavHeaderMainBinding;
-import com.ulp.inmobiliaria_cabrera.models.Propietario;
-import com.ulp.inmobiliaria_cabrera.request.ApiClient;
 
 public class MainActivity extends AppCompatActivity {
 

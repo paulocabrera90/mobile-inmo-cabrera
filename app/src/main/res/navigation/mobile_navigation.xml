@@ -31,6 +31,13 @@
     </fragment>
 
     <fragment
+        android:id="@+id/nav_real_estates"
+        android:name="com.ulp.inmobiliaria_cabrera.ui.inmuebles.InmuebleFragment"
+        android:label="Inmuebles" >
+
+    </fragment>
+
+    <fragment
         android:id="@+id/realEstateDetailsFragment"
         android:name="com.ulp.inmobiliaria_cabrera.ui.slideshow.SlideshowFragment"
         android:label="Detalles de Inmueble" >
