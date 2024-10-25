@@ -1,8 +1,9 @@
 package com.ulp.inmobiliaria_cabrera.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class TipoInmueble {
+public class TipoInmueble implements Serializable {
     private int id;
     private String descripcion;
     private Date fechaCreacion;

@@ -36,8 +36,12 @@ public class InmuebleFragment extends Fragment {
 
         final View rootView = binding.getRoot();
 
-        recyclerViewInmueble = (RecyclerView) rootView.findViewById(R.id.rv_inmuebles);
-        recyclerViewInmueble.addItemDecoration(new DividerItemDecoration(this.getContext() , DividerItemDecoration.VERTICAL));
+        recyclerViewInmueble = (RecyclerView) rootView.findViewById(R.id.recyclerViewInmuebles);
+        recyclerViewInmueble
+                .addItemDecoration(new DividerItemDecoration(this.getContext() ,
+                        DividerItemDecoration.VERTICAL)
+                );
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
         recyclerViewInmueble.setLayoutManager(linearLayoutManager);
 

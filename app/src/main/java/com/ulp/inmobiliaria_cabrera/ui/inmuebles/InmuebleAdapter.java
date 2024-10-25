@@ -5,14 +5,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ulp.inmobiliaria_cabrera.R;
+import com.ulp.inmobiliaria_cabrera.databinding.ItemInmuebleBinding;
 import com.ulp.inmobiliaria_cabrera.models.Inmueble;
 
 import java.io.Serializable;
@@ -32,26 +33,30 @@ public class InmuebleAdapter extends RecyclerView.Adapter<InmuebleAdapter.ViewHo
     @NonNull
     @Override
     public InmuebleAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View vista = layoutInflater.inflate(R.layout.item_mueble, parent, false);
-        return new ViewHolder(vista);
+        ItemInmuebleBinding binding = ItemInmuebleBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull InmuebleAdapter.ViewHolder holder, int position) {
+        //defino lo q va adentro del card
         final Inmueble inmueble = listaInmueble.get(position);
-       // holder.tvPrecio.setText("$ " + String.valueOf(listaInmueble.get(position).getPrecio()));
-        holder.tvDireccion.setText(listaInmueble.get(position).getNombreInmueble());
-//        Glide.with(context)
-//                .load(listaInmueble.get(position).getImagen())
-//                .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                .into(holder.ivInmueble);
-//
+        holder.binding.textDireccion
+                .setText(String.valueOf(listaInmueble.get(position).getNombreInmueble()));
+        holder.binding.textNumeroContrato.setText("7563123");//listaInmueble.get(position).getNombreInmueble());
+
+        Glide.with(context)
+                .load(listaInmueble.get(position).getImage())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.binding.imageInmueble);
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("inmueble",(Serializable) inmueble);
-               // Navigation.findNavController(view).navigate(R.id.nav_inmueble_detalle, bundle);
+                bundle.putSerializable("inmueble", inmueble);
+                Navigation.findNavController(view)
+                        .navigate(R.id.action_nav_inmuebles_to_inmueble_detalle, bundle);
             }
         });
     }
@@ -62,13 +67,13 @@ public class InmuebleAdapter extends RecyclerView.Adapter<InmuebleAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView tvDireccion, tvPrecio;
-        private ImageView ivInmueble;
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-//            tvDireccion = itemView.findViewById(R.id.editTextDireccion);
-//            tvPrecio = itemView.findViewById(R.id.texc);
-//            ivInmueble = itemView.findViewById(R.id.imagenViewInmueble);
+        private final ItemInmuebleBinding binding;
+
+        public ViewHolder(@NonNull ItemInmuebleBinding binding) {
+
+            super(binding.getRoot());
+            this.binding = binding;
+
         }
     }
 }

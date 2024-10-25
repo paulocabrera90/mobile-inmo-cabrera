@@ -13,7 +13,7 @@
             android:icon="@drawable/ic_menu_user_outline"
             android:title="@string/menu_profile" />
         <item
-            android:id="@+id/nav_real_estates"
+            android:id="@+id/nav_inmuebles"
             android:icon="@drawable/ic_menu_house_outline"
             android:title="@string/menu_real_estates" />
         <item

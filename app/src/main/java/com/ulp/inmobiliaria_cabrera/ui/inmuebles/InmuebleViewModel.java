@@ -60,7 +60,6 @@ public class InmuebleViewModel extends AndroidViewModel {
             @Override
             public void onFailure(Call<List<Inmueble>> call, Throwable throwable) {
                 //avisoMutable.setValue("Error de conexión");
-
                 Toast.makeText(getApplication().getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         });

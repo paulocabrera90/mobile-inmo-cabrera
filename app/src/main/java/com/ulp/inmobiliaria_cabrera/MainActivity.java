@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 R.id.nav_home,
                 R.id.nav_contracts,
                 R.id.nav_profile,
-                R.id.nav_real_estates)
+                R.id.nav_inmuebles)
                 .setOpenableLayout(drawer)
                 .build();
 
