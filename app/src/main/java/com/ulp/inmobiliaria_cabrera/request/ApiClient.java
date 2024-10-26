@@ -136,6 +136,12 @@ public class ApiClient {
         @GET("inmuebles/{id}")
         Call<Inmueble> getInmueble(@Path("id") int id);
 
+        @POST("inmuebles")
+        Call<Inmueble> crearInmueble(@Body Inmueble inmueble);
+
+        @PUT("inmuebles")
+        Call<Inmueble> actualizarInmueble(@Body Inmueble inmueble);
+
         //TIPOS
         @GET("tipos/tipos-inmueble")
         Call<List<TipoInmueble>> getTipoInmuebles();

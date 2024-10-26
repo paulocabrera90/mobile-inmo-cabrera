@@ -3,16 +3,16 @@ package com.ulp.inmobiliaria_cabrera.ui.inmuebles;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.ulp.inmobiliaria_cabrera.models.Inmueble;
-import com.ulp.inmobiliaria_cabrera.models.Propietario;
 import com.ulp.inmobiliaria_cabrera.models.TipoInmueble;
 import com.ulp.inmobiliaria_cabrera.models.TipoInmuebleUso;
 import com.ulp.inmobiliaria_cabrera.request.ApiClient;
@@ -157,5 +157,33 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
             }
         });
 
+    }
+
+    public void saveInmueble(Inmueble inmueble, int idInmueble){
+        inmueble.setId(idInmueble); // TODO TENER EN CUENTA ESTO!
+        api.actualizarInmueble(inmueble).enqueue(new Callback<Inmueble>() {
+            @Override
+            public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
+                if (response.isSuccessful()) {
+                    inmuebleMutableLiveData.setValue(inmueble);
+                    //avisoMutable.setValue("Datos guardados.");
+                    Toast.makeText(getApplication().getApplicationContext(), "Datos guardados", Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.d("InmuebleDetalleViewModle", "Error al guardar los datos: " + call.request().body());
+                    //avisoMutable.setValue("Error al guardar los datos");
+                    Toast.makeText(getApplication().getApplicationContext(), "Error al guardar los datos", Toast.LENGTH_SHORT).show();
+                }
+                buttonSaveEnable.setValue(Boolean.FALSE);
+                buttonEditEnable.setValue(Boolean.TRUE);
+                editEnabled.setValue(false);
+                //avisoVisibilityMutable.setValue(View.VISIBLE);
+            }
+
+            @Override
+            public void onFailure(Call<Inmueble> call, Throwable throwable) {
+                //avisoMutable.setValue("Error de conexión");
+                Toast.makeText(getApplication().getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

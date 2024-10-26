@@ -42,8 +42,11 @@ public class InmuebleAdapter extends RecyclerView.Adapter<InmuebleAdapter.ViewHo
         //defino lo q va adentro del card
         final Inmueble inmueble = listaInmueble.get(position);
         holder.binding.textDireccion
-                .setText(String.valueOf(listaInmueble.get(position).getNombreInmueble()));
-        holder.binding.textNumeroContrato.setText("7563123");//listaInmueble.get(position).getNombreInmueble());
+                .setText("Dirección: " + String.valueOf(listaInmueble.get(position).getNombreInmueble()));
+        holder.binding.textHabilitado
+                .setText("Estado: " + String.valueOf(listaInmueble.get(position).isActivo()?"Activo":"Inactivo"));
+        holder.binding.textPrecio
+                .setText("Precio: $" + String.valueOf(listaInmueble.get(position).getPrecio()));
 
 //        Glide.with(context)
 //                .load(listaInmueble.get(position).getImage())
@@ -55,6 +58,7 @@ public class InmuebleAdapter extends RecyclerView.Adapter<InmuebleAdapter.ViewHo
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("idInmueble", inmueble.getId());
+                bundle.putInt("idPropietario", inmueble.getIdPropietario());
                 Navigation.findNavController(view)
                         .navigate(R.id.action_nav_inmuebles_to_inmueble_detalle, bundle);
             }

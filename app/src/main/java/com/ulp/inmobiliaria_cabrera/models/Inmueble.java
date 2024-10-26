@@ -17,7 +17,6 @@ public class Inmueble implements Serializable {
     private double precio;  // Use double for decimal values
     private int idPropietario;
     private boolean activo;
-    private Propietario propietario; // Not mapped in the database
     private Date fechaCreacion;
     private Date fechaActualizacion;
     private String image;
@@ -28,26 +27,25 @@ public class Inmueble implements Serializable {
         return direccion + " - " + (tipo != null ? tipo.getDescripcion() : "");
     }
 
-    public Inmueble(int id, String direccion, int idTipoInmuebleUso, TipoInmuebleUso tipoUso,
-                    int idTipoInmueble, TipoInmueble tipo, int ambientes, String coordenadaLat,
-                    double precio, String coordenadaLon, int idPropietario,
-                    Propietario propietario, boolean activo, Date fechaCreacion,
-                    Date fechaActualizacion, String image) {
-        this.id = id;
+    public Inmueble(String direccion,
+                    int idTipoInmuebleUso,
+                    int idTipoInmueble,
+                    int ambientes,
+                    String coordenadaLat,
+                    double precio,
+                    String coordenadaLon,
+                    int idPropietario,
+                    boolean activo,
+                    String image) {
         this.direccion = direccion;
         this.idTipoInmuebleUso = idTipoInmuebleUso;
-        this.tipoUso = tipoUso;
         this.idTipoInmueble = idTipoInmueble;
-        this.tipo = tipo;
         this.ambientes = ambientes;
         this.coordenadaLat = coordenadaLat;
         this.precio = precio;
         this.coordenadaLon = coordenadaLon;
         this.idPropietario = idPropietario;
-        this.propietario = propietario;
         this.activo = activo;
-        this.fechaCreacion = fechaCreacion;
-        this.fechaActualizacion = fechaActualizacion;
         this.image = image;
     }
 
@@ -139,14 +137,6 @@ public class Inmueble implements Serializable {
         this.idPropietario = idPropietario;
     }
 
-    public Propietario getPropietario() {
-        return propietario;
-    }
-
-    public void setPropietario(Propietario propietario) {
-        this.propietario = propietario;
-    }
-
     public boolean isActivo() {
         return activo;
     }
@@ -194,7 +184,6 @@ public class Inmueble implements Serializable {
                 ", precio=" + precio +
                 ", idPropietario=" + idPropietario +
                 ", activo=" + activo +
-                ", propietario=" + propietario +
                 ", fechaCreacion=" + fechaCreacion +
                 ", fechaActualizacion=" + fechaActualizacion +
                 '}';

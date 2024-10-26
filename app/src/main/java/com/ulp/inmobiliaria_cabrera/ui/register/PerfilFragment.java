@@ -85,7 +85,6 @@ public class PerfilFragment extends Fragment {
                 navController.navigate(R.id.action_nav_profile_to_passFragment, bundle);
         });
 
-
         binding.buttonSave.setOnClickListener(view -> {
             Propietario propietario = new Propietario(
                     binding.editTextDni.getText().toString(),
