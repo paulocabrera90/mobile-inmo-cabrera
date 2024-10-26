@@ -42,6 +42,7 @@
         android:id="@+id/inmuebleDetalleFragment"
         android:name="com.ulp.inmobiliaria_cabrera.ui.inmuebles.InmuebleDetalleFragment"
         android:label="Detalles de Inmueble" >
+
     </fragment>
     <fragment
         android:id="@+id/tenantDetailsFragment"

@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="action_nav_profile_to_passFragment" type="id" />
+    <item name="labelDireccion" type="id" />
+    <item name="labelPrecio" type="id" />
+    <item name="labelAmbientes" type="id" />
+    <item name="labelCoordenadas" type="id" />
+    <item name="labelFechaCreacion" type="id" />
+    <item name="labelFechaActualizacion" type="id" />
+    <item name="labelTipoInmuebleUso" type="id" />
 </resources>

@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher" /> <!-- Temporal, reemplazar con la imagen de la API -->
+            android:src="@drawable/upload" /> <!-- Temporal, reemplazar con la imagen de la API -->
 
         <TextView
             android:id="@+id/text_direccion"

@@ -9,6 +9,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.ulp.inmobiliaria_cabrera.models.Inmueble;
 import com.ulp.inmobiliaria_cabrera.models.Propietario;
+import com.ulp.inmobiliaria_cabrera.models.TipoInmueble;
+import com.ulp.inmobiliaria_cabrera.models.TipoInmuebleUso;
 import com.ulp.inmobiliaria_cabrera.request.response.LoginResponse;
 
 import java.io.IOException;
@@ -130,5 +132,15 @@ public class ApiClient {
         //INMUEBLE
         @GET("inmuebles/by-propietario/{id}")
         Call<List<Inmueble>> getInmueblesByPropietarioId(@Path("id") int id);
+
+        @GET("inmuebles/{id}")
+        Call<Inmueble> getInmueble(@Path("id") int id);
+
+        //TIPOS
+        @GET("tipos/tipos-inmueble")
+        Call<List<TipoInmueble>> getTipoInmuebles();
+
+        @GET("tipos/tipos-inmueble-uso")
+        Call<List<TipoInmuebleUso>> getTipoInmueblesUso();
     }
 }

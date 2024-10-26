@@ -50,11 +50,6 @@ public class TipoInmuebleUso implements Serializable {
 
     @Override
     public String toString() {
-        return "TipoInmuebleUso{" +
-                "id=" + id +
-                ", descripcion='" + descripcion + '\'' +
-                ", fechaCreacion=" + fechaCreacion +
-                ", fechaActualizacion=" + fechaActualizacion +
-                '}';
+        return this.descripcion;
     }
 }

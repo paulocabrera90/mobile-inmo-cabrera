@@ -45,16 +45,16 @@ public class InmuebleAdapter extends RecyclerView.Adapter<InmuebleAdapter.ViewHo
                 .setText(String.valueOf(listaInmueble.get(position).getNombreInmueble()));
         holder.binding.textNumeroContrato.setText("7563123");//listaInmueble.get(position).getNombreInmueble());
 
-        Glide.with(context)
-                .load(listaInmueble.get(position).getImage())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(holder.binding.imageInmueble);
+//        Glide.with(context)
+//                .load(listaInmueble.get(position).getImage())
+//                .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                .into(holder.binding.imageInmueble);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("inmueble", inmueble);
+                bundle.putInt("idInmueble", inmueble.getId());
                 Navigation.findNavController(view)
                         .navigate(R.id.action_nav_inmuebles_to_inmueble_detalle, bundle);
             }

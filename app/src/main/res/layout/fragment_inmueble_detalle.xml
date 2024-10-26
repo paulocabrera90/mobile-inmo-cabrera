@@ -1,13 +1,278 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context=".ui.inmuebles.InmuebleDetalleFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello Detalle INmueble" />
+    <ImageView
+        android:id="@+id/imageInmueble"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:src="@drawable/upload"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/labelDireccion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Dirección:"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageInmueble" />
+
+    <EditText
+        android:id="@+id/editTextDireccion"
+        android:layout_width="376dp"
+        android:layout_height="38dp"
+        android:background="#E9E6E6"
+        android:textColor="#0B0A0A"
+        android:textSize="24sp"
+        android:enabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/labelDireccion"
+        tools:text="1234 Main St, Ciudad, País" />
+
+    <TextView
+        android:id="@+id/labelCoordenadas"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Coordenadas:"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextDireccion" />
+
+    <LinearLayout
+        android:id="@+id/layoutCoordenadas"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:enabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/labelCoordenadas"
+        android:weightSum="4">
+
+        <TextView
+            android:id="@+id/labelLatitud"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Latitud:"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <!-- Latitud Value -->
+        <EditText
+            android:id="@+id/editTextLatitud"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#E9E6E6"
+            android:enabled="false"
+            android:padding="8dp"
+            android:text="-33.301587"
+            android:textColor="#0B0A0A"
+            android:textSize="14sp" />
+
+        <!-- Longitud Label -->
+        <TextView
+            android:id="@+id/labelLongitud"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Longitud:"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <!-- Longitud Value -->
+        <EditText
+            android:id="@+id/editTextLongitud"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:enabled="false"
+            android:background="#E9E6E6"
+            android:padding="8dp"
+            android:text="-66.337970"
+            android:textColor="#0B0A0A"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/labelPrecio"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Precio:"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutCoordenadas" />
+
+    <EditText
+        android:id="@+id/editTextPrecio"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#E9E6E6"
+        android:textColor="#0B0A0A"
+        android:enabled="false"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/labelPrecio"
+        tools:text="$1234.56" />
+
+    <TextView
+        android:id="@+id/labelAmbientes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Ambientes:"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextPrecio" />
+
+    <EditText
+        android:id="@+id/editTextAmbientes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#E9E6E6"
+        android:textColor="#0B0A0A"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:enabled="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/labelAmbientes"
+        tools:text="3" />
+
+    <TextView
+        android:id="@+id/labelTipoInmueble"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Tipo de Inmueble:"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextAmbientes" />
+
+    <Spinner
+        android:id="@+id/spinnerTipoInmueble"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#EFEBEB"
+        android:spinnerMode="dialog"
+        android:textSize="24sp"
+        android:enabled="false"
+        android:textColor="#0B0A0A"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/labelTipoInmueble" />
+
+    <TextView
+        android:id="@+id/labelTipoInmuebleUso"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Uso del Inmueble:"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinnerTipoInmueble" />
+
+    <Spinner
+        android:id="@+id/spinnerTipoInmuebleUso"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="#EDEDED"
+        android:enabled="false"
+        android:spinnerMode="dialog"
+        android:textColor="#0B0A0A"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/labelTipoInmuebleUso" />
+
+    <TextView
+        android:id="@+id/labelActivo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Activo:"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinnerTipoInmuebleUso" />
+
+    <Switch
+        android:id="@+id/switchActivo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:textColor="#0B0A0A"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/labelActivo"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+
+    <LinearLayout
+        android:id="@+id/buttonLayout"
+        android:layout_width="389dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/switchActivo">
+
+        <Button
+            android:id="@+id/buttonSave"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:enabled="false"
+            android:text="Guardar"
+            android:textSize="14dp" />
+
+        <Button
+            android:id="@+id/buttonEdit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Editar"
+            android:textSize="14dp"
+            app:iconSize="2dp" />
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonChangePassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Cambiar Contraseña"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@id/buttonLayout"
+        app:layout_constraintStart_toStartOf="@id/buttonLayout"
+        app:layout_constraintTop_toBottomOf="@id/buttonLayout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
