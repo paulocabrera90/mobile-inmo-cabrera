@@ -25,14 +25,10 @@ public class InmuebleViewModel extends AndroidViewModel {
 
     private ApiClient.InmobiliariaService api;
     private MutableLiveData<List<Inmueble>> listaInmuebles;
-    private int ID_PROPIETARIO;
 
     public InmuebleViewModel(@NonNull Application application) {
         super(application);
         api = ApiClient.getInmobiliariaService(application.getApplicationContext());
-
-        SharedPreferences sharedPreferences = getApplication().getSharedPreferences("token_prefs", Context.MODE_PRIVATE);
-        ID_PROPIETARIO =Integer.parseInt(sharedPreferences.getString("id", null));
     }
 
     public LiveData<List<Inmueble>> getListaInmuebles(){
@@ -42,14 +38,14 @@ public class InmuebleViewModel extends AndroidViewModel {
         return listaInmuebles;
     }
 
-    public void setListaInmuebles(){
+    public void setListaInmuebles(int idPropeitario){
 
-        api.getInmueblesByPropietarioId(ID_PROPIETARIO).enqueue(new Callback<List<Inmueble>>() {
+        api.getInmueblesByPropietarioId(idPropeitario).enqueue(new Callback<List<Inmueble>>() {
             @Override
             public void onResponse(Call<List<Inmueble>> call, Response<List<Inmueble>> response) {
                 if (response.isSuccessful()) {
                     //propietarioMutableLiveData.setValue(response.body());
-                    Toast.makeText(getApplication().getApplicationContext(), "Inmuebles cargados", Toast.LENGTH_SHORT).show();
+                    //  Toast.makeText(getApplication().getApplicationContext(), "Inmuebles cargados", Toast.LENGTH_SHORT).show();
                     listaInmuebles.setValue(response.body());
                 } else {
                     //avisoMutable.setValue("Error al obtener el propietario");

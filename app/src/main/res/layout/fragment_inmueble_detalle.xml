@@ -29,7 +29,7 @@
 
     <EditText
         android:id="@+id/editTextDireccion"
-        android:layout_width="376dp"
+        android:layout_width="match_parent"
         android:layout_height="38dp"
         android:background="#E9E6E6"
         android:textColor="#0B0A0A"
@@ -38,7 +38,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/labelDireccion"
-        tools:text="1234 Main St, Ciudad, País" />
+        tools:hint="1234 Main St, Ciudad, País" />
 
     <TextView
         android:id="@+id/labelCoordenadas"
@@ -79,8 +79,9 @@
             android:layout_weight="1"
             android:background="#E9E6E6"
             android:enabled="false"
+            android:inputType="numberDecimal|numberSigned"
             android:padding="8dp"
-            android:text="-33.301587"
+            android:hint="-33.301587"
             android:textColor="#0B0A0A"
             android:textSize="14sp" />
 
@@ -102,8 +103,9 @@
             android:layout_weight="1"
             android:enabled="false"
             android:background="#E9E6E6"
+            android:inputType="numberDecimal|numberSigned"
             android:padding="8dp"
-            android:text="-66.337970"
+            android:hint="-66.337970"
             android:textColor="#0B0A0A"
             android:textSize="14sp" />
     </LinearLayout>
@@ -122,16 +124,17 @@
 
     <EditText
         android:id="@+id/editTextPrecio"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#E9E6E6"
         android:textColor="#0B0A0A"
         android:enabled="false"
+        android:inputType="numberDecimal"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/labelPrecio"
-        tools:text="$1234.56" />
+        tools:hint="$1234.56" />
 
     <TextView
         android:id="@+id/labelAmbientes"
@@ -146,16 +149,17 @@
 
     <EditText
         android:id="@+id/editTextAmbientes"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#E9E6E6"
         android:textColor="#0B0A0A"
+        android:inputType="number"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         android:enabled="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/labelAmbientes"
-        tools:text="3" />
+        tools:hint="3" />
 
     <TextView
         android:id="@+id/labelTipoInmueble"
@@ -170,7 +174,7 @@
 
     <Spinner
         android:id="@+id/spinnerTipoInmueble"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#EFEBEB"
         android:spinnerMode="dialog"
@@ -196,7 +200,7 @@
 
     <Spinner
         android:id="@+id/spinnerTipoInmuebleUso"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:background="#EDEDED"
@@ -261,18 +265,6 @@
             android:textSize="14dp"
             app:iconSize="2dp" />
 
-
     </LinearLayout>
-
-    <Button
-        android:id="@+id/buttonChangePassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Cambiar Contraseña"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="@id/buttonLayout"
-        app:layout_constraintStart_toStartOf="@id/buttonLayout"
-        app:layout_constraintTop_toBottomOf="@id/buttonLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

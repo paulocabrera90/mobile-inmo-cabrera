@@ -1,6 +1,7 @@
 package com.ulp.inmobiliaria_cabrera.ui.inmuebles;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +16,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ulp.inmobiliaria_cabrera.R;
 import com.ulp.inmobiliaria_cabrera.databinding.ItemInmuebleBinding;
 import com.ulp.inmobiliaria_cabrera.models.Inmueble;
-
-import java.io.Serializable;
 import java.util.List;
 
 public class InmuebleAdapter extends RecyclerView.Adapter<InmuebleAdapter.ViewHolder>{
@@ -47,6 +46,9 @@ public class InmuebleAdapter extends RecyclerView.Adapter<InmuebleAdapter.ViewHo
                 .setText("Estado: " + String.valueOf(listaInmueble.get(position).isActivo()?"Activo":"Inactivo"));
         holder.binding.textPrecio
                 .setText("Precio: $" + String.valueOf(listaInmueble.get(position).getPrecio()));
+
+        int backgroundColor = inmueble.isActivo() ? Color.DKGRAY : Color.GRAY;
+        holder.binding.cardViewInmueble.setCardBackgroundColor(backgroundColor);
 
 //        Glide.with(context)
 //                .load(listaInmueble.get(position).getImage())

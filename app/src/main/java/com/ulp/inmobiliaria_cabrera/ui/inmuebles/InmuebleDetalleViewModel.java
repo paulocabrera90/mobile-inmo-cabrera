@@ -3,7 +3,9 @@ package com.ulp.inmobiliaria_cabrera.ui.inmuebles;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -16,6 +18,7 @@ import com.ulp.inmobiliaria_cabrera.models.Inmueble;
 import com.ulp.inmobiliaria_cabrera.models.TipoInmueble;
 import com.ulp.inmobiliaria_cabrera.models.TipoInmuebleUso;
 import com.ulp.inmobiliaria_cabrera.request.ApiClient;
+import com.ulp.inmobiliaria_cabrera.utils.PreferencesUtil;
 
 import java.util.List;
 
@@ -25,40 +28,18 @@ import retrofit2.Response;
 
 public class InmuebleDetalleViewModel extends AndroidViewModel {
     private ApiClient.InmobiliariaService api;
-    private MutableLiveData<Boolean> buttonEditEnable;
-    private MutableLiveData<Boolean> buttonSaveEnable;
     private MutableLiveData<Inmueble> inmuebleMutableLiveData;
     private MutableLiveData<List<TipoInmuebleUso>> listTipoInmuebleUsoMutableLiveData;
     private MutableLiveData<List<TipoInmueble>> listTipoinmuebleMutableLiveData;
     private MutableLiveData<Boolean> editEnabled;
-    private int ID_PROPIETARIO_LOG;
 
     public InmuebleDetalleViewModel(@NonNull Application application) {
         super(application);
 
         api = ApiClient.getInmobiliariaService(application.getApplicationContext());
 
-        SharedPreferences sharedPreferences = getApplication().getSharedPreferences("token_prefs", Context.MODE_PRIVATE);
-        ID_PROPIETARIO_LOG =Integer.parseInt(sharedPreferences.getString("id", null));
-
-        buttonEditEnable = new MutableLiveData<>(true);
-        buttonSaveEnable = new MutableLiveData<>(false);
         editEnabled = new MutableLiveData<>(false);
 
-    }
-
-    public LiveData<Boolean> getBtnEditEnable() {
-        if (buttonEditEnable == null) {
-            buttonEditEnable = new MutableLiveData<>();
-        }
-        return buttonEditEnable;
-    }
-
-    public LiveData<Boolean> getBtnSaveEnable() {
-        if (buttonSaveEnable == null) {
-            buttonSaveEnable = new MutableLiveData<>();
-        }
-        return buttonSaveEnable;
     }
 
     public LiveData<Boolean> getEditEnabled() {
@@ -90,31 +71,30 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
     }
 
     public void enableEdit() {
-        this.buttonEditEnable.setValue(Boolean.FALSE);
-        this.buttonSaveEnable.setValue(Boolean.TRUE);
         this.editEnabled.setValue(true);
     }
 
-    public void setInmueble(int idInmueble){
-        api.getInmueble(idInmueble).enqueue(new Callback<Inmueble>() {
-            @Override
-            public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
-                if (response.isSuccessful()) {
-                    inmuebleMutableLiveData.setValue(response.body());
-                    Toast.makeText(getApplication().getApplicationContext(), "Inmuebles cargados", Toast.LENGTH_SHORT).show();
-                } else {
-                   // avisoMutable.setValue("Error al obtener el propietario");
-                    Toast.makeText(getApplication().getApplicationContext(), "Error al obtener inmuebles", Toast.LENGTH_SHORT).show();
+    public void setInmueble(int idInmueble, boolean newInmueble){
+        if (!newInmueble){
+            api.getInmueble(idInmueble).enqueue(new Callback<Inmueble>() {
+                @Override
+                public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
+                    if (response.isSuccessful()) {
+                        inmuebleMutableLiveData.setValue(response.body());
+
+                    } else {
+                        // avisoMutable.setValue("Error al obtener el propietario");
+                        Toast.makeText(getApplication().getApplicationContext(), "Error al obtener inmuebles", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<Inmueble> call, Throwable throwable) {
-             //   avisoMutable.setValue("Error de conexión");
-                Toast.makeText(getApplication().getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
-            }
-        });
-
+                @Override
+                public void onFailure(Call<Inmueble> call, Throwable throwable) {
+                    //   avisoMutable.setValue("Error de conexión");
+                    Toast.makeText(getApplication().getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     public void setTipoInmueble(){
@@ -160,30 +140,49 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
     }
 
     public void saveInmueble(Inmueble inmueble, int idInmueble){
-        inmueble.setId(idInmueble); // TODO TENER EN CUENTA ESTO!
-        api.actualizarInmueble(inmueble).enqueue(new Callback<Inmueble>() {
-            @Override
-            public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
-                if (response.isSuccessful()) {
-                    inmuebleMutableLiveData.setValue(inmueble);
-                    //avisoMutable.setValue("Datos guardados.");
-                    Toast.makeText(getApplication().getApplicationContext(), "Datos guardados", Toast.LENGTH_SHORT).show();
-                } else {
-                    Log.d("InmuebleDetalleViewModle", "Error al guardar los datos: " + call.request().body());
-                    //avisoMutable.setValue("Error al guardar los datos");
-                    Toast.makeText(getApplication().getApplicationContext(), "Error al guardar los datos", Toast.LENGTH_SHORT).show();
+        if (idInmueble != 0) {
+            inmueble.setId(idInmueble); // TODO TENER EN CUENTA ESTO!
+            api.actualizarInmueble(inmueble).enqueue(new Callback<Inmueble>() {
+                @Override
+                public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
+                    if (response.isSuccessful()) {
+                        inmuebleMutableLiveData.setValue(inmueble);
+                        //avisoMutable.setValue("Datos guardados.");
+                        Toast.makeText(getApplication().getApplicationContext(), "Datos guardados", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Log.d("InmuebleDetalleViewModle", "Error al guardar los datos: " + call.request().body());
+                        //avisoMutable.setValue("Error al guardar los datos");
+                        Toast.makeText(getApplication().getApplicationContext(), "Error al guardar los datos", Toast.LENGTH_SHORT).show();
+                    }
+                    editEnabled.setValue(true);
                 }
-                buttonSaveEnable.setValue(Boolean.FALSE);
-                buttonEditEnable.setValue(Boolean.TRUE);
-                editEnabled.setValue(false);
-                //avisoVisibilityMutable.setValue(View.VISIBLE);
-            }
 
-            @Override
-            public void onFailure(Call<Inmueble> call, Throwable throwable) {
-                //avisoMutable.setValue("Error de conexión");
-                Toast.makeText(getApplication().getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFailure(Call<Inmueble> call, Throwable throwable) {
+                    //avisoMutable.setValue("Error de conexión");
+                    Toast.makeText(getApplication().getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            api.crearInmueble(inmueble).enqueue(new Callback<Inmueble>() {
+                @Override
+                public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
+                    if (response.isSuccessful()) {
+                        inmuebleMutableLiveData.setValue(response.body());
+
+                    } else {
+                        Log.d("InmuebleDetalleViewModle", "Error al guardar los datos: " + call.request().body());
+                        Toast.makeText(getApplication().getApplicationContext(), "Error al guardar los datos", Toast.LENGTH_SHORT).show();
+                    }
+                    editEnabled.setValue(true);
+                }
+
+                @Override
+                public void onFailure(Call<Inmueble> call, Throwable throwable) {
+                    //avisoMutable.setValue("Error de conexión");
+                    Toast.makeText(getApplication().getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 }

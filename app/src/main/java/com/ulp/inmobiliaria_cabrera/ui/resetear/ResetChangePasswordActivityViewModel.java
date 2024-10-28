@@ -3,14 +3,12 @@ package com.ulp.inmobiliaria_cabrera.ui.resetear;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
 import com.ulp.inmobiliaria_cabrera.request.ApiClient;
-import com.ulp.inmobiliaria_cabrera.request.ChangePasswordRequest;
 import com.ulp.inmobiliaria_cabrera.request.ResetChangePasswordRequest;
 import com.ulp.inmobiliaria_cabrera.ui.login.LoginActivity;
 

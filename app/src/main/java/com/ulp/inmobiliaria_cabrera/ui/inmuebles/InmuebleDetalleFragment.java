@@ -31,6 +31,7 @@ public class InmuebleDetalleFragment extends Fragment {
     private List<TipoInmueble> tiposInmueble = new ArrayList<>();
     private List<TipoInmuebleUso> tiposInmuebleUso = new ArrayList<>();
     private int ID_INMUEBLE;
+    private boolean FLAG_NEW_INMUEBLE = false;
     private int ID_PROPIETARIO;
     private int idTipoInmueble;
     private int idTipoInmuebleUso;
@@ -42,9 +43,7 @@ public class InmuebleDetalleFragment extends Fragment {
                 .getApplication()).create(InmuebleDetalleViewModel.class);
 
         binding = FragmentInmuebleDetalleBinding.inflate(inflater, container, false);
-        ID_INMUEBLE = getArguments() != null ? getArguments().getInt("idInmueble") : 0;
-        ID_PROPIETARIO = getArguments() != null ? getArguments().getInt("idPropietario") : 0;
-
+        initConstants();
         //SPINNERS
         ArrayAdapter<TipoInmueble> tipoInmuebleAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item_build, tiposInmueble);
         ArrayAdapter<TipoInmuebleUso> tipoInmuebleUsoAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item_build, tiposInmuebleUso);
@@ -67,11 +66,11 @@ public class InmuebleDetalleFragment extends Fragment {
                     tiposInmuebleUso.addAll(tipoInmueblesUso);
                     tipoInmuebleUsoAdapter.notifyDataSetChanged();
                 });
-
-        viewModel.getBtnEditEnable().observe(getViewLifecycleOwner(),
-                enabled -> binding.buttonEdit.setEnabled(enabled));
-        viewModel.getBtnSaveEnable().observe(getViewLifecycleOwner(),
-                enabled -> binding.buttonSave.setEnabled(enabled));
+//
+//        viewModel.getBtnEditEnable().observe(getViewLifecycleOwner(),
+//                enabled -> binding.buttonEdit.setEnabled(enabled));
+//        viewModel.getBtnSaveEnable().observe(getViewLifecycleOwner(),
+//                enabled -> binding.buttonSave.setEnabled(enabled));
 
         viewModel.getInmueble().observe(
             getViewLifecycleOwner(), inmueble  -> {
@@ -84,15 +83,12 @@ public class InmuebleDetalleFragment extends Fragment {
                 // CARGO LOS SPINNER DE TIPOS DE INMUEBLE
                 binding.spinnerTipoInmueble.setAdapter(tipoInmuebleAdapter);
                 binding.spinnerTipoInmuebleUso.setAdapter(tipoInmuebleUsoAdapter);
+
+                setEnableBinding(FLAG_NEW_INMUEBLE);
         });
 
         viewModel.getEditEnabled().observe(getViewLifecycleOwner(), flag -> {
-            binding.imageInmueble.setEnabled(flag);
-            binding.editTextPrecio.setEnabled(flag);
-            binding.editTextAmbientes.setEnabled(flag);
-            binding.spinnerTipoInmueble.setEnabled(flag);
-            binding.spinnerTipoInmuebleUso.setEnabled(flag);
-            binding.switchActivo.setEnabled(flag);
+            setEnableBinding(FLAG_NEW_INMUEBLE?!flag:flag);
         });
 
         binding.spinnerTipoInmuebleUso.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -140,10 +136,32 @@ public class InmuebleDetalleFragment extends Fragment {
         });
 
         binding.buttonEdit.setOnClickListener(view -> viewModel.enableEdit());
-        viewModel.setInmueble(ID_INMUEBLE);
+        viewModel.setInmueble(ID_INMUEBLE, FLAG_NEW_INMUEBLE);
         viewModel.setTipoInmueble();
         viewModel.setTipoInmuebleUso();
+
         return binding.getRoot();
+    }
+
+    private void setEnableBinding(Boolean flag) {
+        binding.imageInmueble.setEnabled(flag);
+        binding.editTextDireccion.setEnabled(flag);
+        binding.editTextLongitud.setEnabled(flag);
+        binding.editTextLatitud.setEnabled(flag);
+        binding.editTextPrecio.setEnabled(flag);
+        binding.editTextAmbientes.setEnabled(flag);
+        binding.spinnerTipoInmueble.setEnabled(flag);
+        binding.spinnerTipoInmuebleUso.setEnabled(flag);
+        binding.switchActivo.setEnabled(flag);
+
+        binding.buttonEdit.setEnabled(!flag);
+        binding.buttonSave.setEnabled(flag);
+    }
+
+    private void initConstants() {
+        ID_INMUEBLE = getArguments() != null ? getArguments().getInt("idInmueble") : 0;
+        ID_PROPIETARIO = getArguments() != null ? getArguments().getInt("idPropietario") : 0;
+        FLAG_NEW_INMUEBLE = getArguments() != null ? getArguments().getBoolean("newInmueble") : false;
     }
 
     @Override

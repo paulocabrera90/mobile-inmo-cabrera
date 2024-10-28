@@ -77,15 +77,6 @@ public class LoginActivityViewModel extends AndroidViewModel {
                Log.e("Error failure", throwable.getMessage());
            }
        });
-//        if (usuario != null) {
-//            Intent intent = new Intent(context, HomeFragment.class);
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            intent.putExtra("isUser", true);
-//            context.startActivity(intent);
-//        } else {
-//            avisoMutable.setValue("Email o usuario incorrecto");
-//            avisoVisibilityMutable.setValue(View.VISIBLE);
-//        }
     }
 
     public void reset() {
