@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ulp.inmobiliaria_cabrera.R;
 import com.ulp.inmobiliaria_cabrera.databinding.FragmentInmuebleDetalleBinding;
 import com.ulp.inmobiliaria_cabrera.models.Inmueble;
@@ -66,11 +68,6 @@ public class InmuebleDetalleFragment extends Fragment {
                     tiposInmuebleUso.addAll(tipoInmueblesUso);
                     tipoInmuebleUsoAdapter.notifyDataSetChanged();
                 });
-//
-//        viewModel.getBtnEditEnable().observe(getViewLifecycleOwner(),
-//                enabled -> binding.buttonEdit.setEnabled(enabled));
-//        viewModel.getBtnSaveEnable().observe(getViewLifecycleOwner(),
-//                enabled -> binding.buttonSave.setEnabled(enabled));
 
         viewModel.getInmueble().observe(
             getViewLifecycleOwner(), inmueble  -> {
@@ -83,6 +80,14 @@ public class InmuebleDetalleFragment extends Fragment {
                 // CARGO LOS SPINNER DE TIPOS DE INMUEBLE
                 binding.spinnerTipoInmueble.setAdapter(tipoInmuebleAdapter);
                 binding.spinnerTipoInmuebleUso.setAdapter(tipoInmuebleUsoAdapter);
+
+                String imagenBase64 = inmueble.getImageBlob();
+                    Glide.with(getActivity())
+                            .load(imagenBase64 != null ? "data:image/jpeg;base64," + imagenBase64 : null)
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .placeholder(R.drawable.not_found)
+                            .error(R.drawable.not_found)
+                            .into(binding.imageInmueble);
 
                 setEnableBinding(FLAG_NEW_INMUEBLE);
         });

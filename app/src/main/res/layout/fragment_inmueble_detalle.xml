@@ -9,12 +9,28 @@
 
     <ImageView
         android:id="@+id/imageInmueble"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:src="@drawable/upload"
+        android:src="@drawable/not_found"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/buttonAddImage"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:backgroundTint="?attr/colorPrimary"
+        android:text="+"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@id/imageInmueble"
+        app:layout_constraintEnd_toEndOf="@id/imageInmueble"
+        app:layout_constraintHorizontal_bias="0.936"
+        app:layout_constraintStart_toStartOf="@id/imageInmueble"
+        app:layout_constraintTop_toTopOf="@id/imageInmueble"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/labelDireccion"

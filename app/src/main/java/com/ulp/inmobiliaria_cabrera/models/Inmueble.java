@@ -19,7 +19,7 @@ public class Inmueble implements Serializable {
     private boolean activo;
     private Date fechaCreacion;
     private Date fechaActualizacion;
-    private String image;
+    private String imageBlob;
 
     // Getter and Setter methods
 
@@ -46,7 +46,7 @@ public class Inmueble implements Serializable {
         this.coordenadaLon = coordenadaLon;
         this.idPropietario = idPropietario;
         this.activo = activo;
-        this.image = image;
+        this.imageBlob = image;
     }
 
     public int getId() {
@@ -161,12 +161,12 @@ public class Inmueble implements Serializable {
         this.fechaActualizacion = fechaActualizacion;
     }
 
-    public String getImage() {
-        return image;
+    public String getImageBlob() {
+        return imageBlob;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageBlob(String image) {
+        this.imageBlob = image;
     }
 
     @Override

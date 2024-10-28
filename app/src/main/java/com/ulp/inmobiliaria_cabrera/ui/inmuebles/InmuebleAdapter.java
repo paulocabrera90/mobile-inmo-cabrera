@@ -1,8 +1,11 @@
 package com.ulp.inmobiliaria_cabrera.ui.inmuebles;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,10 +53,14 @@ public class InmuebleAdapter extends RecyclerView.Adapter<InmuebleAdapter.ViewHo
         int backgroundColor = inmueble.isActivo() ? Color.DKGRAY : Color.GRAY;
         holder.binding.cardViewInmueble.setCardBackgroundColor(backgroundColor);
 
-//        Glide.with(context)
-//                .load(listaInmueble.get(position).getImage())
-//                .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                .into(holder.binding.imageInmueble);
+        String imagenBase64 = inmueble.getImageBlob();
+
+        Glide.with(context)
+                .load(imagenBase64 != null ? "data:image/jpeg;base64," + imagenBase64 : null)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.not_found)
+                .error(R.drawable.not_found)
+                .into(holder.binding.imageInmueble);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,4 +89,5 @@ public class InmuebleAdapter extends RecyclerView.Adapter<InmuebleAdapter.ViewHo
 
         }
     }
+
 }
