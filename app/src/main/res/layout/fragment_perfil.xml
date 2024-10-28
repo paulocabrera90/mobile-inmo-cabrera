@@ -109,12 +109,12 @@
         android:id="@+id/buttonSave"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Guardar"
+        android:layout_marginTop="16dp"
         android:enabled="false"
-        app:layout_constraintTop_toBottomOf="@id/editTextDireccion"
-        app:layout_constraintStart_toStartOf="@id/editTextDireccion"
+        android:text="Guardar"
         app:layout_constraintEnd_toEndOf="@id/editTextDireccion"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintStart_toStartOf="@id/editTextDireccion"
+        app:layout_constraintTop_toBottomOf="@id/editTextDireccion" />
 
     <Button
         android:id="@+id/buttonEdit"

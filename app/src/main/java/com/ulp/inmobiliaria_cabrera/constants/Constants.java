@@ -19,4 +19,7 @@ public class Constants {
     public static final int ZOOM = 19;
     public static final int BEARING = 50;
     public static final int TILT = 50;
+
+    public static final String PREFS_NAME = "token_prefs";
+    public static final String KEY_ID = "id";
 }

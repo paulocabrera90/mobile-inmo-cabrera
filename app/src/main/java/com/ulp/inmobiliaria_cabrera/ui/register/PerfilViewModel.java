@@ -16,6 +16,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.ulp.inmobiliaria_cabrera.models.Propietario;
 import com.ulp.inmobiliaria_cabrera.request.ApiClient;
+import com.ulp.inmobiliaria_cabrera.utils.PreferencesUtil;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,14 +34,12 @@ public class PerfilViewModel extends AndroidViewModel {
     private MutableLiveData<Boolean> editEnabled;
     private Uri uri;
     private String uriString;
-    private int ID_PROPIETARIO;
+    private int ID_PROPIETARIO_LOG  ;
 
     public PerfilViewModel(@NonNull Application application) {
         super(application);
         api = ApiClient.getInmobiliariaService(application.getApplicationContext());
-
-        SharedPreferences sharedPreferences = getApplication().getSharedPreferences("token_prefs", Context.MODE_PRIVATE);
-        ID_PROPIETARIO =Integer.parseInt(sharedPreferences.getString("id", null));
+        ID_PROPIETARIO_LOG = PreferencesUtil.getIdPropietario(getApplication());
     }
 
     public LiveData<Propietario> getCurrentUser() {
@@ -104,7 +103,7 @@ public class PerfilViewModel extends AndroidViewModel {
 
     public void setCurrentUser() {
 
-        api.getPropietario(ID_PROPIETARIO).enqueue(new Callback<Propietario>() {
+        api.getPropietario(ID_PROPIETARIO_LOG).enqueue(new Callback<Propietario>() {
             @Override
             public void onResponse(Call<Propietario> call, Response<Propietario> response) {
                 if (response.isSuccessful()) {

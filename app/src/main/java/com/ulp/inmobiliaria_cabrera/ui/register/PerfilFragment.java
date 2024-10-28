@@ -1,9 +1,7 @@
 package com.ulp.inmobiliaria_cabrera.ui.register;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +22,6 @@ public class PerfilFragment extends Fragment {
     private PerfilViewModel viewModel;
     private FragmentPerfilBinding binding;
     private ActivityResultLauncher<Intent> arl;
-    private Uri uriImage;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,7 +75,6 @@ public class PerfilFragment extends Fragment {
             binding.editTextTelefonoArea.setEnabled(flag);
             binding.editTextTelefonoNumero.setEnabled(flag);
             binding.editTextDireccion.setEnabled(flag);
-           // binding.fechaNacimiento.setEnabled(flag);
         });
 
         viewModel.getNavigateIdPropietario().observe(getViewLifecycleOwner(), idPropietario -> {
@@ -88,7 +84,6 @@ public class PerfilFragment extends Fragment {
                 NavController navController = NavHostFragment.findNavController(this);
                 navController.navigate(R.id.action_nav_profile_to_passFragment, bundle);
         });
-
 
         binding.buttonSave.setOnClickListener(view -> {
             Propietario propietario = new Propietario(
@@ -110,15 +105,6 @@ public class PerfilFragment extends Fragment {
         viewModel.setCurrentUser();
     }
 
-//    private void abrirGaleria() {
-//        intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//        arl = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-//            @Override
-//            public void onActivityResult(ActivityResult result) {
-//                viewModel.recibirFoto(result);
-//            }
-//        });
-//    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

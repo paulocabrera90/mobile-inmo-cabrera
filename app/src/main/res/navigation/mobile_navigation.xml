@@ -20,7 +20,6 @@
             android:id="@+id/action_nav_profile_to_passFragment"
             app:destination="@id/passFragment" />
     </fragment>
-
     <fragment
         android:id="@+id/passFragment"
         android:name="com.ulp.inmobiliaria_cabrera.ui.register.PerfilCambioPasswordFragment"
@@ -31,20 +30,24 @@
     </fragment>
 
     <fragment
-        android:id="@+id/realEstateDetailsFragment"
-        android:name="com.ulp.inmobiliaria_cabrera.ui.slideshow.SlideshowFragment"
-        android:label="Detalles de Inmueble" >
+        android:id="@+id/nav_inmuebles"
+        android:name="com.ulp.inmobiliaria_cabrera.ui.inmuebles.InmuebleFragment"
+        android:label="Inmuebles" >
         <action
-            android:id="@+id/action_realEstateDetailsFragment_to_nav_real_estates"
-            app:destination="@id/nav_real_estates" />
+            android:id="@+id/action_nav_inmuebles_to_inmueble_detalle"
+            app:destination="@id/inmuebleDetalleFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/inmuebleDetalleFragment"
+        android:name="com.ulp.inmobiliaria_cabrera.ui.inmuebles.InmuebleDetalleFragment"
+        android:label="Detalles de Inmueble" >
+
     </fragment>
     <fragment
         android:id="@+id/tenantDetailsFragment"
         android:name="com.ulp.inmobiliaria_cabrera.ui.slideshow.SlideshowFragment"
         android:label="Detalles de Inquilino">
-        <action
-            android:id="@+id/action_tenantDetailsFragment_to_nav_tenants"
-            app:destination="@id/nav_tenants" />
     </fragment>
     <fragment
         android:id="@+id/contractDetailsFragment"

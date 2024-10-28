@@ -1,12 +1,13 @@
 package com.ulp.inmobiliaria_cabrera.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
-public class Propietario {
+public class Propietario implements Serializable {
     private int id;
 
     @NotBlank(message = "El documento es obligatorio.")

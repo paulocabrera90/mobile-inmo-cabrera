@@ -13,6 +13,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import com.ulp.inmobiliaria_cabrera.request.ApiClient;
 import com.ulp.inmobiliaria_cabrera.request.ChangePasswordRequest;
+import com.ulp.inmobiliaria_cabrera.utils.PreferencesUtil;
 
 import retrofit2.Response;
 
@@ -23,14 +24,12 @@ public class PerfilCambioPasswordViewModel extends AndroidViewModel {
     private MutableLiveData<Boolean> navigateBack = new MutableLiveData<>();
 
     private ApiClient.InmobiliariaService api;
-    private final int ID_PROPIETARIO;
+    private final int ID_PROPIETARIO_LOG;
 
     public PerfilCambioPasswordViewModel(@NonNull Application application) {
         super(application);
         api = ApiClient.getInmobiliariaService(application.getApplicationContext());
-
-        SharedPreferences sharedPreferences = getApplication().getSharedPreferences("token_prefs", Context.MODE_PRIVATE);
-        ID_PROPIETARIO = Integer.parseInt(sharedPreferences.getString("id", null));
+        ID_PROPIETARIO_LOG = PreferencesUtil.getIdPropietario(getApplication());
     }
 
     public LiveData<String> getStatusMessage() {
@@ -56,7 +55,7 @@ public class PerfilCambioPasswordViewModel extends AndroidViewModel {
 
     public void changePassword(String currentPassword, String newPassword, String confirmPassword) {
         ChangePasswordRequest changePasswordView =
-                new ChangePasswordRequest(ID_PROPIETARIO, currentPassword, newPassword);
+                new ChangePasswordRequest(ID_PROPIETARIO_LOG, currentPassword, newPassword);
 
         if (newPassword.equals(confirmPassword)) {
             api.changePassword(changePasswordView).enqueue(new Callback<ResponseBody>() {

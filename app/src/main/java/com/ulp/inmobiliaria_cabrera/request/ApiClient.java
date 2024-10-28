@@ -7,15 +7,20 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.ulp.inmobiliaria_cabrera.models.Inmueble;
 import com.ulp.inmobiliaria_cabrera.models.Propietario;
+import com.ulp.inmobiliaria_cabrera.models.TipoInmueble;
+import com.ulp.inmobiliaria_cabrera.models.TipoInmuebleUso;
 import com.ulp.inmobiliaria_cabrera.request.response.LoginResponse;
 
 import java.io.IOException;
 import java.util.List;
 
 import okhttp3.Interceptor;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -24,8 +29,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public class ApiClient {
@@ -125,5 +132,58 @@ public class ApiClient {
 
         @POST("propietarios/validate-code")
         Call<Boolean> validateCode(@Body ConfirmPasswordResetRequest resetPassword);
+
+        //INMUEBLE
+        @GET("inmuebles/by-propietario/{id}")
+        Call<List<Inmueble>> getInmueblesByPropietarioId(@Path("id") int id);
+
+        @GET("inmuebles/{id}")
+        Call<Inmueble> getInmueble(@Path("id") int id);
+
+//        @Multipart
+//        @POST("inmuebles")
+//        Call<Inmueble> crearInmueble(@Part("inmueble") RequestBody inmueble);//, @Part MultipartBody.Part image);
+
+        @Multipart
+        @POST("inmuebles")
+        Call<Inmueble> crearInmueble(
+                @Part("activo") RequestBody activo,
+                @Part("ambientes") RequestBody ambientes,
+                @Part("coordenadaLat") RequestBody coordenadaLat,
+                @Part("coordenadaLon") RequestBody coordenadaLon,
+                @Part("direccion") RequestBody direccion,
+                @Part("fechaActualizacion") RequestBody fechaActualizacion,
+                @Part("fechaCreacion") RequestBody fechaCreacion,
+                @Part("idPropietario") RequestBody idPropietario,
+                @Part("idTipoInmueble") RequestBody idTipoInmueble,
+                @Part("idTipoInmuebleUso") RequestBody idTipoInmuebleUso,
+                @Part("precio") RequestBody precio,
+                @Part MultipartBody.Part image // Para la imagen, si es requerida
+        );
+
+        @Multipart
+        @PUT("inmuebles")
+        Call<Inmueble> actualizarInmueble(
+                @Part("activo") RequestBody activo,
+                @Part("ambientes") RequestBody ambientes,
+                @Part("coordenadaLat") RequestBody coordenadaLat,
+                @Part("coordenadaLon") RequestBody coordenadaLon,
+                @Part("direccion") RequestBody direccion,
+                @Part("fechaActualizacion") RequestBody fechaActualizacion,
+                @Part("fechaCreacion") RequestBody fechaCreacion,
+                @Part("id") RequestBody id,
+                @Part("idPropietario") RequestBody idPropietario,
+                @Part("idTipoInmueble") RequestBody idTipoInmueble,
+                @Part("idTipoInmuebleUso") RequestBody idTipoInmuebleUso,
+                @Part("precio") RequestBody precio,
+                @Part MultipartBody.Part image // Para la imagen, si es requerida
+        );
+
+        //TIPOS
+        @GET("tipos/tipos-inmueble")
+        Call<List<TipoInmueble>> getTipoInmuebles();
+
+        @GET("tipos/tipos-inmueble-uso")
+        Call<List<TipoInmuebleUso>> getTipoInmueblesUso();
     }
 }
