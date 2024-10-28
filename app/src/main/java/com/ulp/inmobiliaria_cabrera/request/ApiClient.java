@@ -29,6 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
@@ -139,11 +140,44 @@ public class ApiClient {
         @GET("inmuebles/{id}")
         Call<Inmueble> getInmueble(@Path("id") int id);
 
-        @POST("inmuebles")
-        Call<Inmueble> crearInmueble(@Part("inmueble") RequestBody inmueble, @Part MultipartBody.Part image);
+//        @Multipart
+//        @POST("inmuebles")
+//        Call<Inmueble> crearInmueble(@Part("inmueble") RequestBody inmueble);//, @Part MultipartBody.Part image);
 
+        @Multipart
+        @POST("inmuebles")
+        Call<Inmueble> crearInmueble(
+                @Part("activo") RequestBody activo,
+                @Part("ambientes") RequestBody ambientes,
+                @Part("coordenadaLat") RequestBody coordenadaLat,
+                @Part("coordenadaLon") RequestBody coordenadaLon,
+                @Part("direccion") RequestBody direccion,
+                @Part("fechaActualizacion") RequestBody fechaActualizacion,
+                @Part("fechaCreacion") RequestBody fechaCreacion,
+                @Part("idPropietario") RequestBody idPropietario,
+                @Part("idTipoInmueble") RequestBody idTipoInmueble,
+                @Part("idTipoInmuebleUso") RequestBody idTipoInmuebleUso,
+                @Part("precio") RequestBody precio,
+                @Part MultipartBody.Part image // Para la imagen, si es requerida
+        );
+
+        @Multipart
         @PUT("inmuebles")
-        Call<Inmueble> actualizarInmueble(@Body Inmueble inmueble);
+        Call<Inmueble> actualizarInmueble(
+                @Part("activo") RequestBody activo,
+                @Part("ambientes") RequestBody ambientes,
+                @Part("coordenadaLat") RequestBody coordenadaLat,
+                @Part("coordenadaLon") RequestBody coordenadaLon,
+                @Part("direccion") RequestBody direccion,
+                @Part("fechaActualizacion") RequestBody fechaActualizacion,
+                @Part("fechaCreacion") RequestBody fechaCreacion,
+                @Part("id") RequestBody id,
+                @Part("idPropietario") RequestBody idPropietario,
+                @Part("idTipoInmueble") RequestBody idTipoInmueble,
+                @Part("idTipoInmuebleUso") RequestBody idTipoInmuebleUso,
+                @Part("precio") RequestBody precio,
+                @Part MultipartBody.Part image // Para la imagen, si es requerida
+        );
 
         //TIPOS
         @GET("tipos/tipos-inmueble")
