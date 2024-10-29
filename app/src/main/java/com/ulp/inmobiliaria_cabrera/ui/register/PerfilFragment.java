@@ -21,6 +21,7 @@ public class PerfilFragment extends Fragment {
 
     private PerfilViewModel viewModel;
     private FragmentPerfilBinding binding;
+    private SharedViewModel sharedViewModel;
     private ActivityResultLauncher<Intent> arl;
 
     @Override
@@ -29,7 +30,9 @@ public class PerfilFragment extends Fragment {
 
         viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity()
                 .getApplication()).create(PerfilViewModel.class);
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         binding = FragmentPerfilBinding.inflate(inflater, container, false);
+
         init();
 
         viewModel.getAvisoMutable().observe(getActivity(), new Observer<String>() {
@@ -97,6 +100,7 @@ public class PerfilFragment extends Fragment {
 
             );
             viewModel.saveChanges(propietario);
+            sharedViewModel.actualizarDatosPropietario(propietario);
         });
 
         binding.buttonEdit.setOnClickListener(view -> viewModel.enableEdit());

@@ -28,16 +28,16 @@ public class Propietario implements Serializable {
     private String direccion;
     private String usuario;
     private String password;
-    private Date fecha_creacion;
-    private Date fecha_actualizacion;
+    private Date fechaCreacion;
+    private Date fechaActualizacion;
 
     @NotBlank(message = "El area es obligatorio.")
     @Pattern(regexp = "^\\d+$", message = "El area solo debe tener dígitos.")
-    private String telefono_area;
+    private String telefonoArea;
 
     @NotBlank(message = "El numero de telefono es obligatorio.")
     @Pattern(regexp = "^\\d+$", message = "El numero solo debe tener dígitos.")
-    private String telefono_numero;
+    private String telefonoNumero;
     private int estado = 1;
 
     //private List<Inmueble> inmuebles;
@@ -52,8 +52,8 @@ public class Propietario implements Serializable {
         this.apellido = apellido;
         this.email = email;
         this.direccion = direccion;
-        this.telefono_area = telefonoArea;
-        this.telefono_numero = telefonoNumero;
+        this.telefonoArea = telefonoArea;
+        this.telefonoNumero = telefonoNumero;
         this.estado = 1;
     }
 
@@ -66,10 +66,10 @@ public class Propietario implements Serializable {
         this.direccion = direccion;
         this.usuario = usuario;
         this.password = password;
-        this.fecha_creacion = fechaCreacion;
-        this.fecha_actualizacion = fechaActualizacion;
-        this.telefono_area = telefonoArea;
-        this.telefono_numero = telefonoNumero;
+        this.fechaCreacion = fechaCreacion;
+        this.fechaActualizacion = fechaActualizacion;
+        this.telefonoArea = telefonoArea;
+        this.telefonoNumero = telefonoNumero;
         this.estado = estado;
     }
 
@@ -138,35 +138,35 @@ public class Propietario implements Serializable {
     }
 
     public Date getFecha_creacion() {
-        return fecha_creacion;
+        return fechaCreacion;
     }
 
     public void setFecha_creacion(Date fecha_creacion) {
-        this.fecha_creacion = fecha_creacion;
+        this.fechaCreacion = fecha_creacion;
     }
 
     public Date getFecha_actualizacion() {
-        return fecha_actualizacion;
+        return fechaActualizacion;
     }
 
     public void setFecha_actualizacion(Date fecha_actualizacion) {
-        this.fecha_actualizacion = fecha_actualizacion;
+        this.fechaActualizacion = fecha_actualizacion;
     }
 
     public @NotBlank(message = "El area es obligatorio.") @Pattern(regexp = "^\\d+$", message = "El area solo debe tener dígitos.") String getTelefono_area() {
-        return telefono_area;
+        return telefonoArea;
     }
 
     public void setTelefono_area(@NotBlank(message = "El area es obligatorio.") @Pattern(regexp = "^\\d+$", message = "El area solo debe tener dígitos.") String telefono_area) {
-        this.telefono_area = telefono_area;
+        this.telefonoArea = telefono_area;
     }
 
     public @NotBlank(message = "El numero de telefono es obligatorio.") @Pattern(regexp = "^\\d+$", message = "El numero solo debe tener dígitos.") String getTelefono_numero() {
-        return telefono_numero;
+        return telefonoNumero;
     }
 
     public void setTelefono_numero(@NotBlank(message = "El numero de telefono es obligatorio.") @Pattern(regexp = "^\\d+$", message = "El numero solo debe tener dígitos.") String telefono_numero) {
-        this.telefono_numero = telefono_numero;
+        this.telefonoNumero = telefono_numero;
     }
 
     public int getEstado() {
@@ -186,10 +186,10 @@ public class Propietario implements Serializable {
                 ", apellido='" + apellido + '\'' +
                 ", email='" + email + '\'' +
                 ", direccion='" + direccion + '\'' +
-                ", fecha_Creacion=" + fecha_creacion +
-                ", fecha_Actualizacion=" + fecha_actualizacion +
-                ", telefono_Area='" + telefono_area + '\'' +
-                ", telefono_Numero='" + telefono_numero + '\'' +
+                ", fecha_Creacion=" + fechaCreacion +
+                ", fecha_Actualizacion=" + fechaActualizacion +
+                ", telefono_Area='" + telefonoArea + '\'' +
+                ", telefono_Numero='" + telefonoNumero + '\'' +
                 ", estado=" + estado +
                 '}';
     }
