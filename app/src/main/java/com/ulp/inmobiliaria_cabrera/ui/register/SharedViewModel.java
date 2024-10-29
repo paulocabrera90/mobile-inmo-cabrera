@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -20,6 +21,7 @@ public class SharedViewModel extends AndroidViewModel {
         super(application);
         cargarDatosDesdePreferencias();
     }
+
 
     public LiveData<String> getNombreCompleto() {
         return nombreCompleto;
@@ -45,3 +47,4 @@ public class SharedViewModel extends AndroidViewModel {
         this.email.setValue(email);
     }
 }
+

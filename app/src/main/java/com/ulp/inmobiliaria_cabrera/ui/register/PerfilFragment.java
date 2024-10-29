@@ -29,6 +29,7 @@ public class PerfilFragment extends Fragment {
         sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
 
         binding = FragmentPerfilBinding.inflate(inflater, container, false);
+
         init();
 
         return binding.getRoot();
@@ -84,6 +85,7 @@ public class PerfilFragment extends Fragment {
             );
             viewModel.saveChanges(propietario);
             sharedViewModel.actualizarDatosPropietario(propietario.getNombreCompleto(), propietario.getEmail());
+
         });
 
         binding.buttonEdit.setOnClickListener(view -> viewModel.enableEdit());
