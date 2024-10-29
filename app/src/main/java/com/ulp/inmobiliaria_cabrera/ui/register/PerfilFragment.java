@@ -32,19 +32,6 @@ public class PerfilFragment extends Fragment {
         binding = FragmentPerfilBinding.inflate(inflater, container, false);
         init();
 
-        viewModel.getAvisoMutable().observe(getActivity(), new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                binding.tvAviso.setText(s);
-            }
-        });
-
-        viewModel.getAvisoVisibilityMutable().observe(getActivity(), new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer visibility) {
-                binding.tvAviso.setVisibility(visibility);
-            }
-        });
         return binding.getRoot();
     }
 

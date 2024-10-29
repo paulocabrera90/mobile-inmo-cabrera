@@ -1,8 +1,12 @@
 package com.ulp.inmobiliaria_cabrera;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+
+import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -76,17 +80,18 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+
     private void setHeader(NavigationView navigationView) {
         // Utilizamos View Binding para el header del NavigationView
         NavHeaderMainBinding headerBinding = NavHeaderMainBinding.bind(navigationView.getHeaderView(0));
         // Observar los cambios en los LiveData del ViewModel
         viewModel.getNombre().observe(this, headerBinding.textViewNombreNavHeader::setText);
         viewModel.getEmail().observe(this, headerBinding.textViewEmailNavHeader::setText);
-//        viewModel.getAvatarUrl().observe(this, url -> {
-//            Glide.with(this)
-//                    .load(url)
-//                    .into(headerBinding.imageViewAvatar);
-//        });
+        viewModel.getAvatarUrl().observe(this, url -> {
+            Glide.with(this)
+                    .load(url)
+                    .into(headerBinding.imageViewNavHeader);
+        });
 
         // Llamamos a fetchPropietario para cargar los datos del propietario
         viewModel.addHeadresNav();

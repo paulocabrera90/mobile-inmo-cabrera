@@ -1,23 +1,38 @@
 package com.ulp.inmobiliaria_cabrera.ui.login;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.ulp.inmobiliaria_cabrera.constants.Constants;
 import com.ulp.inmobiliaria_cabrera.databinding.ActivityLoginBinding;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
     private LoginActivityViewModel viewModel;
+
+    private SensorManager sensorManager;
+    private ReadSensor readSensor;
+    private List<Sensor> listaSensores;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,21 +43,24 @@ public class LoginActivity extends AppCompatActivity {
                 .create(LoginActivityViewModel.class);
 
         initViews();
-        validarPermisos();
+        initializeSensor();
+        solicitarPermisos();
 
-        viewModel.getAviso().observe(this, new Observer<String>() {
+        viewModel.getEstadoM().observe(this, new Observer<Boolean>() {
             @Override
-            public void onChanged(String s) {
-                binding.tvAviso.setText(s);
+            public void onChanged(Boolean aBoolean) {
+                Intent i = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+ Constants.NUMERO_INMO));
+                startActivity(i);
+                Toast.makeText(LoginActivity.this, "Llamando Inmobiliaria "+ Constants.INMOBILIARIA_CABRERA_NAME, Toast.LENGTH_LONG).show();
             }
         });
 
-        viewModel.getAvisoVisibility().observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer visibility) {
-                binding.tvAviso.setVisibility(visibility);
-            }
-        });
+    }
+
+    private void initializeSensor() {
+        readSensor = new ReadSensor();
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        listaSensores = sensorManager.getSensorList(Sensor.TYPE_LINEAR_ACCELERATION);
     }
 
     private void initViews() {
@@ -62,21 +80,61 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        binding = null;
+    protected void onStop() {
+        super.onStop();
+        sensorManager.unregisterListener(readSensor);
     }
 
-    private void validarPermisos() {
-        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M
-                && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED){
-            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1000);
-        }
-        else{
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sensorManager.registerListener(readSensor, listaSensores.get(0), SensorManager.SENSOR_DELAY_GAME);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sensorManager.unregisterListener(readSensor);
+    }
+
+    private void solicitarPermisos() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            String[] permisosNecesarios = new String[]{
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.CALL_PHONE
+            };
+            List<String> listaPermisos = new ArrayList<>();
+
+            for (String permiso : permisosNecesarios) {
+                if (checkSelfPermission(permiso) != PackageManager.PERMISSION_GRANTED) {
+                    listaPermisos.add(permiso);
+                }
+            }
+
+            String[] permisos = new String[listaPermisos.size()];
+            listaPermisos.toArray(permisos);
+
+            if (permisos.length > 0) {
+                ActivityCompat.requestPermissions(this, permisos, 100);
+            } else {
+                Toast.makeText(this, "Todos los permisos concedidos", Toast.LENGTH_SHORT).show();
+            }
+        } else {
             Toast.makeText(this, "WITHOUT PERMISSION", Toast.LENGTH_SHORT).show();
         }
+    }
 
+
+    private class ReadSensor implements SensorEventListener {
+        @Override
+        public void onSensorChanged(SensorEvent sensorEvent) {
+            viewModel.sensorG(sensorEvent.values[0]);
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int i) {
+
+        }
     }
 
 }

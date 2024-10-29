@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.annotation.NonNull;
@@ -23,8 +24,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PerfilViewModel extends AndroidViewModel {
-    private MutableLiveData<String> avisoMutable;
-    private MutableLiveData<Integer> avisoVisibilityMutable;
     private MutableLiveData<Uri> uriMutableLiveData;
     private ApiClient.InmobiliariaService api;
     private MutableLiveData<Boolean> buttonEditEnable;
@@ -67,20 +66,6 @@ public class PerfilViewModel extends AndroidViewModel {
         return buttonSaveEnable;
     }
 
-    public LiveData<String> getAvisoMutable() {
-        if (avisoMutable == null) {
-            avisoMutable = new MutableLiveData<>();
-        }
-        return avisoMutable;
-    }
-
-    public LiveData<Integer> getAvisoVisibilityMutable() {
-        if (avisoVisibilityMutable == null) {
-            avisoVisibilityMutable = new MutableLiveData<>();
-        }
-        return avisoVisibilityMutable;
-    }
-
     public LiveData<Uri> getUriMutable() {
         if (uriMutableLiveData == null) {
             uriMutableLiveData = new MutableLiveData<>();
@@ -108,14 +93,16 @@ public class PerfilViewModel extends AndroidViewModel {
             public void onResponse(Call<Propietario> call, Response<Propietario> response) {
                 if (response.isSuccessful()) {
                     propietarioMutableLiveData.setValue(response.body());
+
                 } else {
-                    avisoMutable.setValue("Error al obtener el propietario");
+                    Toast.makeText(getApplication(), "Error al obtener el propietario", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Propietario> call, Throwable throwable) {
-                avisoMutable.setValue("Error de conexión");
+                Log.e("Error failure", throwable.getMessage());
+                Toast.makeText(getApplication(), "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -127,20 +114,19 @@ public class PerfilViewModel extends AndroidViewModel {
             public void onResponse(Call<Propietario> call, Response<Propietario> response) {
                 if (response.isSuccessful()) {
                     propietarioMutableLiveData.setValue(p);
-                    avisoMutable.setValue("Datos guardados.");
                 } else {
                     Log.d("ProfileViewModel", "Error al guardar los datos: " + call.request().body());
-                    avisoMutable.setValue("Error al guardar los datos");
+                    Toast.makeText(getApplication(), "Error al guardar los datos", Toast.LENGTH_SHORT).show();
                 }
                 buttonSaveEnable.setValue(Boolean.FALSE);
                 buttonEditEnable.setValue(Boolean.TRUE);
                 editEnabled.setValue(false);
-                avisoVisibilityMutable.setValue(View.VISIBLE);
             }
 
             @Override
             public void onFailure(Call<Propietario> call, Throwable t) {
-                avisoMutable.setValue("Error de conexión");
+                Log.e("Error failure", t.getMessage());
+                Toast.makeText(getApplication(), "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         });
     }

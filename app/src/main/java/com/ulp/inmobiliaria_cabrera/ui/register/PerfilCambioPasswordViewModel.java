@@ -18,8 +18,6 @@ import com.ulp.inmobiliaria_cabrera.utils.PreferencesUtil;
 import retrofit2.Response;
 
 public class PerfilCambioPasswordViewModel extends AndroidViewModel {
-    private MutableLiveData<String> avisoMutable;
-    private MutableLiveData<Integer> avisoVisibilityMutable;
     private MutableLiveData<String> statusMessage = new MutableLiveData<>();
     private MutableLiveData<Boolean> navigateBack = new MutableLiveData<>();
 
@@ -37,20 +35,6 @@ public class PerfilCambioPasswordViewModel extends AndroidViewModel {
     }
     public LiveData<Boolean> getNavigateBack() {
         return navigateBack;
-    }
-
-    public LiveData<String> getAvisoMutable() {
-        if (avisoMutable == null) {
-            avisoMutable = new MutableLiveData<>();
-        }
-        return avisoMutable;
-    }
-
-    public LiveData<Integer> getAvisoVisibilityMutable() {
-        if (avisoVisibilityMutable == null) {
-            avisoVisibilityMutable = new MutableLiveData<>();
-        }
-        return avisoVisibilityMutable;
     }
 
     public void changePassword(String currentPassword, String newPassword, String confirmPassword) {
