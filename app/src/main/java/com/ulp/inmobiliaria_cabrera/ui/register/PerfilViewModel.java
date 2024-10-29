@@ -114,6 +114,7 @@ public class PerfilViewModel extends AndroidViewModel {
             public void onResponse(Call<Propietario> call, Response<Propietario> response) {
                 if (response.isSuccessful()) {
                     propietarioMutableLiveData.setValue(p);
+                    Toast.makeText(getApplication(), "Datos guardados correctamente", Toast.LENGTH_SHORT).show();
                 } else {
                     Log.d("ProfileViewModel", "Error al guardar los datos: " + call.request().body());
                     Toast.makeText(getApplication(), "Error al guardar los datos", Toast.LENGTH_SHORT).show();

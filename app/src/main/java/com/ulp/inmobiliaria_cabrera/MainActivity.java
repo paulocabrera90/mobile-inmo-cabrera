@@ -1,12 +1,8 @@
 package com.ulp.inmobiliaria_cabrera;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
-
-import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -20,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ulp.inmobiliaria_cabrera.databinding.ActivityMainBinding;
 import com.ulp.inmobiliaria_cabrera.databinding.NavHeaderMainBinding;
+import com.ulp.inmobiliaria_cabrera.ui.register.SharedViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -80,20 +77,14 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-
     private void setHeader(NavigationView navigationView) {
-        // Utilizamos View Binding para el header del NavigationView
-        NavHeaderMainBinding headerBinding = NavHeaderMainBinding.bind(navigationView.getHeaderView(0));
-        // Observar los cambios en los LiveData del ViewModel
-        viewModel.getNombre().observe(this, headerBinding.textViewNombreNavHeader::setText);
-        viewModel.getEmail().observe(this, headerBinding.textViewEmailNavHeader::setText);
-        viewModel.getAvatarUrl().observe(this, url -> {
-            Glide.with(this)
-                    .load(url)
-                    .into(headerBinding.imageViewNavHeader);
-        });
 
-        // Llamamos a fetchPropietario para cargar los datos del propietario
-        viewModel.addHeadresNav();
+        NavHeaderMainBinding headerBinding = NavHeaderMainBinding.bind(navigationView.getHeaderView(0));
+        SharedViewModel sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
+
+        sharedViewModel.getNombreCompleto().observe(this, headerBinding.textViewNombreNavHeader::setText);
+        sharedViewModel.getEmail().observe(this, headerBinding.textViewEmailNavHeader::setText);
+
+        //viewModel.addHeadresNav();
     }
 }

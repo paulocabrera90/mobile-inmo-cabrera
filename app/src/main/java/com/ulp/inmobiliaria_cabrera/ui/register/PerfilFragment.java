@@ -1,14 +1,11 @@
 package com.ulp.inmobiliaria_cabrera.ui.register;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -21,7 +18,7 @@ public class PerfilFragment extends Fragment {
 
     private PerfilViewModel viewModel;
     private FragmentPerfilBinding binding;
-    private ActivityResultLauncher<Intent> arl;
+    private SharedViewModel sharedViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,6 +26,8 @@ public class PerfilFragment extends Fragment {
 
         viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity()
                 .getApplication()).create(PerfilViewModel.class);
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+
         binding = FragmentPerfilBinding.inflate(inflater, container, false);
         init();
 
@@ -84,6 +83,7 @@ public class PerfilFragment extends Fragment {
 
             );
             viewModel.saveChanges(propietario);
+            sharedViewModel.actualizarDatosPropietario(propietario.getNombreCompleto(), propietario.getEmail());
         });
 
         binding.buttonEdit.setOnClickListener(view -> viewModel.enableEdit());
