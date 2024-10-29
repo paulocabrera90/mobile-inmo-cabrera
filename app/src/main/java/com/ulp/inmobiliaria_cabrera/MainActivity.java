@@ -1,6 +1,10 @@
 package com.ulp.inmobiliaria_cabrera;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import com.google.android.material.snackbar.Snackbar;
@@ -16,6 +20,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ulp.inmobiliaria_cabrera.databinding.ActivityMainBinding;
 import com.ulp.inmobiliaria_cabrera.databinding.NavHeaderMainBinding;
+import com.ulp.inmobiliaria_cabrera.request.ApiClient;
+import com.ulp.inmobiliaria_cabrera.ui.login.LoginActivity;
 import com.ulp.inmobiliaria_cabrera.ui.register.SharedViewModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -61,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        navigationView.setNavigationItemSelectedListener(this::onNavigationItemSelected);
     }
 
     @Override
@@ -83,6 +91,28 @@ public class MainActivity extends AppCompatActivity {
 
         sharedViewModel.getNombreCompleto().observe(this, headerBinding.textViewNombreNavHeader::setText);
         sharedViewModel.getEmail().observe(this, headerBinding.textViewEmailNavHeader::setText);
+     //   sharedViewModel. IMAGE
+    }
 
+    public void logout(MenuItem item) {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_lock_idle_lock)
+                .setTitle("¿Realmente desea cerrar sesión?")
+                .setCancelable(false)
+                .setNegativeButton(android.R.string.cancel, null)
+                .setPositiveButton("Sí", (dialogInterface, i) -> {
+                    ApiClient.eliminarToken(this.getApplicationContext());
+                    startActivity(new Intent(this.getApplicationContext(), LoginActivity.class));
+                    this.finish(); // Cierra la actividad actual para evitar regresar a ella
+                }).show();
+    }
+
+    private boolean onNavigationItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.nav_logout) {
+            logout(item);
+            return true;
+        }
+        return NavigationUI.onNavDestinationSelected(item, Navigation.findNavController(this, R.id.nav_host_fragment_content_main))
+                || super.onOptionsItemSelected(item);
     }
 }

@@ -9,8 +9,8 @@
         android:id="@+id/nav_home"
         android:name="com.ulp.inmobiliaria_cabrera.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
-
+        tools:layout="@layout/fragment_home">
+    </fragment>
     <fragment
         android:id="@+id/nav_profile"
         android:name="com.ulp.inmobiliaria_cabrera.ui.register.PerfilFragment"
@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/tenantDetailsFragment"
-        android:name="com.ulp.inmobiliaria_cabrera.ui.slideshow.SlideshowFragment"
+        android:name="com.ulp.inmobiliaria_cabrera.ui.logout.LogoutFragment"
         android:label="Detalles de Inquilino">
     </fragment>
     <fragment
@@ -58,5 +58,11 @@
             app:destination="@id/nav_contracts" />
 
     </fragment>
+
+    <fragment
+        android:id="@+id/nav_logout"
+        android:name="com.ulp.inmobiliaria_cabrera.ui.logout.LogoutFragment"
+        android:label="@string/menu_logout"
+        tools:layout="@layout/fragment_logout" />
 
 </navigation>
