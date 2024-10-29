@@ -3,6 +3,9 @@ package com.ulp.inmobiliaria_cabrera.ui.login;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -24,27 +27,19 @@ import retrofit2.Response;
 
 public class LoginActivityViewModel extends AndroidViewModel {
     private Context context;
-    private MutableLiveData<String> avisoMutable;
-    private MutableLiveData<Integer> avisoVisibilityMutable;
-
+    private int activador = 0;
+    private MutableLiveData<Boolean> estadoM;
 
     public LoginActivityViewModel(@NonNull Application application) {
         super(application);
         context=application.getApplicationContext();
     }
 
-    public LiveData<String> getAviso() {
-        if (avisoMutable == null) {
-            avisoMutable = new MutableLiveData<>();
+    public LiveData<Boolean> getEstadoM() {
+        if(estadoM == null){
+            estadoM = new MutableLiveData<>();
         }
-        return avisoMutable;
-    }
-
-    public LiveData<Integer> getAvisoVisibility() {
-        if (avisoVisibilityMutable == null) {
-            avisoVisibilityMutable = new MutableLiveData<>();
-        }
-        return avisoVisibilityMutable;
+        return estadoM;
     }
 
     public void login(String email, String contrasena) {
@@ -65,18 +60,27 @@ public class LoginActivityViewModel extends AndroidViewModel {
                    context.startActivity(intent);
                }else {
                    Toast.makeText(getApplication(),"Datos Incorrecotes", Toast.LENGTH_SHORT).show();
-                   avisoMutable.setValue("Email o usuario incorrecto");
-                   avisoVisibilityMutable.setValue(View.VISIBLE);
                }
            }
 
            @Override
            public void onFailure(Call<LoginResponse> call, Throwable throwable) {
                Toast.makeText(getApplication(),"Datos OnFailure", Toast.LENGTH_SHORT).show();
-
                Log.e("Error failure", throwable.getMessage());
            }
        });
+    }
+
+    public void sensorG(float movi){
+        //Log.d("Salida sensor", String.valueOf(movi));
+        if(movi > 8 || movi < -12){
+            activador++;
+        }
+        if(activador > 30){
+            activador = 0;
+            estadoM.setValue(true);
+
+        }
     }
 
     public void reset() {

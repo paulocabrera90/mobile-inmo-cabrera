@@ -29,23 +29,9 @@ public class PerfilCambioPasswordFragment extends Fragment {
             Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
         });
 
-        viewModel.getAvisoMutable().observe(getActivity(), new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                binding.tvAviso.setText(s);
-            }
-        });
-
         viewModel.getNavigateBack().observe(getViewLifecycleOwner(), shouldNavigateBack -> {
             if (shouldNavigateBack) {
                 getActivity().getSupportFragmentManager().popBackStack();
-            }
-        });
-
-        viewModel.getAvisoVisibilityMutable().observe(getActivity(), new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer visibility) {
-                binding.tvAviso.setVisibility(visibility);
             }
         });
 

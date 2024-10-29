@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -78,18 +77,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setHeader(NavigationView navigationView) {
-        // Utilizamos View Binding para el header del NavigationView
-//        NavHeaderMainBinding headerBinding = NavHeaderMainBinding.bind(navigationView.getHeaderView(0));
-//        // Observar los cambios en los LiveData del ViewModel
-//        viewModel.getNombre().observe(this, headerBinding.textViewNombreNavHeader::setText);
-//        viewModel.getEmail().observe(this, headerBinding.textViewEmailNavHeader::setText);
-////        viewModel.getAvatarUrl().observe(this, url -> {
-////            Glide.with(this)
-////                    .load(url)
-////                    .into(headerBinding.imageViewAvatar);
-////        });
-//
-//        // Llamamos a fetchPropietario para cargar los datos del propietario
 
         NavHeaderMainBinding headerBinding = NavHeaderMainBinding.bind(navigationView.getHeaderView(0));
         SharedViewModel sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
@@ -97,6 +84,5 @@ public class MainActivity extends AppCompatActivity {
         sharedViewModel.getNombreCompleto().observe(this, headerBinding.textViewNombreNavHeader::setText);
         sharedViewModel.getEmail().observe(this, headerBinding.textViewEmailNavHeader::setText);
 
-//        viewModel.addHeadresNav();
     }
 }
