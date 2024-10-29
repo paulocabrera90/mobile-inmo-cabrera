@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ulp.inmobiliaria_cabrera.databinding.ActivityMainBinding;
 import com.ulp.inmobiliaria_cabrera.databinding.NavHeaderMainBinding;
+import com.ulp.inmobiliaria_cabrera.ui.register.SharedViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -78,17 +79,24 @@ public class MainActivity extends AppCompatActivity {
 
     private void setHeader(NavigationView navigationView) {
         // Utilizamos View Binding para el header del NavigationView
-        NavHeaderMainBinding headerBinding = NavHeaderMainBinding.bind(navigationView.getHeaderView(0));
-        // Observar los cambios en los LiveData del ViewModel
-        viewModel.getNombre().observe(this, headerBinding.textViewNombreNavHeader::setText);
-        viewModel.getEmail().observe(this, headerBinding.textViewEmailNavHeader::setText);
-//        viewModel.getAvatarUrl().observe(this, url -> {
-//            Glide.with(this)
-//                    .load(url)
-//                    .into(headerBinding.imageViewAvatar);
-//        });
+//        NavHeaderMainBinding headerBinding = NavHeaderMainBinding.bind(navigationView.getHeaderView(0));
+//        // Observar los cambios en los LiveData del ViewModel
+//        viewModel.getNombre().observe(this, headerBinding.textViewNombreNavHeader::setText);
+//        viewModel.getEmail().observe(this, headerBinding.textViewEmailNavHeader::setText);
+////        viewModel.getAvatarUrl().observe(this, url -> {
+////            Glide.with(this)
+////                    .load(url)
+////                    .into(headerBinding.imageViewAvatar);
+////        });
+//
+//        // Llamamos a fetchPropietario para cargar los datos del propietario
 
-        // Llamamos a fetchPropietario para cargar los datos del propietario
-        viewModel.addHeadresNav();
+        NavHeaderMainBinding headerBinding = NavHeaderMainBinding.bind(navigationView.getHeaderView(0));
+        SharedViewModel sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
+
+        sharedViewModel.getNombreCompleto().observe(this, headerBinding.textViewNombreNavHeader::setText);
+        sharedViewModel.getEmail().observe(this, headerBinding.textViewEmailNavHeader::setText);
+
+//        viewModel.addHeadresNav();
     }
 }

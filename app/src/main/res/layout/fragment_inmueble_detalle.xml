@@ -21,6 +21,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:backgroundTint="?attr/colorPrimary"
+        android:enabled="false"
         android:text="+"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
