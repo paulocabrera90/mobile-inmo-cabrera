@@ -67,7 +67,7 @@ public class InmuebleFragment extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putInt("idPropietario", ID_PROPIETARIO_LOG);
             bundle.putBoolean("newInmueble", true);
-            navController.navigate(R.id.action_nav_inmuebles_to_inmueble_detalle, bundle);
+            navController.navigate(R.id.action_nav_inmuebles_to_nav_inmueble_detalle, bundle);
         });
 
         viewModel.setListaInmuebles(ID_PROPIETARIO_LOG);

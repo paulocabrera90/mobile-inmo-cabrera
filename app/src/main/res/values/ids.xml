@@ -8,4 +8,8 @@
     <item name="labelFechaCreacion" type="id" />
     <item name="labelFechaActualizacion" type="id" />
     <item name="labelTipoInmuebleUso" type="id" />
+    <item name="labelNombre" type="id" />
+    <item name="labelApellido" type="id" />
+    <item name="labelTelefono" type="id" />
+    <item name="labelEmail" type="id" />
 </resources>
