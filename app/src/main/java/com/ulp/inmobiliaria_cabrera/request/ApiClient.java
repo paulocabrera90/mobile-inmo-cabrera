@@ -190,6 +190,7 @@ public class ApiClient {
         @GET("inquilinos")
         Call<List<Inquilino>> getInquilinos();
 
-
+        @GET("inquilinos/by-inmueble/{id}")
+        Call<Inquilino> getInquilinosByInmueble(@Path("id") int id);
     }
 }

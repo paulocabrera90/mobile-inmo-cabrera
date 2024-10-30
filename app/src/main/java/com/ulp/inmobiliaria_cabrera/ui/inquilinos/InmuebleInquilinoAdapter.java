@@ -63,9 +63,9 @@ public class InmuebleInquilinoAdapter extends RecyclerView.Adapter<InmuebleInqui
                 Bundle bundle = new Bundle();
                 bundle.putInt("idInmueble", inmueble.getId());
                 bundle.putInt("idPropietario", inmueble.getIdPropietario());
+
                 Navigation.findNavController(view)
-                        .navigate(R.id.action_nav_inmuebles_to_inmueble_detalle, bundle);
-                Toast.makeText(context, "Inquilino: " + inmueble.getNombreInmueble(), Toast.LENGTH_SHORT).show();
+                        .navigate(R.id.action_nav_inmuebles_contrato_to_nav_inquilino_detalle, bundle);
             }
         });
     }

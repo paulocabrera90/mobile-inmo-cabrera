@@ -69,7 +69,7 @@ public class InmuebleAdapter extends RecyclerView.Adapter<InmuebleAdapter.ViewHo
                 bundle.putInt("idInmueble", inmueble.getId());
                 bundle.putInt("idPropietario", inmueble.getIdPropietario());
                 Navigation.findNavController(view)
-                        .navigate(R.id.action_nav_inmuebles_to_inmueble_detalle, bundle);
+                        .navigate(R.id.action_nav_inmuebles_to_nav_inmueble_detalle, bundle);
             }
         });
     }
