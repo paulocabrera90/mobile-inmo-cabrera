@@ -62,7 +62,7 @@ public class InmuebleFragment extends Fragment {
             }
         });
 
-        binding.fabAdd.setOnClickListener(view -> {
+        binding.fabAddInmuebles.setOnClickListener(view -> {
             NavController navController = NavHostFragment.findNavController(this);
             Bundle bundle = new Bundle();
             bundle.putInt("idPropietario", ID_PROPIETARIO_LOG);

@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.ulp.inmobiliaria_cabrera.models.Inmueble;
+import com.ulp.inmobiliaria_cabrera.models.Inquilino;
 import com.ulp.inmobiliaria_cabrera.models.Propietario;
 import com.ulp.inmobiliaria_cabrera.models.TipoInmueble;
 import com.ulp.inmobiliaria_cabrera.models.TipoInmuebleUso;
@@ -137,12 +138,11 @@ public class ApiClient {
         @GET("inmuebles/by-propietario/{id}")
         Call<List<Inmueble>> getInmueblesByPropietarioId(@Path("id") int id);
 
+        @GET("inmuebles/by-propietario-with-contracts")
+        Call<List<Inmueble>> getInmueblesByPropietarioIdWithContracts();
+
         @GET("inmuebles/{id}")
         Call<Inmueble> getInmueble(@Path("id") int id);
-
-//        @Multipart
-//        @POST("inmuebles")
-//        Call<Inmueble> crearInmueble(@Part("inmueble") RequestBody inmueble);//, @Part MultipartBody.Part image);
 
         @Multipart
         @POST("inmuebles")
@@ -185,5 +185,11 @@ public class ApiClient {
 
         @GET("tipos/tipos-inmueble-uso")
         Call<List<TipoInmuebleUso>> getTipoInmueblesUso();
+
+        //INQUILINO
+        @GET("inquilinos")
+        Call<List<Inquilino>> getInquilinos();
+
+
     }
 }

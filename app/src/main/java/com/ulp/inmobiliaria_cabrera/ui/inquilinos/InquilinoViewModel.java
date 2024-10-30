@@ -1,12 +1,16 @@
-package com.ulp.inmobiliaria_cabrera.ui.inmuebles;
+package com.ulp.inmobiliaria_cabrera.ui.inquilinos;
 
 import android.app.Application;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+
 import com.ulp.inmobiliaria_cabrera.models.Inmueble;
+import com.ulp.inmobiliaria_cabrera.models.Inquilino;
 import com.ulp.inmobiliaria_cabrera.request.ApiClient;
 
 import java.util.List;
@@ -15,35 +19,33 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class InmuebleViewModel extends AndroidViewModel {
+public class InquilinoViewModel extends AndroidViewModel {
 
     private ApiClient.InmobiliariaService api;
-    private MutableLiveData<List<Inmueble>> listaInmuebles;
+    private MutableLiveData<List<Inmueble>> listInmuebleContratoMutable;
 
-    public InmuebleViewModel(@NonNull Application application) {
+    public InquilinoViewModel(@NonNull Application application) {
         super(application);
         api = ApiClient.getInmobiliariaService(application.getApplicationContext());
     }
 
-    public LiveData<List<Inmueble>> getListaInmuebles(){
-        if(listaInmuebles == null){
-            listaInmuebles = new MutableLiveData<>();
+    public LiveData<List<Inmueble>> getListInmuebleContratoMutable(){
+        if(listInmuebleContratoMutable == null){
+            listInmuebleContratoMutable = new MutableLiveData<>();
         }
-        return listaInmuebles;
+        return listInmuebleContratoMutable;
     }
 
-    public void setListaInmuebles(int idPropeitario){
-
-        api.getInmueblesByPropietarioId(idPropeitario).enqueue(new Callback<List<Inmueble>>() {
+    public void setListInmuebleContratoMutable() {
+        api.getInmueblesByPropietarioIdWithContracts().enqueue(new Callback<List<Inmueble>>() {
             @Override
             public void onResponse(Call<List<Inmueble>> call, Response<List<Inmueble>> response) {
                 if (response.isSuccessful()) {
                     //propietarioMutableLiveData.setValue(response.body());
-                    //  Toast.makeText(getApplication().getApplicationContext(), "Inmuebles cargados", Toast.LENGTH_SHORT).show();
-                    listaInmuebles.setValue(response.body());
+                      listInmuebleContratoMutable.setValue(response.body());
                 } else {
                     //avisoMutable.setValue("Error al obtener el propietario");
-                    Toast.makeText(getApplication().getApplicationContext(), "Error al obtener inmuebles", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication().getApplicationContext(), "Error al obtener Inquilinos", Toast.LENGTH_SHORT).show();
                 }
             }
 

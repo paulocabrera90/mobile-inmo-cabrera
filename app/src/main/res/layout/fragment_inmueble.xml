@@ -14,7 +14,7 @@
           tools:layout_editor_absoluteY="1dp" />
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton
-      android:id="@+id/fab_add"
+      android:id="@+id/fabAddInmuebles"
       android:layout_width="108dp"
       android:layout_height="56dp"
       android:layout_gravity="bottom|end"

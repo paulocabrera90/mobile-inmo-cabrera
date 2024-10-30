@@ -10,7 +10,6 @@
 
     <string name="menu_home">Inicio</string>
     <string name="menu_profile">Perfil</string>
-    <string name="menu_real_estates">Inmuebles</string>
     <string name="menu_tenants">Inquilinos</string>
     <string name="menu_gallery">Galeria</string>
     <string name="menu_slideshow">Inicio</string>
@@ -106,5 +105,7 @@
     <string name="code_explanation">Se enviará un código de verificación de 6 dígitos a tu correo electrónico.
         Por favor, ingrésalo a continuación para continuar.
     </string>
+    <string name="menu_inquilinos">Inquilinos</string>
+    <string name="nav_inmuebles">Inmuebles</string>
 
 </resources>
