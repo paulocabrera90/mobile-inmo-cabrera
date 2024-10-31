@@ -6,7 +6,7 @@
     android:layout_margin="8dp"
     app:cardElevation="4dp"
     app:cardCornerRadius="8dp"
-    android:id="@+id/cardViewInquilino">
+    android:id="@+id/cardViewContrato">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,15 +14,8 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <ImageView
-            android:id="@+id/image_Inquilino"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/upload" /> <!-- Temporal, reemplazar con la imagen de la API -->
-
         <TextView
-            android:id="@+id/text_direccion"
+            android:id="@+id/text_nombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
@@ -30,7 +23,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/text_precio"
+            android:id="@+id/text_nro_contrato"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="4dp"
@@ -43,6 +36,14 @@
             android:layout_height="wrap_content"
             android:paddingTop="4dp"
             android:text="Habilitado: Sí"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/text_precio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:text="$123412"
             android:textSize="20sp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

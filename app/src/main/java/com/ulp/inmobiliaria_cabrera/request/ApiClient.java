@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.ulp.inmobiliaria_cabrera.models.Contrato;
 import com.ulp.inmobiliaria_cabrera.models.Inmueble;
 import com.ulp.inmobiliaria_cabrera.models.Inquilino;
 import com.ulp.inmobiliaria_cabrera.models.Propietario;
@@ -35,6 +36,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public class ApiClient {
     public static final String TOKEN = "token";
@@ -61,7 +63,6 @@ public class ApiClient {
                     return chain.proceed(request);
                 }
             });
-            //Gson gson = new GsonBuilder().setLenient().create();
             Gson gson = new GsonBuilder()
                     .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                     .setLenient()
@@ -192,5 +193,14 @@ public class ApiClient {
 
         @GET("inquilinos/by-inmueble/{id}")
         Call<Inquilino> getInquilinosByInmueble(@Path("id") int id);
+
+        //CONTRATOS
+
+        @GET("contratos/vigentes")
+        Call<List<Contrato>> getContratosVigentes(
+                @Query("flagVigente") boolean flagVigente
+        );
+        @GET("contratos/{id}")
+        Call<Contrato> getContrato(@Path("id") int id);
     }
 }

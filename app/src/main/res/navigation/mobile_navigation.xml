@@ -58,16 +58,21 @@
         android:id="@+id/inquilinoDetalleFragment"
         android:name="com.ulp.inmobiliaria_cabrera.ui.inquilinos.InquilinoDetalleFragment"
         android:label="Detalles de Inquilinos" >
-
     </fragment>
-    <fragment
-        android:id="@+id/contractDetailsFragment"
-        android:name="com.ulp.inmobiliaria_cabrera.ui.contratos.ContratoFragment"
-        android:label="Detalles de Contrato" >
-        <action
-            android:id="@+id/action_contractDetailsFragment_to_nav_contracts"
-            app:destination="@id/nav_contracts" />
 
+    <fragment
+        android:id="@+id/nav_contratos"
+        android:name="com.ulp.inmobiliaria_cabrera.ui.contratos.ContratoFragment"
+        android:label="Contratos" >
+        <action
+            android:id="@+id/action_nav_contrato_to_nav_contratos_detalle"
+            app:destination="@id/contratoDetalleFragment" />" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/contratoDetalleFragment"
+        android:name="com.ulp.inmobiliaria_cabrera.ui.contratos.ContratoDetalleFragment"
+        android:label="Detalles de Contratos" >
     </fragment>
 
     <fragment

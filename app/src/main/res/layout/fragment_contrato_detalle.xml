@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".ui.contratos.ContratoDetalleFragment">
+
+    <!-- Título del Contrato -->
+    <TextView
+        android:id="@+id/labelContrato"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Detalles del Contrato"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- ID del Contrato -->
+    <TextView
+        android:id="@+id/labelId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Número de Contrato:"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/labelContrato" />
+
+    <EditText
+        android:id="@+id/textId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:text="00001"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/labelId" />
+
+    <!-- ID Inmueble -->
+    <TextView
+        android:id="@+id/labelDireccionInmueble"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Direccion Inmueble:"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textId" />
+
+    <EditText
+        android:id="@+id/textDireccionInmueble"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:text="10"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/labelDireccionInmueble" />
+
+    <!-- ID Inquilino -->
+    <TextView
+        android:id="@+id/labelDetalleInquilino"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Inquilino"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textDireccionInmueble" />
+
+    <EditText
+        android:id="@+id/textDetalleInquilino"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:text="10"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/labelDetalleInquilino" />
+
+    <!-- Monto de Alquiler -->
+    <TextView
+        android:id="@+id/labelMontoAlquiler"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Monto Alquiler:"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textDetalleInquilino" />
+
+    <EditText
+        android:id="@+id/textMontoAlquiler"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:text="$1000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/labelMontoAlquiler" />
+
+    <!-- Fecha Desde -->
+    <TextView
+        android:id="@+id/labelFechaDesde"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Fecha Desde:"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textMontoAlquiler" />
+
+    <EditText
+        android:id="@+id/textFechaDesde"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:text="01/01/2024"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/labelFechaDesde" />
+
+    <!-- Fecha Hasta -->
+    <TextView
+        android:id="@+id/labelFechaHasta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Fecha Hasta:"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textFechaDesde" />
+
+    <EditText
+        android:id="@+id/textFechaHasta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:text="01/03/2024"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/labelFechaHasta" />
+
+    <!-- Multa -->
+    <TextView
+        android:id="@+id/labelMulta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Multa:"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textFechaHasta" />
+
+    <EditText
+        android:id="@+id/textMulta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:text="$50"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/labelMulta" />
+
+    <!-- Fecha de Finalización Anticipada -->
+    <TextView
+        android:id="@+id/labelFechaFinalizacion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Fecha de Finalización Anticipada:"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textMulta" />
+
+    <EditText
+        android:id="@+id/textFechaFinalizacion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:text="15/02/2024"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/labelFechaFinalizacion" />
+
+    <TextView
+        android:id="@+id/labelCantidadCuotas"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Fecha de Finalización Anticipada:"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textFechaFinalizacion" />
+
+    <EditText
+        android:id="@+id/textCantidadCuotas"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:text="03/06"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/labelCantidadCuotas" />
+
+    <!-- Botón para gestionar pagos -->
+    <Button
+        android:id="@+id/buttonGestionarPagos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="?attr/colorPrimary"
+        android:text="Pagos"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textCantidadCuotas" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
