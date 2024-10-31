@@ -41,7 +41,7 @@
     <fragment
         android:id="@+id/inmuebleDetalleFragment"
         android:name="com.ulp.inmobiliaria_cabrera.ui.inmuebles.InmuebleDetalleFragment"
-        android:label="Detalles de Inmueble" >
+        android:label="Detalles del Inmueble" >
 
     </fragment>
 
@@ -57,7 +57,7 @@
     <fragment
         android:id="@+id/inquilinoDetalleFragment"
         android:name="com.ulp.inmobiliaria_cabrera.ui.inquilinos.InquilinoDetalleFragment"
-        android:label="Detalles de Inquilinos" >
+        android:label="Detalles del Inquilino" >
     </fragment>
 
     <fragment
@@ -66,13 +66,31 @@
         android:label="Contratos" >
         <action
             android:id="@+id/action_nav_contrato_to_nav_contratos_detalle"
-            app:destination="@id/contratoDetalleFragment" />" />
+            app:destination="@id/contratoDetalleFragment" />"
     </fragment>
 
     <fragment
         android:id="@+id/contratoDetalleFragment"
         android:name="com.ulp.inmobiliaria_cabrera.ui.contratos.ContratoDetalleFragment"
-        android:label="Detalles de Contratos" >
+        android:label="Detalles del Contrato" >
+        <action
+            android:id="@+id/action_nav_contratos_detalle_to_nav_pagos"
+            app:destination="@id/pagosFragment" />"
+    </fragment>
+
+    <fragment
+        android:id="@+id/pagosFragment"
+        android:name="com.ulp.inmobiliaria_cabrera.ui.contratos.pagos.PagosFragment"
+        android:label="Pagos" >
+        <action
+            android:id="@+id/action_nav_pagos_to_nav_pagos_detalle"
+            app:destination="@id/pagosDetalleFragment" />"
+    </fragment>
+
+    <fragment
+        android:id="@+id/pagosDetalleFragment"
+        android:name="com.ulp.inmobiliaria_cabrera.ui.contratos.pagos.PagosDetalleFragment"
+        android:label="Detalles del Pago" >
     </fragment>
 
     <fragment

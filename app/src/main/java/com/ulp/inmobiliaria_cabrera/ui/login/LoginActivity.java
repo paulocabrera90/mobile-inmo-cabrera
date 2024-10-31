@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +18,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.ulp.inmobiliaria_cabrera.R;
 import com.ulp.inmobiliaria_cabrera.constants.Constants;
 import com.ulp.inmobiliaria_cabrera.databinding.ActivityLoginBinding;
 
@@ -30,11 +30,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
     private LoginActivityViewModel viewModel;
-
     private SensorManager sensorManager;
     private ReadSensor readSensor;
     private List<Sensor> listaSensores;
-    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +41,13 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication())
                 .create(LoginActivityViewModel.class);
+        View loadingOverlay = binding.getRoot().findViewById(R.id.loadingOverlay);
+
 
         initViews();
         initializeSensor();
         solicitarPermisos();
+
 
         viewModel.getEstadoM().observe(this, new Observer<Boolean>() {
             @Override
@@ -57,6 +58,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        viewModel.getLoading().observe(this, isLoading -> {
+            // Cambiar la visibilidad de loadingOverlay según el estado de carga
+            loadingOverlay.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+        });
+
+
     }
 
     private void initializeSensor() {
@@ -66,11 +73,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        progressBar = binding.progressBar;
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressBar.setVisibility(View.VISIBLE);
+                binding.loadingOverlay.progressBar.setVisibility(View.VISIBLE);
                 viewModel.login(binding.email.getText().toString(), binding.contrasena.getText().toString());
             }
         });
@@ -99,6 +105,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         sensorManager.unregisterListener(readSensor);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        binding.getRoot().findViewById(R.id.loadingOverlay).setVisibility(View.GONE);
     }
 
     private void solicitarPermisos() {

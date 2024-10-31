@@ -10,6 +10,7 @@ import com.google.gson.GsonBuilder;
 import com.ulp.inmobiliaria_cabrera.models.Contrato;
 import com.ulp.inmobiliaria_cabrera.models.Inmueble;
 import com.ulp.inmobiliaria_cabrera.models.Inquilino;
+import com.ulp.inmobiliaria_cabrera.models.Pago;
 import com.ulp.inmobiliaria_cabrera.models.Propietario;
 import com.ulp.inmobiliaria_cabrera.models.TipoInmueble;
 import com.ulp.inmobiliaria_cabrera.models.TipoInmuebleUso;
@@ -202,5 +203,13 @@ public class ApiClient {
         );
         @GET("contratos/{id}")
         Call<Contrato> getContrato(@Path("id") int id);
+
+        //PAGOS
+        @GET("pagos/by-contrato/{id}")
+        Call<List<Pago>> getPagosByContrato(@Path("id") int id);
+
+        @GET("pagos/{id}")
+        Call<Pago> getPago(@Path("id") int id);
+
     }
 }

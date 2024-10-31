@@ -1,14 +1,15 @@
-package com.ulp.inmobiliaria_cabrera.ui.inmuebles;
+package com.ulp.inmobiliaria_cabrera.ui.contratos.pagos;
 
 import android.app.Application;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.ulp.inmobiliaria_cabrera.constants.Constants;
-import com.ulp.inmobiliaria_cabrera.models.Inmueble;
+import com.ulp.inmobiliaria_cabrera.models.Contrato;
+import com.ulp.inmobiliaria_cabrera.models.Pago;
 import com.ulp.inmobiliaria_cabrera.request.ApiClient;
 import com.ulp.inmobiliaria_cabrera.utils.PreferencesUtil;
 
@@ -18,46 +19,44 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class InmuebleViewModel extends AndroidViewModel {
+public class PagosViewModel extends AndroidViewModel {
 
     private ApiClient.InmobiliariaService api;
-    private MutableLiveData<List<Inmueble>> listaInmuebles;
+    private MutableLiveData<List<Pago>> listPagosLiveData;
 
-    public InmuebleViewModel(@NonNull Application application) {
+    public PagosViewModel(@NonNull Application application) {
         super(application);
         api = ApiClient.getInmobiliariaService(application.getApplicationContext());
     }
 
-    public LiveData<List<Inmueble>> getListaInmuebles(){
-        if(listaInmuebles == null){
-            listaInmuebles = new MutableLiveData<>();
+    public MutableLiveData<List<Pago>> getListPagosLiveData() {
+        if (listPagosLiveData == null) {
+            listPagosLiveData = new MutableLiveData<>();
         }
-        return listaInmuebles;
+        return listPagosLiveData;
     }
 
-    public void setListaInmuebles(int idPropeitario){
-
-        api.getInmueblesByPropietarioId(idPropeitario).enqueue(new Callback<List<Inmueble>>() {
+    public void setListPagosLiveData(int idContrato) {
+        api.getPagosByContrato(idContrato).enqueue(new Callback<List<Pago>>() {
             @Override
-            public void onResponse(Call<List<Inmueble>> call, Response<List<Inmueble>> response) {
+            public void onResponse(Call<List<Pago>> call, Response<List<Pago>> response) {
                 if (response.isSuccessful()) {
-                    listaInmuebles.setValue(response.body());
+                    listPagosLiveData.setValue(response.body());
                 } else if (response.code() == Constants.CODE_RESPONSE_UNAUTHORIZED) {
                     // Token no válido, redirige a la pantalla de login
                     Toast.makeText(getApplication(), "Sesión expirada. Inicie sesión nuevamente.", Toast.LENGTH_SHORT).show();
                     PreferencesUtil.redirectToLogin(getApplication());
                 } else {
-                    Toast.makeText(getApplication(), "Error al obtener inmuebles", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication(), "Error al obtener Pagos", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Inmueble>> call, Throwable throwable) {
+            public void onFailure(Call<List<Pago>> call, Throwable throwable) {
                 //avisoMutable.setValue("Error de conexión");
-                Toast.makeText(getApplication(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplication().getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
-
-
 }

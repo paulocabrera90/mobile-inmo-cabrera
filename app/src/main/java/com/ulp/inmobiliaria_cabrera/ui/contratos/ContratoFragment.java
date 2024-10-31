@@ -17,11 +17,7 @@ import android.view.ViewGroup;
 
 import com.ulp.inmobiliaria_cabrera.R;
 import com.ulp.inmobiliaria_cabrera.databinding.FragmentContratoBinding;
-import com.ulp.inmobiliaria_cabrera.databinding.FragmentInmuebleBinding;
 import com.ulp.inmobiliaria_cabrera.models.Contrato;
-import com.ulp.inmobiliaria_cabrera.models.Inmueble;
-import com.ulp.inmobiliaria_cabrera.ui.inmuebles.InmuebleAdapter;
-import com.ulp.inmobiliaria_cabrera.ui.inmuebles.InmuebleViewModel;
 
 import java.util.List;
 

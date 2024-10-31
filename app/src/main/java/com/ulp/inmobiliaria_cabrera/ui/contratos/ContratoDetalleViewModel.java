@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.ulp.inmobiliaria_cabrera.constants.Constants;
 import com.ulp.inmobiliaria_cabrera.models.Contrato;
 import com.ulp.inmobiliaria_cabrera.models.Inmueble;
 import com.ulp.inmobiliaria_cabrera.request.ApiClient;
@@ -44,6 +45,7 @@ public class ContratoDetalleViewModel extends AndroidViewModel {
         return contratoMutableLiveData;
     }
     public void enablePagos() { // pagos
+
         pagosEnabled.setValue(true);
     }
 
@@ -53,7 +55,7 @@ public class ContratoDetalleViewModel extends AndroidViewModel {
                 public void onResponse(Call<Contrato> call, Response<Contrato> response) {
                     if (response.isSuccessful()) {
                         contratoMutableLiveData.setValue(response.body());
-                    } else if (response.code() == 401) {
+                    } else if (response.code() == Constants.CODE_RESPONSE_UNAUTHORIZED) {
                         // Token no válido, redirige a la pantalla de login
                         Toast.makeText(getApplication(), "Sesión expirada. Inicie sesión nuevamente.", Toast.LENGTH_SHORT).show();
                         PreferencesUtil.redirectToLogin(getApplication());

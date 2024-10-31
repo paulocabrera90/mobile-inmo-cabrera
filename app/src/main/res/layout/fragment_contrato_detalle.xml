@@ -227,11 +227,12 @@
 
     <!-- Botón para gestionar pagos -->
     <Button
-        android:id="@+id/buttonGestionarPagos"
+        android:id="@+id/buttonPagos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:backgroundTint="?attr/colorPrimary"
+        android:enabled="true"
         android:text="Pagos"
         android:textColor="#FFFFFF"
         android:textSize="16sp"

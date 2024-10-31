@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +27,7 @@ public class ContratoDetalleFragment extends Fragment {
 
     private ContratoDetalleViewModel viewModel;
     private FragmentContratoDetalleBinding binding;
-private int ID_CONTRATO;
+    private int ID_CONTRATO;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -47,7 +49,7 @@ private int ID_CONTRATO;
                     binding.textFechaDesde.setText(dateFormat.format(contrato.getFechaDesde()));
                     binding.textFechaHasta.setText(dateFormat.format(contrato.getFechaHasta()));
                     binding.textCantidadCuotas.setText("0"+contrato.getCuotasPagas()+"/0"+contrato.getCantidadCuotas());
-
+                    binding.buttonPagos.setEnabled(true);
 
                     if (contrato.getMulta() != null && contrato.getMulta() > 0) {
                         binding.textMulta.setText(String.format("$%.2f", contrato.getMulta()));
@@ -66,10 +68,17 @@ private int ID_CONTRATO;
         );
 
         viewModel.getPagosEnabled().observe(getViewLifecycleOwner(), flag -> {
-            binding.buttonGestionarPagos.setEnabled(flag);
+            binding.buttonPagos.setEnabled(flag);
         });
 
-        binding.buttonGestionarPagos.setOnClickListener(view -> viewModel.enablePagos());
+        binding.buttonPagos.setOnClickListener(view -> {
+             viewModel.enablePagos();
+             Bundle bundle = new Bundle();
+             bundle.putInt("idContrato", ID_CONTRATO);
+             NavController navController = Navigation.findNavController(view);
+             navController.navigate(R.id.action_nav_contratos_detalle_to_nav_pagos, bundle);
+        });
+
         viewModel.setContratoMutableLiveData(ID_CONTRATO);
 
         return binding.getRoot();
@@ -81,8 +90,8 @@ private int ID_CONTRATO;
         binding = null;
     }
 
-    private void initConstants() {
-        ID_CONTRATO = getArguments() != null ? getArguments().getInt("idContrato") : 0;
-    }
+        private void initConstants() {
+            ID_CONTRATO = getArguments() != null ? getArguments().getInt("idContrato") : 0;
+        }
 
 }

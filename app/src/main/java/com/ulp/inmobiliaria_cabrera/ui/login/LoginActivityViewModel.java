@@ -47,6 +47,10 @@ public class LoginActivityViewModel extends AndroidViewModel {
         return estadoM;
     }
 
+    public void stopLoading() {
+        loading.setValue(false);
+    }
+
     public void login(String email, String contrasena) {
         loading.setValue(true);
        Call<LoginResponse> call = ApiClient.getInmobiliariaService(context)
@@ -63,7 +67,7 @@ public class LoginActivityViewModel extends AndroidViewModel {
                    Intent intent = new Intent(context, MainActivity.class);
                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                    intent.putExtra("isUser", true);
-
+                   //stopLoading();
                    context.startActivity(intent);
                }else {
                    Toast.makeText(getApplication(),"Datos Incorrecotes", Toast.LENGTH_SHORT).show();
@@ -72,7 +76,7 @@ public class LoginActivityViewModel extends AndroidViewModel {
 
            @Override
            public void onFailure(Call<LoginResponse> call, Throwable throwable) {
-               Toast.makeText(getApplication(),"Datos OnFailure", Toast.LENGTH_SHORT).show();
+               Toast.makeText(getApplication(),"Problemas con el servidor", Toast.LENGTH_SHORT).show();
                Log.e("Error failure", throwable.getMessage());
                loading.setValue(false);
            }

@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
                 R.id.nav_home,
                 R.id.nav_contratos,
                 R.id.nav_profile,
+                R.id.nav_contratos,
+                R.id.nav_inquilinos,
                 R.id.nav_inmuebles)
                 .setOpenableLayout(drawer)
                 .build();
@@ -69,9 +71,9 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -89,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
 
         sharedViewModel.getNombreCompleto().observe(this, headerBinding.textViewNombreNavHeader::setText);
         sharedViewModel.getEmail().observe(this, headerBinding.textViewEmailNavHeader::setText);
-     //   sharedViewModel. IMAGE
     }
 
     public void logout(MenuItem item) {
@@ -102,6 +103,24 @@ public class MainActivity extends AppCompatActivity {
                     ApiClient.eliminarToken(this.getApplicationContext());
                     startActivity(new Intent(this.getApplicationContext(), LoginActivity.class));
                     this.finish(); // Cierra la actividad actual para evitar regresar a ella
+                }).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        logout();
+    }
+
+    private AlertDialog logout() {
+        return new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_lock_idle_lock)
+                .setTitle("¿Realmente desea cerrar sesión?")
+                .setCancelable(false)
+                .setNegativeButton(android.R.string.cancel, null)
+                .setPositiveButton("Sí", (dialogInterface, i) -> {
+                    ApiClient.eliminarToken(this.getApplicationContext());
+                    startActivity(new Intent(this.getApplicationContext(), LoginActivity.class));
+                    finish(); // Finaliza MainActivity para evitar volver atrás
                 }).show();
     }
 }
