@@ -37,8 +37,9 @@ public class Inmueble implements Serializable {
                     double precio,
                     String coordenadaLon,
                     int idPropietario,
-                    boolean activo,
-                    String image) {
+                    boolean activo
+    )
+    {
         this.direccion = direccion;
         this.idTipoInmuebleUso = idTipoInmuebleUso;
         this.idTipoInmueble = idTipoInmueble;
@@ -48,7 +49,6 @@ public class Inmueble implements Serializable {
         this.coordenadaLon = coordenadaLon;
         this.idPropietario = idPropietario;
         this.activo = activo;
-        this.imageBlob = image;
         this.fechaCreacion = new Date();
         this.fechaActualizacion = new Date();
     }

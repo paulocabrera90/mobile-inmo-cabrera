@@ -174,8 +174,7 @@ public class InmuebleDetalleFragment extends Fragment {
                     Double.parseDouble(binding.editTextPrecio.getText().toString()),
                     binding.editTextLongitud.getText().toString(),
                     ID_PROPIETARIO,
-                    binding.switchActivo.isChecked(),
-                  null
+                    binding.switchActivo.isChecked()
             );
             viewModel.saveInmueble(inmueble, ID_INMUEBLE);
         });

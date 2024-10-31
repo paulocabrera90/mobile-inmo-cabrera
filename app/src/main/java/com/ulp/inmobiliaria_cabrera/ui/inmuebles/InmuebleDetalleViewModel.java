@@ -228,7 +228,7 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
                     public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
                         loading.setValue(false);
                         if (response.isSuccessful()) {
-                            inmuebleMutableLiveData.setValue(inmueble);
+                            inmuebleMutableLiveData.setValue(response.body());
                             Toast.makeText(getApplication().getApplicationContext(), "Datos guardados", Toast.LENGTH_SHORT).show();
                             editEnabled.setValue(true);
                         } else if (response.code() == Constants.CODE_RESPONSE_UNAUTHORIZED) {
