@@ -39,6 +39,7 @@ public class ContratoFragment extends Fragment {
                 .getApplication()).create(ContratoViewModel.class);
         binding = FragmentContratoBinding.inflate(inflater, container, false);
 
+        View loadingOverlay = binding.getRoot().findViewById(R.id.loadingOverlay);
         final View rootView = binding.getRoot();
 
         recyclerViewContrato = (RecyclerView) rootView.findViewById(R.id.recyclerViewContratos);
@@ -49,6 +50,11 @@ public class ContratoFragment extends Fragment {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
         recyclerViewContrato.setLayoutManager(linearLayoutManager);
+
+        viewModel.getLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            // Cambiar la visibilidad de loadingOverlay según el estado de carga
+            loadingOverlay.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+        });
 
         viewModel.getListContratosLiveData().observe(getViewLifecycleOwner(), new Observer<List<Contrato>>() {
             @Override
@@ -68,5 +74,12 @@ public class ContratoFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        binding.getRoot().findViewById(R.id.loadingOverlay).setVisibility(View.GONE);
+    }
+
 
 }

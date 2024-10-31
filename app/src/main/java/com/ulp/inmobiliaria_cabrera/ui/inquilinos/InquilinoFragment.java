@@ -45,6 +45,7 @@ public class InquilinoFragment extends Fragment {
                 .getApplication()).create(InquilinoViewModel.class);
         binding = FragmentInquilinoBinding.inflate(inflater, container, false);
 
+        View loadingOverlay = binding.getRoot().findViewById(R.id.loadingOverlay);
         final View rootView = binding.getRoot();
 
         recyclerViewInmueble = (RecyclerView) rootView.findViewById(R.id.recyclerViewInmublesContrato);
@@ -52,6 +53,11 @@ public class InquilinoFragment extends Fragment {
                 .addItemDecoration(new DividerItemDecoration(this.getContext() ,
                         DividerItemDecoration.VERTICAL)
                 );
+
+        viewModel.getLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            // Cambiar la visibilidad de loadingOverlay según el estado de carga
+            loadingOverlay.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+        });
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
         recyclerViewInmueble.setLayoutManager(linearLayoutManager);
@@ -67,6 +73,12 @@ public class InquilinoFragment extends Fragment {
         viewModel.setListInmuebleContratoMutable();
 
         return rootView;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        binding.getRoot().findViewById(R.id.loadingOverlay).setVisibility(View.GONE);
     }
 
 

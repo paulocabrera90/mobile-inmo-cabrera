@@ -37,6 +37,8 @@ public class InquilinoDetalleFragment extends Fragment {
                 .getApplication()).create(InquilinoDetalleViewModel.class);
 
         binding = FragmentInquilinoDetalleBinding.inflate(inflater, container, false);
+        View loadingOverlay = binding.getRoot().findViewById(R.id.loadingOverlay);
+
         initConstants();
 
         viewModel.getInquilinoLiveData().observe(
@@ -47,11 +49,12 @@ public class InquilinoDetalleFragment extends Fragment {
                     binding.textNombre.setText(String.valueOf(inquilino.getNombre()));
                     binding.textTelefono.setText(String.valueOf(inquilino.getTelefono()));
                     binding.textEmail.setText(String.valueOf(inquilino.getEmail()));
-
-                    // CARGO LOS SPINNER DE TIPOS DE INMUEBLE
-
                 });
 
+        viewModel.getLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            // Cambiar la visibilidad de loadingOverlay según el estado de carga
+            loadingOverlay.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+        });
 
         viewModel.setInquilinoLiveData(ID_INMUEBLE);
         return binding.getRoot();
@@ -68,6 +71,12 @@ public class InquilinoDetalleFragment extends Fragment {
         ID_INMUEBLE = getArguments() != null ? getArguments().getInt("idInmueble") : 0;
         ID_PROPIETARIO = getArguments() != null ? getArguments().getInt("idPropietario") : 0;
         FLAG_NEW_INMUEBLE = getArguments() != null ? getArguments().getBoolean("newInmueble") : false;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        binding.getRoot().findViewById(R.id.loadingOverlay).setVisibility(View.GONE);
     }
 
 }

@@ -135,4 +135,8 @@
         app:layout_constraintStart_toStartOf="@id/buttonEdit"
         app:layout_constraintEnd_toEndOf="@id/buttonEdit"
         android:layout_marginTop="8dp"/>
+
+    <include
+        android:id="@+id/loadingOverlay"
+        layout="@layout/loading_overlay" />
 </androidx.constraintlayout.widget.ConstraintLayout>

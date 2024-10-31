@@ -33,12 +33,22 @@ public class PerfilViewModel extends AndroidViewModel {
     private MutableLiveData<Boolean> editEnabled;
     private Uri uri;
     private String uriString;
-    private int ID_PROPIETARIO_LOG  ;
+    private int ID_PROPIETARIO_LOG;
+    private MutableLiveData<Boolean> loading;
 
     public PerfilViewModel(@NonNull Application application) {
         super(application);
         api = ApiClient.getInmobiliariaService(application.getApplicationContext());
         ID_PROPIETARIO_LOG = PreferencesUtil.getIdPropietario(getApplication());
+        loading = new MutableLiveData<>(false);
+    }
+
+    public LiveData<Boolean> getLoading() {
+        return loading;
+    }
+
+    public void stopLoading() {
+        loading.setValue(false);
     }
 
     public LiveData<Propietario> getCurrentUser() {
@@ -109,9 +119,11 @@ public class PerfilViewModel extends AndroidViewModel {
 
 
     public void saveChanges(Propietario p) {
+        loading.setValue(true);
         api.actualizarPropietario(p).enqueue(new Callback<Propietario>() {
             @Override
             public void onResponse(Call<Propietario> call, Response<Propietario> response) {
+                loading.setValue(false);
                 if (response.isSuccessful()) {
                     propietarioMutableLiveData.setValue(p);
                     Toast.makeText(getApplication(), "Datos guardados correctamente", Toast.LENGTH_SHORT).show();
@@ -127,6 +139,7 @@ public class PerfilViewModel extends AndroidViewModel {
             @Override
             public void onFailure(Call<Propietario> call, Throwable t) {
                 Log.e("Error failure", t.getMessage());
+                loading.setValue(false);
                 Toast.makeText(getApplication(), "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         });
@@ -157,4 +170,6 @@ public class PerfilViewModel extends AndroidViewModel {
            }
        }
     }
+
+
 }

@@ -45,5 +45,9 @@
             android:paddingTop="4dp"
             android:text="$123412"
             android:textSize="20sp" />
+        <include
+            android:id="@+id/loadingOverlay"
+            layout="@layout/loading_overlay" />
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>

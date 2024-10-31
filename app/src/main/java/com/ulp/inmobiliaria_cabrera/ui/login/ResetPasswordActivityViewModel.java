@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.ulp.inmobiliaria_cabrera.constants.Constants;
 import com.ulp.inmobiliaria_cabrera.request.ApiClient;
@@ -23,19 +25,31 @@ import retrofit2.Response;
 public class ResetPasswordActivityViewModel extends AndroidViewModel {
     private Context context;
 
+    private MutableLiveData<Boolean> loading;
+
     public ResetPasswordActivityViewModel(@NonNull Application application) {
         super(application);
         context=application.getApplicationContext();
+        loading = new MutableLiveData<>(false);
+    }
+
+    public LiveData<Boolean> getLoading() {
+        return loading;
+    }
+
+    public void stopLoading() {
+        loading.setValue(false);
     }
 
     public void resetPassword(String email) {
-
+        loading.setValue(true);
        Call<ResponseBody> call = ApiClient.getInmobiliariaService(context)
                .resetPassword(new ResetPasswordRequest(email));
 
        call.enqueue(new Callback<ResponseBody>() {
            @Override
            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+               loading.setValue(false);
                if(response.isSuccessful()) {
                    Intent intent = new Intent(context,  ValidateCodeResetActivity.class);
                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -54,6 +68,7 @@ public class ResetPasswordActivityViewModel extends AndroidViewModel {
            public void onFailure(Call<ResponseBody> call, Throwable throwable) {
                Toast.makeText(getApplication(),"Datos OnFailure", Toast.LENGTH_SHORT).show();
                Log.e("Error failure", throwable.getMessage());
+               loading.setValue(false);
            }
        });
     }

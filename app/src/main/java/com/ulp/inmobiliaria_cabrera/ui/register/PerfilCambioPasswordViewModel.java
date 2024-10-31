@@ -20,16 +20,23 @@ import retrofit2.Response;
 public class PerfilCambioPasswordViewModel extends AndroidViewModel {
     private MutableLiveData<String> statusMessage = new MutableLiveData<>();
     private MutableLiveData<Boolean> navigateBack = new MutableLiveData<>();
-
     private ApiClient.InmobiliariaService api;
     private final int ID_PROPIETARIO_LOG;
+    private MutableLiveData<Boolean> loading;
 
     public PerfilCambioPasswordViewModel(@NonNull Application application) {
         super(application);
         api = ApiClient.getInmobiliariaService(application.getApplicationContext());
         ID_PROPIETARIO_LOG = PreferencesUtil.getIdPropietario(getApplication());
+        loading = new MutableLiveData<>(false);
     }
 
+    public LiveData<Boolean> getLoading() {
+        return loading;
+    }
+    public void stopLoading() {
+        loading.setValue(false);
+    }
     public LiveData<String> getStatusMessage() {
         return statusMessage;
     }
@@ -38,6 +45,7 @@ public class PerfilCambioPasswordViewModel extends AndroidViewModel {
     }
 
     public void changePassword(String currentPassword, String newPassword, String confirmPassword) {
+        loading.setValue(true);
         ChangePasswordRequest changePasswordView =
                 new ChangePasswordRequest(ID_PROPIETARIO_LOG, currentPassword, newPassword);
 
@@ -45,6 +53,7 @@ public class PerfilCambioPasswordViewModel extends AndroidViewModel {
             api.changePassword(changePasswordView).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    loading.setValue(false);
                     if (response.isSuccessful()) {
                         statusMessage.postValue("Cambio de contraseña exitoso.");
                         navigateBack.postValue(true);
@@ -60,6 +69,7 @@ public class PerfilCambioPasswordViewModel extends AndroidViewModel {
             });
         } else {
             statusMessage.postValue("Las contraseñas no coinciden.");
+            loading.setValue(false);
         }
 
     }

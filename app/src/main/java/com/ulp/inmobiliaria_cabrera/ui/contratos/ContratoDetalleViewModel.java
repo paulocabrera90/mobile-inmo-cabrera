@@ -24,11 +24,21 @@ public class ContratoDetalleViewModel extends AndroidViewModel {
 
     private MutableLiveData<Contrato> contratoMutableLiveData;
     private MutableLiveData<Boolean> pagosEnabled;
+    private MutableLiveData<Boolean> loading;
 
     public ContratoDetalleViewModel(@NonNull Application application) {
         super(application);
         api = ApiClient.getInmobiliariaService(application.getApplicationContext());
         pagosEnabled = new MutableLiveData<>(false);
+        loading = new MutableLiveData<>(false);
+    }
+
+    public LiveData<Boolean> getLoading() {
+        return loading;
+    }
+
+    public void stopLoading() {
+        loading.setValue(false);
     }
 
     public LiveData<Boolean> getPagosEnabled() {
@@ -50,9 +60,11 @@ public class ContratoDetalleViewModel extends AndroidViewModel {
     }
 
     public void setContratoMutableLiveData(int id){
+        loading.setValue(true);
             api.getContrato(id).enqueue(new Callback<Contrato>() {
                 @Override
                 public void onResponse(Call<Contrato> call, Response<Contrato> response) {
+                    loading.setValue(false);
                     if (response.isSuccessful()) {
                         contratoMutableLiveData.setValue(response.body());
                     } else if (response.code() == Constants.CODE_RESPONSE_UNAUTHORIZED) {
@@ -66,7 +78,7 @@ public class ContratoDetalleViewModel extends AndroidViewModel {
 
                 @Override
                 public void onFailure(Call<Contrato> call, Throwable throwable) {
-                    //   avisoMutable.setValue("Error de conexión");
+                    loading.setValue(false);
                     Toast.makeText(getApplication().getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
                 }
             });

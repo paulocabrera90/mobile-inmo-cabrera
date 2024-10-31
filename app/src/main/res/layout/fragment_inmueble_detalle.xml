@@ -283,5 +283,8 @@
             app:iconSize="2dp" />
 
     </LinearLayout>
+    <include
+        android:id="@+id/loadingOverlay"
+        layout="@layout/loading_overlay" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

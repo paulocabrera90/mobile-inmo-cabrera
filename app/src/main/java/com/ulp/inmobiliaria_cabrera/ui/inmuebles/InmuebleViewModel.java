@@ -22,10 +22,16 @@ public class InmuebleViewModel extends AndroidViewModel {
 
     private ApiClient.InmobiliariaService api;
     private MutableLiveData<List<Inmueble>> listaInmuebles;
+    private MutableLiveData<Boolean> loading;
 
     public InmuebleViewModel(@NonNull Application application) {
         super(application);
         api = ApiClient.getInmobiliariaService(application.getApplicationContext());
+        loading = new MutableLiveData<>(false);
+    }
+
+    public LiveData<Boolean> getLoading() {
+        return loading;
     }
 
     public LiveData<List<Inmueble>> getListaInmuebles(){
@@ -36,10 +42,11 @@ public class InmuebleViewModel extends AndroidViewModel {
     }
 
     public void setListaInmuebles(int idPropeitario){
-
+        loading.setValue(true);
         api.getInmueblesByPropietarioId(idPropeitario).enqueue(new Callback<List<Inmueble>>() {
             @Override
             public void onResponse(Call<List<Inmueble>> call, Response<List<Inmueble>> response) {
+                loading.setValue(false);
                 if (response.isSuccessful()) {
                     listaInmuebles.setValue(response.body());
                 } else if (response.code() == Constants.CODE_RESPONSE_UNAUTHORIZED) {
@@ -53,7 +60,7 @@ public class InmuebleViewModel extends AndroidViewModel {
 
             @Override
             public void onFailure(Call<List<Inmueble>> call, Throwable throwable) {
-                //avisoMutable.setValue("Error de conexión");
+                loading.setValue(false);
                 Toast.makeText(getApplication(), "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         });

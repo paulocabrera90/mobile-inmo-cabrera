@@ -7,6 +7,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.ulp.inmobiliaria_cabrera.request.ApiClient;
 import com.ulp.inmobiliaria_cabrera.request.ResetChangePasswordRequest;
@@ -20,15 +22,26 @@ import retrofit2.Response;
 public class ResetChangePasswordActivityViewModel extends AndroidViewModel {
     private Context context;
     private ApiClient.InmobiliariaService api;
+    private MutableLiveData<Boolean> loading;
 
     public ResetChangePasswordActivityViewModel(@NonNull Application application) {
         super(application);
         context=application.getApplicationContext();
 
         api = ApiClient.getInmobiliariaService(application.getApplicationContext());
+        loading = new MutableLiveData<>(false);
+    }
+
+    public LiveData<Boolean> getLoading() {
+        return loading;
+    }
+
+    public void stopLoading() {
+        loading.setValue(false);
     }
 
     public void resetPassword(String email, String newPassword, String confirmPassword, String verificationNumber) {
+        loading.setValue(true);
         ResetChangePasswordRequest resetChangePasswordRequest =
                 new ResetChangePasswordRequest(email, newPassword, verificationNumber);
 
@@ -36,6 +49,7 @@ public class ResetChangePasswordActivityViewModel extends AndroidViewModel {
             api.renovePassword(resetChangePasswordRequest).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    loading.setValue(false);
                     if (response.isSuccessful()) {
                         Toast.makeText(context,
                                 "Cambio de contraseña exitoso.",
@@ -65,6 +79,7 @@ public class ResetChangePasswordActivityViewModel extends AndroidViewModel {
                             "Las contraseñas no coinciden.",
                             Toast.LENGTH_SHORT)
                     .show();
+            loading.setValue(false);
         }
 
     }

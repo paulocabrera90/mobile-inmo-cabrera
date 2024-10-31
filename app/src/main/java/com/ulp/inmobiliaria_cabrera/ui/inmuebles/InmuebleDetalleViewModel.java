@@ -43,16 +43,20 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
     private MutableLiveData<Boolean> editEnabled;
     private final MutableLiveData<Bitmap> selectedImgBitmap = new MutableLiveData<>();
     private MutableLiveData<Uri> uriMutableLiveData;
+    private MutableLiveData<Boolean> loading;
     private Uri uri;
     private String uriString;
 
     public InmuebleDetalleViewModel(@NonNull Application application) {
         super(application);
-
         api = ApiClient.getInmobiliariaService(application.getApplicationContext());
 
         editEnabled = new MutableLiveData<>(false);
+        loading = new MutableLiveData<>(false);
+    }
 
+    public LiveData<Boolean> getLoading() {
+        return loading;
     }
 
     public void setSelectedImgUri(Uri imageUri) {
@@ -110,10 +114,12 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
     }
 
     public void setInmueble(int idInmueble, boolean newInmueble){
+        loading.setValue(true);
         if (!newInmueble){
             api.getInmueble(idInmueble).enqueue(new Callback<Inmueble>() {
                 @Override
                 public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
+                    loading.setValue(false);
                     if (response.isSuccessful()) {
                         inmuebleMutableLiveData.setValue(response.body());
 
@@ -125,7 +131,7 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
 
                 @Override
                 public void onFailure(Call<Inmueble> call, Throwable throwable) {
-                    //   avisoMutable.setValue("Error de conexión");
+                    loading.setValue(false);
                     Toast.makeText(getApplication().getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -133,9 +139,11 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
     }
 
     public void setTipoInmueble(){
+        loading.setValue(true);
         api.getTipoInmuebles().enqueue(new Callback<List<TipoInmueble>>() {
             @Override
             public void onResponse(Call<List<TipoInmueble>> call, Response<List<TipoInmueble>> response) {
+                loading.setValue(false);
                 if (response.isSuccessful()) {
                     listTipoinmuebleMutableLiveData.setValue(response.body());
                 } else {
@@ -146,7 +154,7 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
 
             @Override
             public void onFailure(Call<List<TipoInmueble>> call, Throwable throwable) {
-                //   avisoMutable.setValue("Error de conexión");
+                loading.setValue(false);
                 Toast.makeText(getApplication().getApplicationContext(), "Error conexion", Toast.LENGTH_SHORT).show();
             }
         });
@@ -154,9 +162,11 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
     }
 
     public void setTipoInmuebleUso(){
+        loading.setValue(true);
         api.getTipoInmueblesUso().enqueue(new Callback<List<TipoInmuebleUso>>() {
             @Override
             public void onResponse(Call<List<TipoInmuebleUso>> call, Response<List<TipoInmuebleUso>> response) {
+                loading.setValue(false);
                 if (response.isSuccessful()) {
                     listTipoInmuebleUsoMutableLiveData.setValue(response.body());
                 } else {
@@ -167,7 +177,7 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
 
             @Override
             public void onFailure(Call<List<TipoInmuebleUso>> call, Throwable throwable) {
-                //   avisoMutable.setValue("Error de conexión");
+                loading.setValue(false);
                 Toast.makeText(getApplication().getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         });
@@ -175,7 +185,7 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
     }
 
     public void saveInmueble(Inmueble inmueble, int idInmueble){
-
+        loading.setValue(false);
         Gson gson = new Gson();
         String inmuebleJsonString = gson.toJson(inmueble);
         RequestBody inmuebleJsonBody =
@@ -216,6 +226,7 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
                             .enqueue(new Callback<Inmueble>() {
                     @Override
                     public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
+                        loading.setValue(false);
                         if (response.isSuccessful()) {
                             inmuebleMutableLiveData.setValue(inmueble);
                             Toast.makeText(getApplication().getApplicationContext(), "Datos guardados", Toast.LENGTH_SHORT).show();
@@ -232,6 +243,7 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
 
                     @Override
                     public void onFailure(Call<Inmueble> call, Throwable throwable) {
+                        loading.setValue(false);
                         Toast.makeText(getApplication().getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -242,6 +254,7 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
                         .enqueue(new Callback<Inmueble>() {
                     @Override
                     public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
+                        loading.setValue(false);
                         if (response.isSuccessful()) {
                             inmuebleMutableLiveData.setValue(response.body());
                             editEnabled.setValue(true);
@@ -257,12 +270,14 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
 
                     @Override
                     public void onFailure(Call<Inmueble> call, Throwable throwable) {
+                        loading.setValue(false);
                         Toast.makeText(getApplication().getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         } catch (IOException e) {
             e.printStackTrace();
+            loading.setValue(false);
             Toast.makeText(getApplication(), "Error al preparar la imagen", Toast.LENGTH_SHORT).show();
         }
 

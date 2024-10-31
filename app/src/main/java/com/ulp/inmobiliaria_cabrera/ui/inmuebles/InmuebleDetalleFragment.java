@@ -65,6 +65,8 @@ public class InmuebleDetalleFragment extends Fragment {
                 .getApplication()).create(InmuebleDetalleViewModel.class);
 
         binding = FragmentInmuebleDetalleBinding.inflate(inflater, container, false);
+
+        View loadingOverlay = binding.getRoot().findViewById(R.id.loadingOverlay);
         initConstants();
 
         setupGalleryLauncher();
@@ -98,6 +100,11 @@ public class InmuebleDetalleFragment extends Fragment {
 
         viewModel.getSelectedImgBitmap().observe(getViewLifecycleOwner(), bitmap -> {
                 binding.imageInmueble.setImageBitmap(bitmap);
+        });
+
+        viewModel.getLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            // Cambiar la visibilidad de loadingOverlay según el estado de carga
+            loadingOverlay.setVisibility(isLoading ? View.VISIBLE : View.GONE);
         });
 
         viewModel.getInmueble().observe(
@@ -239,6 +246,12 @@ public class InmuebleDetalleFragment extends Fragment {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/*");
         galleryLauncher.launch(intent);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        binding.getRoot().findViewById(R.id.loadingOverlay).setVisibility(View.GONE);
     }
 
 }

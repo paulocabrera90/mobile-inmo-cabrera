@@ -5,12 +5,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.ulp.inmobiliaria_cabrera.constants.Constants;
 import com.ulp.inmobiliaria_cabrera.models.Contrato;
-import com.ulp.inmobiliaria_cabrera.models.Inmueble;
 import com.ulp.inmobiliaria_cabrera.request.ApiClient;
 import com.ulp.inmobiliaria_cabrera.utils.PreferencesUtil;
 
@@ -25,10 +24,20 @@ public class ContratoViewModel extends AndroidViewModel {
     private static final boolean ES_VIGENTE = true;
     private ApiClient.InmobiliariaService api;
     private MutableLiveData<List<Contrato>> listContratosLiveData;
+    private MutableLiveData<Boolean> loading;
 
     public ContratoViewModel(@NonNull Application application) {
         super(application);
         api = ApiClient.getInmobiliariaService(application.getApplicationContext());
+        loading = new MutableLiveData<>(false);
+    }
+
+    public LiveData<Boolean> getLoading() {
+        return loading;
+    }
+
+    public void stopLoading() {
+        loading.setValue(false);
     }
 
     public MutableLiveData<List<Contrato>> getListContratosLiveData() {
@@ -39,9 +48,11 @@ public class ContratoViewModel extends AndroidViewModel {
     }
 
     public void setListContratosLiveData() {
+        loading.setValue(true);
         api.getContratosVigentes(ES_VIGENTE).enqueue(new Callback<List<Contrato>>() {
             @Override
             public void onResponse(Call<List<Contrato>> call, Response<List<Contrato>> response) {
+                loading.setValue(false);
                 if (response.isSuccessful()) {
                     listContratosLiveData.setValue(response.body());
                 } else if (response.code() == Constants.CODE_RESPONSE_UNAUTHORIZED) {
@@ -55,7 +66,7 @@ public class ContratoViewModel extends AndroidViewModel {
 
             @Override
             public void onFailure(Call<List<Contrato>> call, Throwable throwable) {
-                //avisoMutable.setValue("Error de conexión");
+                loading.setValue(false);
                 Toast.makeText(getApplication().getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         });

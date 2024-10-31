@@ -4,12 +4,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -69,12 +71,32 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-    }
 
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                NavController navController =
+                        Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment_content_main);
+                if (navController.getCurrentDestination() != null &&
+                        navController.getCurrentDestination().getId() == R.id.nav_home) {
+                    logout();
+                } else {
+                    navController.navigateUp();
+                }
+            }
+        });
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("STOP", "onStop: aca va el form");
+        logout();
     }
 
     @Override
@@ -106,10 +128,6 @@ public class MainActivity extends AppCompatActivity {
                 }).show();
     }
 
-    @Override
-    public void onBackPressed() {
-        logout();
-    }
 
     private AlertDialog logout() {
         return new AlertDialog.Builder(this)

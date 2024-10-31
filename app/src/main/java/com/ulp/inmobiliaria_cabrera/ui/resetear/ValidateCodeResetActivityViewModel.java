@@ -23,10 +23,20 @@ public class ValidateCodeResetActivityViewModel extends AndroidViewModel {
     private Context context;
     private MutableLiveData<String> code = new MutableLiveData<>();
     private MutableLiveData<Boolean> isCodeValid = new MutableLiveData<>(false);
+    private MutableLiveData<Boolean> loading;
 
     public ValidateCodeResetActivityViewModel(@NonNull Application application) {
         super(application);
         context=application.getApplicationContext();
+        loading = new MutableLiveData<>(false);
+    }
+
+    public LiveData<Boolean> getLoading() {
+        return loading;
+    }
+
+    public void stopLoading() {
+        loading.setValue(false);
     }
 
     public LiveData<String> getCode() {
@@ -51,6 +61,7 @@ public class ValidateCodeResetActivityViewModel extends AndroidViewModel {
     }
 
     public void resetOkPassword(String email) {
+        loading.setValue(true);
         String codeValue = code.getValue();
         Call<Boolean> call = ApiClient.getInmobiliariaService(context)
                 .validateCode(new ConfirmPasswordResetRequest(email, codeValue));
@@ -58,6 +69,7 @@ public class ValidateCodeResetActivityViewModel extends AndroidViewModel {
         call.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                loading.setValue(false);
                 if(response.isSuccessful() && response.body()) {
                     Intent intent = new Intent(context, ResetChangePasswordActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -73,7 +85,7 @@ public class ValidateCodeResetActivityViewModel extends AndroidViewModel {
             @Override
             public void onFailure(Call<Boolean> call, Throwable throwable) {
                 Toast.makeText(getApplication(),"Datos OnFailure", Toast.LENGTH_SHORT).show();
-
+                loading.setValue(false);
                 Log.e("Error failure", throwable.getMessage());
             }
         });

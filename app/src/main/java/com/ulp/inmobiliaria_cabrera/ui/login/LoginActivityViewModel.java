@@ -1,5 +1,6 @@
 package com.ulp.inmobiliaria_cabrera.ui.login;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -67,8 +68,11 @@ public class LoginActivityViewModel extends AndroidViewModel {
                    Intent intent = new Intent(context, MainActivity.class);
                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                    intent.putExtra("isUser", true);
-                   //stopLoading();
+
                    context.startActivity(intent);
+                   if (context instanceof Activity) {
+                       ((Activity) context).finish();
+                   }
                }else {
                    Toast.makeText(getApplication(),"Datos Incorrecotes", Toast.LENGTH_SHORT).show();
                }

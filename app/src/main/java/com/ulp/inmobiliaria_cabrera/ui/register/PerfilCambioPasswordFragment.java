@@ -24,7 +24,7 @@ public class PerfilCambioPasswordFragment extends Fragment {
                 .get(PerfilCambioPasswordViewModel.class);
         binding = FragmentPerfilCambioPasswordBinding
                 .inflate(inflater, container, false);
-
+        View loadingOverlay = binding.getRoot().findViewById(R.id.loadingOverlay);
         viewModel.getStatusMessage().observe(getViewLifecycleOwner(), message -> {
             Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
         });
@@ -33,6 +33,11 @@ public class PerfilCambioPasswordFragment extends Fragment {
             if (shouldNavigateBack) {
                 getActivity().getSupportFragmentManager().popBackStack();
             }
+        });
+
+        viewModel.getLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            // Cambiar la visibilidad de loadingOverlay según el estado de carga
+            loadingOverlay.setVisibility(isLoading ? View.VISIBLE : View.GONE);
         });
 
         binding.btnChangePassword.setOnClickListener(v -> {
@@ -50,6 +55,12 @@ public class PerfilCambioPasswordFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        binding.getRoot().findViewById(R.id.loadingOverlay).setVisibility(View.GONE);
     }
 
 }

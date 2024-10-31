@@ -34,8 +34,9 @@ public class ContratoDetalleFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity()
                 .getApplication()).create(ContratoDetalleViewModel.class);
-
         binding = FragmentContratoDetalleBinding.inflate(inflater, container, false);
+        View loadingOverlay = binding.getRoot().findViewById(R.id.loadingOverlay);
+
         initConstants();
 
         viewModel.getContratoLiveData().observe(
@@ -71,6 +72,11 @@ public class ContratoDetalleFragment extends Fragment {
             binding.buttonPagos.setEnabled(flag);
         });
 
+        viewModel.getLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            // Cambiar la visibilidad de loadingOverlay según el estado de carga
+            loadingOverlay.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+        });
+
         binding.buttonPagos.setOnClickListener(view -> {
              viewModel.enablePagos();
              Bundle bundle = new Bundle();
@@ -90,8 +96,14 @@ public class ContratoDetalleFragment extends Fragment {
         binding = null;
     }
 
-        private void initConstants() {
+    private void initConstants() {
             ID_CONTRATO = getArguments() != null ? getArguments().getInt("idContrato") : 0;
-        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        binding.getRoot().findViewById(R.id.loadingOverlay).setVisibility(View.GONE);
+    }
 
 }

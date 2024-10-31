@@ -27,10 +27,16 @@ public class PerfilFragment extends Fragment {
         viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity()
                 .getApplication()).create(PerfilViewModel.class);
         sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
-
         binding = FragmentPerfilBinding.inflate(inflater, container, false);
 
+        View loadingOverlay = binding.getRoot().findViewById(R.id.loadingOverlay);
+
         init();
+
+        viewModel.getLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            // Cambiar la visibilidad de loadingOverlay según el estado de carga
+            loadingOverlay.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+        });
 
         return binding.getRoot();
     }
@@ -99,4 +105,11 @@ public class PerfilFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        binding.getRoot().findViewById(R.id.loadingOverlay).setVisibility(View.GONE);
+    }
+
 }

@@ -9,9 +9,6 @@ import androidx.lifecycle.AndroidViewModel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-
-import com.ulp.inmobiliaria_cabrera.models.Propietario;
 
 public class SharedViewModel extends AndroidViewModel {
     private final MutableLiveData<String> nombreCompleto = new MutableLiveData<>();

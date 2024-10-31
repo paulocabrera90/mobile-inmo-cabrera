@@ -13,5 +13,7 @@
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp" />
-
+    <include
+        android:id="@+id/loadingOverlay"
+        layout="@layout/loading_overlay" />
 </androidx.constraintlayout.widget.ConstraintLayout>

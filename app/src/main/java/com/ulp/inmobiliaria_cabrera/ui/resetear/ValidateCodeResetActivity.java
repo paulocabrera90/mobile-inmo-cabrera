@@ -8,6 +8,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.ulp.inmobiliaria_cabrera.R;
 import com.ulp.inmobiliaria_cabrera.databinding.ActivityValidateCodeResetBinding;
 
 public class ValidateCodeResetActivity extends AppCompatActivity {
@@ -24,7 +25,7 @@ public class ValidateCodeResetActivity extends AppCompatActivity {
 
         viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication())
                 .create(ValidateCodeResetActivityViewModel.class);
-
+        View loadingOverlay = binding.getRoot().findViewById(R.id.loadingOverlay);
         email = getIntent().getStringExtra("email");
 
         binding.etCode.addTextChangedListener(new TextWatcher() {
@@ -49,6 +50,11 @@ public class ValidateCodeResetActivity extends AppCompatActivity {
             }
         });
 
+        viewModel.getLoading().observe(this, isLoading -> {
+            // Cambiar la visibilidad de loadingOverlay según el estado de carga
+            loadingOverlay.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+        });
+
         viewModel.isCodeValid().observe(this, isValid -> {
             binding.btnConfirm.setEnabled(isValid);
         });
@@ -60,4 +66,11 @@ public class ValidateCodeResetActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        binding.getRoot().findViewById(R.id.loadingOverlay).setVisibility(View.GONE);
+    }
+
 }

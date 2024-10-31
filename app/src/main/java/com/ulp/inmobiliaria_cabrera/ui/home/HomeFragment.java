@@ -41,8 +41,9 @@ public class HomeFragment extends Fragment {
         LoginActivityViewModel viewModel = new ViewModelProvider(this).get(LoginActivityViewModel.class);
         viewModel.stopLoading();
 
+        View loadingOverlay = binding.getRoot().findViewById(R.id.loadingOverlay);
         return binding.getRoot();
-      //  return inflater.inflate(R.layout.fragment_home, container, false);
+
     }
 
     @Override

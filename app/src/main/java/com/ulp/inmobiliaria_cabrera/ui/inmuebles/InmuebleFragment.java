@@ -43,6 +43,7 @@ public class InmuebleFragment extends Fragment {
                 .getApplication()).create(InmuebleViewModel.class);
         binding = FragmentInmuebleBinding.inflate(inflater, container, false);
 
+        View loadingOverlay = binding.getRoot().findViewById(R.id.loadingOverlay);
         final View rootView = binding.getRoot();
 
         recyclerViewInmueble = (RecyclerView) rootView.findViewById(R.id.recyclerViewInmuebles);
@@ -50,6 +51,11 @@ public class InmuebleFragment extends Fragment {
                 .addItemDecoration(new DividerItemDecoration(this.getContext() ,
                         DividerItemDecoration.VERTICAL)
                 );
+
+        viewModel.getLoading().observe(getViewLifecycleOwner() , isLoading -> {
+            // Cambiar la visibilidad de loadingOverlay según el estado de carga
+            loadingOverlay.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+        });
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
         recyclerViewInmueble.setLayoutManager(linearLayoutManager);
@@ -80,4 +86,11 @@ public class InmuebleFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        binding.getRoot().findViewById(R.id.loadingOverlay).setVisibility(View.GONE);
+    }
+
 }
