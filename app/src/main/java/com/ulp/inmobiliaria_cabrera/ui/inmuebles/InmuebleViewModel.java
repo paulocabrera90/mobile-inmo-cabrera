@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.ulp.inmobiliaria_cabrera.models.Inmueble;
 import com.ulp.inmobiliaria_cabrera.request.ApiClient;
+import com.ulp.inmobiliaria_cabrera.utils.PreferencesUtil;
 
 import java.util.List;
 
@@ -38,20 +39,23 @@ public class InmuebleViewModel extends AndroidViewModel {
             @Override
             public void onResponse(Call<List<Inmueble>> call, Response<List<Inmueble>> response) {
                 if (response.isSuccessful()) {
-                    //propietarioMutableLiveData.setValue(response.body());
-                    //  Toast.makeText(getApplication().getApplicationContext(), "Inmuebles cargados", Toast.LENGTH_SHORT).show();
                     listaInmuebles.setValue(response.body());
+                } else if (response.code() == 401) {
+                    // Token no válido, redirige a la pantalla de login
+                    Toast.makeText(getApplication(), "Sesión expirada. Inicie sesión nuevamente.", Toast.LENGTH_SHORT).show();
+                    PreferencesUtil.redirectToLogin(getApplication());
                 } else {
-                    //avisoMutable.setValue("Error al obtener el propietario");
-                    Toast.makeText(getApplication().getApplicationContext(), "Error al obtener inmuebles", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication(), "Error al obtener inmuebles", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Inmueble>> call, Throwable throwable) {
                 //avisoMutable.setValue("Error de conexión");
-                Toast.makeText(getApplication().getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplication(), "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+
 }

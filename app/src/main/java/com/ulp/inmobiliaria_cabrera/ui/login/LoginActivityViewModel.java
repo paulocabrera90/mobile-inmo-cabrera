@@ -29,10 +29,15 @@ public class LoginActivityViewModel extends AndroidViewModel {
     private Context context;
     private int activador = 0;
     private MutableLiveData<Boolean> estadoM;
+    private MutableLiveData<Boolean> loading;
 
     public LoginActivityViewModel(@NonNull Application application) {
         super(application);
         context=application.getApplicationContext();
+        loading = new MutableLiveData<>(false);
+    }
+    public LiveData<Boolean> getLoading() {
+        return loading;
     }
 
     public LiveData<Boolean> getEstadoM() {
@@ -43,13 +48,14 @@ public class LoginActivityViewModel extends AndroidViewModel {
     }
 
     public void login(String email, String contrasena) {
-
+        loading.setValue(true);
        Call<LoginResponse> call = ApiClient.getInmobiliariaService(context)
                .login(new LoginRequest(email, contrasena));
 
        call.enqueue(new Callback<LoginResponse>() {
            @Override
            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+               loading.setValue(false);
                if(response.isSuccessful()) {
                    Log.d("Salida token", response.body().tokenSession);
                    ApiClient.guardarToken(context, response.body());
@@ -57,6 +63,7 @@ public class LoginActivityViewModel extends AndroidViewModel {
                    Intent intent = new Intent(context, MainActivity.class);
                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                    intent.putExtra("isUser", true);
+
                    context.startActivity(intent);
                }else {
                    Toast.makeText(getApplication(),"Datos Incorrecotes", Toast.LENGTH_SHORT).show();
@@ -67,6 +74,7 @@ public class LoginActivityViewModel extends AndroidViewModel {
            public void onFailure(Call<LoginResponse> call, Throwable throwable) {
                Toast.makeText(getApplication(),"Datos OnFailure", Toast.LENGTH_SHORT).show();
                Log.e("Error failure", throwable.getMessage());
+               loading.setValue(false);
            }
        });
     }

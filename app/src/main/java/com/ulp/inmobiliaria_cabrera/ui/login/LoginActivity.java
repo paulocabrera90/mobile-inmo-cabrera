@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     private SensorManager sensorManager;
     private ReadSensor readSensor;
     private List<Sensor> listaSensores;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +66,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+        progressBar = binding.progressBar;
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressBar.setVisibility(View.VISIBLE);
                 viewModel.login(binding.email.getText().toString(), binding.contrasena.getText().toString());
             }
         });

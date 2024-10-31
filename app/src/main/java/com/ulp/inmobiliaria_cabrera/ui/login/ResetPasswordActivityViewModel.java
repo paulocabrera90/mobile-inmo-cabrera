@@ -12,6 +12,7 @@ import androidx.lifecycle.AndroidViewModel;
 import com.ulp.inmobiliaria_cabrera.request.ApiClient;
 import com.ulp.inmobiliaria_cabrera.request.ResetPasswordRequest;
 import com.ulp.inmobiliaria_cabrera.ui.resetear.ValidateCodeResetActivity;
+import com.ulp.inmobiliaria_cabrera.utils.PreferencesUtil;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -39,8 +40,12 @@ public class ResetPasswordActivityViewModel extends AndroidViewModel {
                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                    intent.putExtra("email", email);
                    context.startActivity(intent);
-               }else {
-                   Toast.makeText(getApplication(),"Datos Incorrectos para resetear.", Toast.LENGTH_SHORT).show();
+               }else if (response.code() == 401) {
+                   // Token no válido, redirige a la pantalla de login
+                   Toast.makeText(getApplication(), "Sesión expirada. Inicie sesión nuevamente.", Toast.LENGTH_SHORT).show();
+                   PreferencesUtil.redirectToLogin(getApplication());
+               } else {
+                   Toast.makeText(getApplication(), "Error al obtener respuesta resetear password", Toast.LENGTH_SHORT).show();
                }
            }
 

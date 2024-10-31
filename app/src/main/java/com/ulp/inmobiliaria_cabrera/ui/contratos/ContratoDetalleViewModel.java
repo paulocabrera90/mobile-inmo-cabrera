@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModel;
 import com.ulp.inmobiliaria_cabrera.models.Contrato;
 import com.ulp.inmobiliaria_cabrera.models.Inmueble;
 import com.ulp.inmobiliaria_cabrera.request.ApiClient;
+import com.ulp.inmobiliaria_cabrera.utils.PreferencesUtil;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,8 +53,12 @@ public class ContratoDetalleViewModel extends AndroidViewModel {
                 public void onResponse(Call<Contrato> call, Response<Contrato> response) {
                     if (response.isSuccessful()) {
                         contratoMutableLiveData.setValue(response.body());
+                    } else if (response.code() == 401) {
+                        // Token no válido, redirige a la pantalla de login
+                        Toast.makeText(getApplication(), "Sesión expirada. Inicie sesión nuevamente.", Toast.LENGTH_SHORT).show();
+                        PreferencesUtil.redirectToLogin(getApplication());
                     } else {
-                        Toast.makeText(getApplication().getApplicationContext(), "Error al obtener inmuebles", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplication(), "Error al obtener Contrato", Toast.LENGTH_SHORT).show();
                     }
                 }
 
