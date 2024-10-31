@@ -33,7 +33,6 @@ public class InquilinoFragment extends Fragment {
     private FragmentInquilinoBinding binding;
     private RecyclerView recyclerViewInmueble;
     private InmuebleInquilinoAdapter inmuebleAdapter;
-
     private int ID_PROPIETARIO_LOG;
 
     @Override

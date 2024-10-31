@@ -16,10 +16,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.gson.Gson;
+import com.ulp.inmobiliaria_cabrera.constants.Constants;
 import com.ulp.inmobiliaria_cabrera.models.Inmueble;
 import com.ulp.inmobiliaria_cabrera.models.TipoInmueble;
 import com.ulp.inmobiliaria_cabrera.models.TipoInmuebleUso;
 import com.ulp.inmobiliaria_cabrera.request.ApiClient;
+import com.ulp.inmobiliaria_cabrera.utils.PreferencesUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -218,10 +220,12 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
                             inmuebleMutableLiveData.setValue(inmueble);
                             Toast.makeText(getApplication().getApplicationContext(), "Datos guardados", Toast.LENGTH_SHORT).show();
                             editEnabled.setValue(true);
+                        } else if (response.code() == Constants.CODE_RESPONSE_UNAUTHORIZED) {
+                            // Token no válido, redirige a la pantalla de login
+                            Toast.makeText(getApplication(), "Sesión expirada. Inicie sesión nuevamente.", Toast.LENGTH_SHORT).show();
+                            PreferencesUtil.redirectToLogin(getApplication());
                         } else {
-                            Log.d("InmuebleDetalleViewModle", "Error al guardar los datos: " + call.request().body());
-                            //avisoMutable.setValue("Error al guardar los datos");
-                            Toast.makeText(getApplication().getApplicationContext(), "Error al guardar los datos", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplication(), "Error al obtener inmueble", Toast.LENGTH_SHORT).show();
                             editEnabled.setValue(false);
                         }
                     }
@@ -241,9 +245,12 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
                         if (response.isSuccessful()) {
                             inmuebleMutableLiveData.setValue(response.body());
                             editEnabled.setValue(true);
+                        }else if (response.code() == Constants.CODE_RESPONSE_UNAUTHORIZED) {
+                            // Token no válido, redirige a la pantalla de login
+                            Toast.makeText(getApplication(), "Sesión expirada. Inicie sesión nuevamente.", Toast.LENGTH_SHORT).show();
+                            PreferencesUtil.redirectToLogin(getApplication());
                         } else {
-                            Log.d("InmuebleDetalleViewModle", "Error al 'guardar los datos: " + call.request().body());
-                            Toast.makeText(getApplication().getApplicationContext(), "Error al guardar los datos", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplication(), "Error al obtener inmueble", Toast.LENGTH_SHORT).show();
                             editEnabled.setValue(false);
                         }
                     }

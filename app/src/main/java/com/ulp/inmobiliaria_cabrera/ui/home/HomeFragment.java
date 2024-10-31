@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -24,6 +25,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.ulp.inmobiliaria_cabrera.R;
 import com.ulp.inmobiliaria_cabrera.databinding.FragmentHomeBinding;
+import com.ulp.inmobiliaria_cabrera.ui.login.LoginActivityViewModel;
 
 public class HomeFragment extends Fragment {
 
@@ -35,6 +37,9 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+
+        LoginActivityViewModel viewModel = new ViewModelProvider(this).get(LoginActivityViewModel.class);
+        viewModel.stopLoading();
 
         return binding.getRoot();
       //  return inflater.inflate(R.layout.fragment_home, container, false);

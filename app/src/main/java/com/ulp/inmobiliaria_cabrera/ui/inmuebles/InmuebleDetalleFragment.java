@@ -202,6 +202,7 @@ public class InmuebleDetalleFragment extends Fragment {
         binding.spinnerTipoInmuebleUso.setEnabled(flag);
         binding.switchActivo.setEnabled(flag);
         binding.imageInmueble.setEnabled(flag);
+        binding.buttonAddImage.setEnabled(flag);
 
         binding.buttonEdit.setEnabled(!flag);
         binding.buttonSave.setEnabled(flag);

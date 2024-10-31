@@ -44,11 +44,11 @@ public class InmuebleAdapter extends RecyclerView.Adapter<InmuebleAdapter.ViewHo
         //defino lo q va adentro del card
         final Inmueble inmueble = listaInmueble.get(position);
         holder.binding.textDireccion
-                .setText("Dirección: " + String.valueOf(listaInmueble.get(position).getNombreInmueble()));
+                .setText("Dirección: " + String.valueOf(inmueble.getNombreInmueble()));
         holder.binding.textHabilitado
-                .setText("Estado: " + String.valueOf(listaInmueble.get(position).isActivo()?"Activo":"Inactivo"));
+                .setText("Estado: " + String.valueOf(inmueble.isActivo()?"Activo":"Inactivo"));
         holder.binding.textPrecio
-                .setText("Precio: $" + String.valueOf(listaInmueble.get(position).getPrecio()));
+                .setText("Precio: $" + String.format("$%.2f", inmueble.getPrecio()));
 
         int backgroundColor = inmueble.isActivo() ? Color.DKGRAY : Color.GRAY;
         holder.binding.cardViewInmueble.setCardBackgroundColor(backgroundColor);

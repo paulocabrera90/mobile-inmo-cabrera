@@ -23,6 +23,6 @@ public class Constants {
     public static final String PREFS_NAME = "token_prefs";
     public static final String KEY_ID = "id";
 
-
+    public static final int CODE_RESPONSE_UNAUTHORIZED = 401;
     public static final String NUMERO_INMO = "2664745225";
 }

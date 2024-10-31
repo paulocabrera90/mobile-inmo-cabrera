@@ -18,6 +18,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.ulp.inmobiliaria_cabrera.R;
 import com.ulp.inmobiliaria_cabrera.constants.Constants;
 import com.ulp.inmobiliaria_cabrera.databinding.ActivityLoginBinding;
 
@@ -29,7 +30,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
     private LoginActivityViewModel viewModel;
-
     private SensorManager sensorManager;
     private ReadSensor readSensor;
     private List<Sensor> listaSensores;
@@ -41,10 +41,13 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication())
                 .create(LoginActivityViewModel.class);
+        View loadingOverlay = binding.getRoot().findViewById(R.id.loadingOverlay);
+
 
         initViews();
         initializeSensor();
         solicitarPermisos();
+
 
         viewModel.getEstadoM().observe(this, new Observer<Boolean>() {
             @Override
@@ -54,6 +57,12 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Llamando Inmobiliaria "+ Constants.INMOBILIARIA_CABRERA_NAME, Toast.LENGTH_LONG).show();
             }
         });
+
+        viewModel.getLoading().observe(this, isLoading -> {
+            // Cambiar la visibilidad de loadingOverlay según el estado de carga
+            loadingOverlay.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+        });
+
 
     }
 
@@ -67,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                binding.loadingOverlay.progressBar.setVisibility(View.VISIBLE);
                 viewModel.login(binding.email.getText().toString(), binding.contrasena.getText().toString());
             }
         });
@@ -95,6 +105,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         sensorManager.unregisterListener(readSensor);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        binding.getRoot().findViewById(R.id.loadingOverlay).setVisibility(View.GONE);
     }
 
     private void solicitarPermisos() {
