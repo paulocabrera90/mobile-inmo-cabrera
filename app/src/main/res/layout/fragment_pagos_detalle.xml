@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.inquilinos.InquilinoDetalleFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/labelDetallePago"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Detalle del Pago:"
+            android:layout_marginBottom="10dp"
+            android:textStyle="bold"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/labelConrato"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Contrato Nro:"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/labelDetallePago"/>
+
+        <EditText
+            android:enabled="false"
+            android:id="@+id/text_Contrato"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/labelConrato" />
+
+        <TextView
+            android:id="@+id/labelNumeroPago"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Nro Pago:"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_Contrato" />
+
+        <EditText
+            android:enabled="false"
+            android:id="@+id/text_NumeroPago"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/labelNumeroPago" />
+
+        <TextView
+            android:id="@+id/labelFechaPago"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Fecha:Hora de Pago:"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_NumeroPago" />
+
+        <EditText
+            android:enabled="false"
+            android:id="@+id/text_fechaPago"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/labelFechaPago" />
+
+        <TextView
+            android:id="@+id/labelDetalle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Detalle:"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_fechaPago" />
+
+        <EditText
+            android:enabled="false"
+            android:id="@+id/text_detalle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/labelDetalle" />
+
+        <TextView
+            android:id="@+id/labelImporte"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Importe:"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_detalle" />
+
+        <EditText
+            android:enabled="false"
+            android:id="@+id/text_importe"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/labelImporte" />
+
+        <TextView
+            android:id="@+id/labelInquilino"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Inquilino:"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_importe" />
+
+        <EditText
+            android:enabled="false"
+            android:id="@+id/text_inquilino"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/labelInquilino" />
+
+        <TextView
+            android:id="@+id/labelEstado"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Estado:"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_inquilino" />
+
+        <EditText
+            android:enabled="false"
+            android:id="@+id/text_estado"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/labelEstado" />
+
+        <TextView
+            android:id="@+id/labelFecahAnul"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Fec Anulacion:"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_estado" />
+
+        <EditText
+            android:enabled="false"
+            android:id="@+id/text_fec_anulacion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/labelFecahAnul" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
