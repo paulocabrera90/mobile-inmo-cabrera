@@ -109,7 +109,7 @@ public class InmuebleDetalleFragment extends Fragment {
 
         viewModel.getInmueble().observe(
                 getViewLifecycleOwner(), inmueble  -> {
-                    binding.editTextDireccion.setText(inmueble.getNombreInmueble());
+                    binding.editTextDireccion.setText(inmueble.getDireccion());
                     binding.editTextAmbientes.setText(String.valueOf(inmueble.getAmbientes()));
                     binding.editTextPrecio.setText(String.valueOf(inmueble.getPrecio()));
                     binding.editTextLatitud.setText(inmueble.getCoordenadaLat());

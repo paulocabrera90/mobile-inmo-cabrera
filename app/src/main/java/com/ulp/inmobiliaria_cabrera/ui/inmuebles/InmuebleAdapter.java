@@ -44,7 +44,7 @@ public class InmuebleAdapter extends RecyclerView.Adapter<InmuebleAdapter.ViewHo
         //defino lo q va adentro del card
         final Inmueble inmueble = listaInmueble.get(position);
         holder.binding.textDireccion
-                .setText("Dirección: " + String.valueOf(inmueble.getNombreInmueble()));
+                .setText("Dirección: " + String.valueOf(inmueble.getDireccion()));
         holder.binding.textHabilitado
                 .setText("Estado: " + String.valueOf(inmueble.isActivo()?"Activo":"Inactivo"));
         holder.binding.textPrecio
