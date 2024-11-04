@@ -62,6 +62,13 @@ public class InquilinoFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
         recyclerViewInmueble.setLayoutManager(linearLayoutManager);
 
+        viewModel.getAvisoInquilinoData().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                binding.tvAvisoEmptyList.setVisibility(aBoolean ? View.VISIBLE : View.GONE);
+            }
+        });
+
         viewModel.getListInmuebleContratoMutable().observe(getViewLifecycleOwner(), new Observer<List<Inmueble>>() {
             @Override
             public void onChanged(List<Inmueble> inmueblesContrato) {
@@ -71,7 +78,6 @@ public class InquilinoFragment extends Fragment {
         });
 
         viewModel.setListInmuebleContratoMutable();
-
         return rootView;
     }
 

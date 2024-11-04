@@ -56,6 +56,13 @@ public class ContratoFragment extends Fragment {
             loadingOverlay.setVisibility(isLoading ? View.VISIBLE : View.GONE);
         });
 
+        viewModel.getAvisoListContrato().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                binding.tvAvisoEmptyList.setVisibility(aBoolean ? View.VISIBLE : View.GONE);
+            }
+        });
+
         viewModel.getListContratosLiveData().observe(getViewLifecycleOwner(), new Observer<List<Contrato>>() {
             @Override
             public void onChanged(List<Contrato> contratos) {

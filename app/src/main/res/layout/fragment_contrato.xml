@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.contratos.ContratoFragment">
+
+    <TextView
+        android:id="@+id/tvAvisoEmptyList"
+        android:layout_width="237dp"
+        android:layout_height="132dp"
+        android:text="No posee Contratos en el listado."
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerViewContratos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/recyclerViewContratos"
+        tools:ignore="MissingConstraints" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewContratos"
@@ -14,4 +30,4 @@
     <include
         android:id="@+id/loadingOverlay"
         layout="@layout/loading_overlay" />
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

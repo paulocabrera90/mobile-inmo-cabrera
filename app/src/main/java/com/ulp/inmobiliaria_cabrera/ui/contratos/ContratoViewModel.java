@@ -25,11 +25,17 @@ public class ContratoViewModel extends AndroidViewModel {
     private ApiClient.InmobiliariaService api;
     private MutableLiveData<List<Contrato>> listContratosLiveData;
     private MutableLiveData<Boolean> loading;
+    private MutableLiveData<Boolean> avisoListIContrato;
 
     public ContratoViewModel(@NonNull Application application) {
         super(application);
         api = ApiClient.getInmobiliariaService(application.getApplicationContext());
         loading = new MutableLiveData<>(false);
+        avisoListIContrato = new MutableLiveData<>(true);
+    }
+
+    public LiveData<Boolean> getAvisoListContrato() {
+        return avisoListIContrato;
     }
 
     public LiveData<Boolean> getLoading() {
@@ -55,11 +61,14 @@ public class ContratoViewModel extends AndroidViewModel {
                 loading.setValue(false);
                 if (response.isSuccessful()) {
                     listContratosLiveData.setValue(response.body());
+                    avisoListIContrato.setValue(response.body().isEmpty());
                 } else if (response.code() == Constants.CODE_RESPONSE_UNAUTHORIZED) {
                     // Token no válido, redirige a la pantalla de login
                     Toast.makeText(getApplication(), "Sesión expirada. Inicie sesión nuevamente.", Toast.LENGTH_SHORT).show();
                     PreferencesUtil.redirectToLogin(getApplication());
+                    avisoListIContrato.setValue(true);
                 } else {
+                    avisoListIContrato.setValue(true);
                     Toast.makeText(getApplication(), "Error al obtener Contratos", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -67,6 +76,7 @@ public class ContratoViewModel extends AndroidViewModel {
             @Override
             public void onFailure(Call<List<Contrato>> call, Throwable throwable) {
                 loading.setValue(false);
+                avisoListIContrato.setValue(true);
                 Toast.makeText(getApplication().getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         });

@@ -24,11 +24,13 @@ public class InquilinoViewModel extends AndroidViewModel {
     private ApiClient.InmobiliariaService api;
     private MutableLiveData<List<Inmueble>> listInmuebleContratoMutable;
     private MutableLiveData<Boolean> loading;
+    private MutableLiveData<Boolean> avisoListInquilino;
 
     public InquilinoViewModel(@NonNull Application application) {
         super(application);
         api = ApiClient.getInmobiliariaService(application.getApplicationContext());
         loading = new MutableLiveData<>(false);
+        avisoListInquilino = new MutableLiveData<>(true);
     }
 
     public LiveData<Boolean> getLoading() {
@@ -46,6 +48,11 @@ public class InquilinoViewModel extends AndroidViewModel {
         return listInmuebleContratoMutable;
     }
 
+    public LiveData<Boolean> getAvisoInquilinoData() {
+        return avisoListInquilino;
+    }
+
+
     public void setListInmuebleContratoMutable() {
         loading.setValue(true);
         api.getInmueblesByPropietarioIdWithContracts().enqueue(new Callback<List<Inmueble>>() {
@@ -53,17 +60,19 @@ public class InquilinoViewModel extends AndroidViewModel {
             public void onResponse(Call<List<Inmueble>> call, Response<List<Inmueble>> response) {
                 loading.setValue(false);
                 if (response.isSuccessful()) {
-                    //propietarioMutableLiveData.setValue(response.body());
-                      listInmuebleContratoMutable.setValue(response.body());
+                    listInmuebleContratoMutable.setValue(response.body());
+                    avisoListInquilino.setValue(response.body().isEmpty());
                 } else {
-                    //avisoMutable.setValue("Error al obtener el propietario");
                     Toast.makeText(getApplication().getApplicationContext(), "Error al obtener Inquilinos", Toast.LENGTH_SHORT).show();
+
+                    avisoListInquilino.setValue(true);
                 }
             }
 
             @Override
             public void onFailure(Call<List<Inmueble>> call, Throwable throwable) {
                 loading.setValue(false);
+                avisoListInquilino.setValue(true);
                 Toast.makeText(getApplication().getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         });

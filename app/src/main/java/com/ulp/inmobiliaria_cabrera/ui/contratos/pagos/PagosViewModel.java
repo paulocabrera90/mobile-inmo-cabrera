@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.ulp.inmobiliaria_cabrera.constants.Constants;
@@ -23,10 +24,16 @@ public class PagosViewModel extends AndroidViewModel {
 
     private ApiClient.InmobiliariaService api;
     private MutableLiveData<List<Pago>> listPagosLiveData;
+    private MutableLiveData<Boolean> avisoListPago;
 
     public PagosViewModel(@NonNull Application application) {
         super(application);
         api = ApiClient.getInmobiliariaService(application.getApplicationContext());
+        avisoListPago = new MutableLiveData<>(true);
+    }
+
+    public LiveData<Boolean> getAvisoListPago() {
+        return avisoListPago;
     }
 
     public MutableLiveData<List<Pago>> getListPagosLiveData() {
@@ -42,18 +49,21 @@ public class PagosViewModel extends AndroidViewModel {
             public void onResponse(Call<List<Pago>> call, Response<List<Pago>> response) {
                 if (response.isSuccessful()) {
                     listPagosLiveData.setValue(response.body());
+                    avisoListPago.setValue(response.body().isEmpty());
                 } else if (response.code() == Constants.CODE_RESPONSE_UNAUTHORIZED) {
                     // Token no válido, redirige a la pantalla de login
                     Toast.makeText(getApplication(), "Sesión expirada. Inicie sesión nuevamente.", Toast.LENGTH_SHORT).show();
                     PreferencesUtil.redirectToLogin(getApplication());
+                    avisoListPago.setValue(true);
                 } else {
+                    avisoListPago.setValue(true);
                     Toast.makeText(getApplication(), "Error al obtener Pagos", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Pago>> call, Throwable throwable) {
-                //avisoMutable.setValue("Error de conexión");
+                avisoListPago.setValue(true);
                 Toast.makeText(getApplication().getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         });

@@ -7,6 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".ui.contratos.pagos.PagosFragment">
 
+    <TextView
+        android:id="@+id/tvAvisoEmptyList"
+        android:layout_width="237dp"
+        android:layout_height="132dp"
+        android:text="@string/no_poasee_ningun_inmueble_registrado"
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerViewPagos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/recyclerViewPagos"
+        tools:ignore="MissingConstraints" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewPagos"
         android:layout_width="match_parent"

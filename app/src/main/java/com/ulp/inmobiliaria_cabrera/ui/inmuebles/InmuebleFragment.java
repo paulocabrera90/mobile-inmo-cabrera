@@ -84,7 +84,6 @@ public class InmuebleFragment extends Fragment {
         });
 
         viewModel.setListaInmuebles(ID_PROPIETARIO_LOG);
-        viewModel.setAvisoListInmueble();
 
         return rootView;
     }

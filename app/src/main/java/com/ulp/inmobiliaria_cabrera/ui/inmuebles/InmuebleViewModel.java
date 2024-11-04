@@ -29,6 +29,11 @@ public class InmuebleViewModel extends AndroidViewModel {
         super(application);
         api = ApiClient.getInmobiliariaService(application.getApplicationContext());
         loading = new MutableLiveData<>(false);
+        avisoListInmueble = new MutableLiveData<>(true);
+    }
+
+    public LiveData<Boolean> getAvisoListInmueble() {
+        return avisoListInmueble;
     }
 
     public LiveData<Boolean> getLoading() {
@@ -42,21 +47,6 @@ public class InmuebleViewModel extends AndroidViewModel {
         return listaInmuebles;
     }
 
-    public LiveData<Boolean> getAvisoListInmueble() {
-        if(avisoListInmueble == null){
-            avisoListInmueble = new MutableLiveData<>();
-        }
-        return avisoListInmueble;
-    }
-
-    public void setAvisoListInmueble(){
-        if(listaInmuebles.getValue() == null || listaInmuebles.getValue().isEmpty()){
-            avisoListInmueble.setValue(true);
-            return;
-        }
-        avisoListInmueble.setValue(false);
-    }
-
     public void setListaInmuebles(int idPropeitario){
         loading.setValue(true);
         api.getInmueblesByPropietarioId(idPropeitario).enqueue(new Callback<List<Inmueble>>() {
@@ -65,18 +55,22 @@ public class InmuebleViewModel extends AndroidViewModel {
                 loading.setValue(false);
                 if (response.isSuccessful()) {
                     listaInmuebles.setValue(response.body());
+                    avisoListInmueble.setValue(response.body().isEmpty());
                 } else if (response.code() == Constants.CODE_RESPONSE_UNAUTHORIZED) {
                     // Token no válido, redirige a la pantalla de login
                     Toast.makeText(getApplication(), "Sesión expirada. Inicie sesión nuevamente.", Toast.LENGTH_SHORT).show();
                     PreferencesUtil.redirectToLogin(getApplication());
+                    avisoListInmueble.setValue(true);
                 } else {
                     Toast.makeText(getApplication(), "Error al obtener inmuebles", Toast.LENGTH_SHORT).show();
+                    avisoListInmueble.setValue(true);
                 }
             }
 
             @Override
             public void onFailure(Call<List<Inmueble>> call, Throwable throwable) {
                 loading.setValue(false);
+                avisoListInmueble.setValue(true);
                 Toast.makeText(getApplication(), "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         });

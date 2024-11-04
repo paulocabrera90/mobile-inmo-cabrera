@@ -7,6 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".ui.inquilinos.InquilinoFragment">
 
+    <TextView
+        android:id="@+id/tvAvisoEmptyList"
+        android:layout_width="237dp"
+        android:layout_height="132dp"
+        android:text="No hay ningun Inquilino registrado."
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerViewInmublesContrato"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/recyclerViewInmublesContrato"
+        tools:ignore="MissingConstraints" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewInmublesContrato"
         android:layout_width="match_parent"
