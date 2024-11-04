@@ -4,11 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,7 +16,6 @@ import com.ulp.inmobiliaria_cabrera.MainActivity;
 import com.ulp.inmobiliaria_cabrera.request.ApiClient;
 import com.ulp.inmobiliaria_cabrera.request.LoginRequest;
 import com.ulp.inmobiliaria_cabrera.request.response.LoginResponse;
-import com.ulp.inmobiliaria_cabrera.ui.register.PerfilFragment;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -88,7 +83,6 @@ public class LoginActivityViewModel extends AndroidViewModel {
     }
 
     public void sensorG(float movi){
-        //Log.d("Salida sensor", String.valueOf(movi));
         if(movi > 8 || movi < -12){
             activador++;
         }

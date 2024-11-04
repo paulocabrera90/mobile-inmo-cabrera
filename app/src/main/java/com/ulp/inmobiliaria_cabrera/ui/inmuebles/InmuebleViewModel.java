@@ -23,6 +23,7 @@ public class InmuebleViewModel extends AndroidViewModel {
     private ApiClient.InmobiliariaService api;
     private MutableLiveData<List<Inmueble>> listaInmuebles;
     private MutableLiveData<Boolean> loading;
+    private MutableLiveData<Boolean> avisoListInmueble;
 
     public InmuebleViewModel(@NonNull Application application) {
         super(application);
@@ -39,6 +40,21 @@ public class InmuebleViewModel extends AndroidViewModel {
             listaInmuebles = new MutableLiveData<>();
         }
         return listaInmuebles;
+    }
+
+    public LiveData<Boolean> getAvisoListInmueble() {
+        if(avisoListInmueble == null){
+            avisoListInmueble = new MutableLiveData<>();
+        }
+        return avisoListInmueble;
+    }
+
+    public void setAvisoListInmueble(){
+        if(listaInmuebles.getValue() == null || listaInmuebles.getValue().isEmpty()){
+            avisoListInmueble.setValue(true);
+            return;
+        }
+        avisoListInmueble.setValue(false);
     }
 
     public void setListaInmuebles(int idPropeitario){

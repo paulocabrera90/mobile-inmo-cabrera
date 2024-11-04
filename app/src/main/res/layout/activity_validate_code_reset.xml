@@ -44,4 +44,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
+    <include
+        android:id="@+id/loadingOverlay"
+        layout="@layout/loading_overlay" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

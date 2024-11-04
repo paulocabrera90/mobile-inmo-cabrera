@@ -107,5 +107,6 @@
     </string>
     <string name="menu_inquilinos">Inquilinos</string>
     <string name="nav_inmuebles">Inmuebles</string>
+    <string name="no_poasee_ningun_inmueble_registrado">No posee ningun inmueble registrado.</string>
 
 </resources>

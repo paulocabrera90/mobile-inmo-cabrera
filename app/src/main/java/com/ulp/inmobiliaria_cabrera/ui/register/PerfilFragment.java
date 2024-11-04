@@ -61,7 +61,7 @@ public class PerfilFragment extends Fragment {
         );
 
         viewModel.getEditEnabled().observe(getViewLifecycleOwner(), flag -> {
-            binding.editTextEmail.setEnabled(flag);
+        //    binding.editTextEmail.setEnabled(flag);
             binding.editTextNombre.setEnabled(flag);
             binding.editTextApellido.setEnabled(flag);
             binding.editTextDni.setEnabled(flag);

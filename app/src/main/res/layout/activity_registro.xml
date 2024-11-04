@@ -172,4 +172,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp" />
 
+    <include
+        android:id="@+id/loadingOverlay"
+        layout="@layout/loading_overlay" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

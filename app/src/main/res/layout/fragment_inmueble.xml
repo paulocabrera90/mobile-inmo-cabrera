@@ -14,6 +14,19 @@
           tools:layout_editor_absoluteX="1dp"
           tools:layout_editor_absoluteY="1dp" />
 
+  <TextView
+      android:id="@+id/tvAvisoEmptyList"
+      android:layout_width="237dp"
+      android:layout_height="132dp"
+      android:text="@string/no_poasee_ningun_inmueble_registrado"
+      android:textSize="24sp"
+      android:visibility="invisible"
+      app:layout_constraintBottom_toBottomOf="@+id/recyclerViewInmuebles"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@+id/recyclerViewInmuebles"
+      tools:ignore="MissingConstraints" />
+
   <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/fabAddInmuebles"
       android:layout_width="108dp"

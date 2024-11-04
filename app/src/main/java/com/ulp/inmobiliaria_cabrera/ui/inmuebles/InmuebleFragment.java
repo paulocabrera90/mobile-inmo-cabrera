@@ -57,6 +57,13 @@ public class InmuebleFragment extends Fragment {
             loadingOverlay.setVisibility(isLoading ? View.VISIBLE : View.GONE);
         });
 
+        viewModel.getAvisoListInmueble().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                binding.tvAvisoEmptyList.setVisibility(aBoolean ? View.VISIBLE : View.GONE);
+            }
+        });
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
         recyclerViewInmueble.setLayoutManager(linearLayoutManager);
 
@@ -77,6 +84,7 @@ public class InmuebleFragment extends Fragment {
         });
 
         viewModel.setListaInmuebles(ID_PROPIETARIO_LOG);
+        viewModel.setAvisoListInmueble();
 
         return rootView;
     }
