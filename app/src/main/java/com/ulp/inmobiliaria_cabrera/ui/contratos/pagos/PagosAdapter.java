@@ -40,7 +40,7 @@ public class PagosAdapter extends RecyclerView.Adapter<PagosAdapter.ViewHolder> 
         final Pago pago = pagosList.get(position);
         holder.binding.textNroPago.setText("Nro de Pago: "
                 + pago.getNumeroPago());
-        holder.binding.textContrato.setText("Nro de Contrato: 00000" + pago.getContrato().getId());
+        holder.binding.textContrato.setText(String.format("Nro de Contrato: %06d", pago.getContrato().getId()));
         holder.binding.textEstado.setText("Estado: "
                 + pago.getEstado().getDisplayName());
 

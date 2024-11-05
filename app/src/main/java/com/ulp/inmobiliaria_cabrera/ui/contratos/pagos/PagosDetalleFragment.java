@@ -42,7 +42,7 @@ public class PagosDetalleFragment extends Fragment {
                 getViewLifecycleOwner(), pago -> {
 
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy:hh:mm");
-                    binding.textContrato.setText("0000" + pago.getContrato().getId());
+                    binding.textContrato.setText(String.format("Nro de Contrato: %06d", pago.getContrato().getId()));
                     binding.textFechaPago.setText(dateFormat.format(pago.getFechaPago()));
                     binding.textNumeroPago.setText(String.valueOf(pago.getNumeroPago()));
                     binding.textDetalle.setText(pago.getDetalle());

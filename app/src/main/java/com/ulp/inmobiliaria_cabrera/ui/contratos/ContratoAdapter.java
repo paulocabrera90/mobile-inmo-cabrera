@@ -44,7 +44,7 @@ public class ContratoAdapter extends RecyclerView.Adapter<ContratoAdapter.ViewHo
         final Contrato contrato = contratoList.get(position);
         holder.binding.textNombre.setText("Nombre del Inquilino: "
                 + contrato.getInquilino().getNombreCompleto());
-        holder.binding.textNroContrato.setText("Nro de Contrato: 00000" + contrato.getId());
+        holder.binding.textNroContrato.setText(String.format("Nro de Contrato: %06d", + contrato.getId()));
         holder.binding.textHabilitado.setText("Habilitado: "
                 + (EstadoContrato.VIGENTE.equals(contrato.getEstado()) ? "Sí" : "No"));
         holder.binding.textPrecio.setText("Monto alquiler: "
