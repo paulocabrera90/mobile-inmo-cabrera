@@ -1,6 +1,7 @@
 package com.ulp.inmobiliaria_cabrera.ui.contratos.pagos;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,9 @@ public class PagosAdapter extends RecyclerView.Adapter<PagosAdapter.ViewHolder> 
         holder.binding.textContrato.setText("Nro de Contrato: 00000" + pago.getContrato().getId());
         holder.binding.textEstado.setText("Estado: "
                 + pago.getEstado().getDisplayName());
+
+        int backgroundColor = pago.isAnulado() ? Color.parseColor("#ff7a5d") : Color.GRAY;
+        holder.binding.cardViewPago.setCardBackgroundColor(backgroundColor);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

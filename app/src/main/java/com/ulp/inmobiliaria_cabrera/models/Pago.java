@@ -123,6 +123,10 @@ public class Pago implements Serializable {
         this.contrato = contrato;
     }
 
+    public Boolean isAnulado(){
+        return this.getEstado().equals(EstadoPago.ANULADO);
+    }
+
     @Override
     public String toString() {
         return "Pago{" +
