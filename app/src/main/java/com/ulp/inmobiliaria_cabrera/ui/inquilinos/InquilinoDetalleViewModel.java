@@ -50,7 +50,7 @@ public class InquilinoDetalleViewModel extends AndroidViewModel {
                 @Override
                 public void onResponse(Call<Inquilino> call, Response<Inquilino> response) {
                     loading.setValue(false);
-                    if (response.isSuccessful()) {
+                    if (response.isSuccessful() && response.body() != null) {
                         inquilinoMutableLiveData.setValue(response.body());
 
                     } else {

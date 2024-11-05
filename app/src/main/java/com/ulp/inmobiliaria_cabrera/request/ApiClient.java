@@ -115,20 +115,12 @@ public class ApiClient {
         public Call<ResponseBody> changePassword(@Body ChangePasswordRequest changePasswordView);
 
         //PROPIETARIO
-        @GET("propietarios")
-        Call<List<Propietario>> getPropietarios();
 
         @GET("propietarios/{id}")
         Call<Propietario> getPropietario(@Path("id") int id);
 
-        @POST("propietarios")
-        Call<Propietario> crearPropietario(@Body Propietario propietario);
-
         @PUT("propietarios/{id}")
         Call<Propietario> actualizarPropietario(@Body Propietario propietario);
-
-        @DELETE("propietarios/{id}")
-        Call<Void> eliminarPropietario(@Path("id") int id);
 
         @POST("propietarios/reset-password")
         Call<ResponseBody> resetPassword(@Body ResetPasswordRequest resetPassword);

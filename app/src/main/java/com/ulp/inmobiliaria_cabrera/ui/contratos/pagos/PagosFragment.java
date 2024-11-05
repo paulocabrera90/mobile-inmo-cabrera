@@ -57,6 +57,13 @@ public class PagosFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
         recyclerViewPagos.setLayoutManager(linearLayoutManager);
 
+        viewModel.getAvisoListPago().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                binding.tvAvisoEmptyList.setVisibility(aBoolean ? View.VISIBLE : View.GONE);
+            }
+        });
+
         viewModel.getListPagosLiveData().observe(getViewLifecycleOwner(), new Observer<List<Pago>>() {
             @Override
             public void onChanged(List<Pago> pagos) {
