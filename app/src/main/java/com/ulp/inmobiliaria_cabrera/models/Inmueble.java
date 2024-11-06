@@ -2,8 +2,6 @@ package com.ulp.inmobiliaria_cabrera.models;
 
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Inmueble implements Serializable {

@@ -46,7 +46,6 @@ public class ContratoAdapter extends RecyclerView.Adapter<ContratoAdapter.ViewHo
         holder.binding.textPrecio.setText("Monto alquiler: "
                 + String.format("$%.2f", contrato.getMontoAlquiler()));
 
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

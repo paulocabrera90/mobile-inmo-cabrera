@@ -1,25 +1,16 @@
 package com.ulp.inmobiliaria_cabrera.ui.inmuebles;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
-import android.content.pm.PackageManager;
 
-import android.Manifest;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
 
 import android.provider.MediaStore;
 import android.util.Log;
@@ -133,8 +124,6 @@ public class InmuebleDetalleFragment extends Fragment {
         viewModel.getEditEnabled().observe(getViewLifecycleOwner(), flag -> {
             setEnableBinding(FLAG_NEW_INMUEBLE?!flag:flag);
         });
-
-       // binding.buttonAddImage.setOnClickListener(v -> checkGalleryPermissionAndOpenGallery());
 
         binding.spinnerTipoInmuebleUso.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

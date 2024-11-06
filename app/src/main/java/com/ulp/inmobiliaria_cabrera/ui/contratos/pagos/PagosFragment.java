@@ -2,7 +2,6 @@ package com.ulp.inmobiliaria_cabrera.ui.contratos.pagos;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,12 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ulp.inmobiliaria_cabrera.R;
-import com.ulp.inmobiliaria_cabrera.databinding.FragmentContratoBinding;
 import com.ulp.inmobiliaria_cabrera.databinding.FragmentPagosBinding;
-import com.ulp.inmobiliaria_cabrera.models.Contrato;
 import com.ulp.inmobiliaria_cabrera.models.Pago;
-import com.ulp.inmobiliaria_cabrera.ui.contratos.ContratoAdapter;
-import com.ulp.inmobiliaria_cabrera.ui.contratos.ContratoViewModel;
 
 import java.util.List;
 

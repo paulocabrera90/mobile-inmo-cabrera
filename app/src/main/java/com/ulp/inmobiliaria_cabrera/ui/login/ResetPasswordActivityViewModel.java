@@ -66,7 +66,7 @@ public class ResetPasswordActivityViewModel extends AndroidViewModel {
 
            @Override
            public void onFailure(Call<ResponseBody> call, Throwable throwable) {
-               Toast.makeText(getApplication(),"Datos OnFailure", Toast.LENGTH_SHORT).show();
+               Toast.makeText(getApplication(),"Problemas con el servidor", Toast.LENGTH_SHORT).show();
                Log.e("Error failure", throwable.getMessage());
                loading.setValue(false);
            }

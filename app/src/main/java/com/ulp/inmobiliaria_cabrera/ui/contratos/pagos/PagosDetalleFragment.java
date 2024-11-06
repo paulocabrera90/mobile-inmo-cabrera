@@ -12,10 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ulp.inmobiliaria_cabrera.R;
-import com.ulp.inmobiliaria_cabrera.databinding.FragmentContratoDetalleBinding;
 import com.ulp.inmobiliaria_cabrera.databinding.FragmentPagosDetalleBinding;
-import com.ulp.inmobiliaria_cabrera.ui.contratos.ContratoDetalleViewModel;
 
 import java.text.SimpleDateFormat;
 

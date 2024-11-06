@@ -17,12 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ulp.inmobiliaria_cabrera.R;
-import com.ulp.inmobiliaria_cabrera.databinding.FragmentInmuebleBinding;
 import com.ulp.inmobiliaria_cabrera.databinding.FragmentInquilinoBinding;
 import com.ulp.inmobiliaria_cabrera.models.Inmueble;
-import com.ulp.inmobiliaria_cabrera.models.Inquilino;
-import com.ulp.inmobiliaria_cabrera.ui.inmuebles.InmuebleAdapter;
-import com.ulp.inmobiliaria_cabrera.ui.inmuebles.InmuebleViewModel;
 import com.ulp.inmobiliaria_cabrera.utils.PreferencesUtil;
 
 import java.util.List;
@@ -86,6 +82,5 @@ public class InquilinoFragment extends Fragment {
         super.onPause();
         binding.getRoot().findViewById(R.id.loadingOverlay).setVisibility(View.GONE);
     }
-
 
 }

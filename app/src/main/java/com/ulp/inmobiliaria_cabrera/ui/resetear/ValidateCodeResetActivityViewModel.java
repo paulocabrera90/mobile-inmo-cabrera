@@ -84,7 +84,7 @@ public class ValidateCodeResetActivityViewModel extends AndroidViewModel {
 
             @Override
             public void onFailure(Call<Boolean> call, Throwable throwable) {
-                Toast.makeText(getApplication(),"Datos OnFailure", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplication(),"Problemas con el servidor", Toast.LENGTH_SHORT).show();
                 loading.setValue(false);
                 Log.e("Error failure", throwable.getMessage());
             }

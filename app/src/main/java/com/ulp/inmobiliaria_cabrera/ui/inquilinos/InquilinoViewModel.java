@@ -7,10 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.ulp.inmobiliaria_cabrera.models.Inmueble;
-import com.ulp.inmobiliaria_cabrera.models.Inquilino;
 import com.ulp.inmobiliaria_cabrera.request.ApiClient;
 
 import java.util.List;
@@ -51,7 +49,6 @@ public class InquilinoViewModel extends AndroidViewModel {
     public LiveData<Boolean> getAvisoInquilinoData() {
         return avisoListInquilino;
     }
-
 
     public void setListInmuebleContratoMutable() {
         loading.setValue(true);
