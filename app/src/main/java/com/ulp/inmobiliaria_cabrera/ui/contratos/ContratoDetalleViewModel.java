@@ -7,11 +7,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.ulp.inmobiliaria_cabrera.constants.Constants;
 import com.ulp.inmobiliaria_cabrera.models.Contrato;
-import com.ulp.inmobiliaria_cabrera.models.Inmueble;
 import com.ulp.inmobiliaria_cabrera.request.ApiClient;
 import com.ulp.inmobiliaria_cabrera.utils.PreferencesUtil;
 
@@ -54,8 +52,7 @@ public class ContratoDetalleViewModel extends AndroidViewModel {
         }
         return contratoMutableLiveData;
     }
-    public void enablePagos() { // pagos
-
+    public void enablePagos() {
         pagosEnabled.setValue(true);
     }
 

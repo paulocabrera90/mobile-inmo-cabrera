@@ -69,7 +69,7 @@ public class LoginActivityViewModel extends AndroidViewModel {
                        ((Activity) context).finish();
                    }
                }else {
-                   Toast.makeText(getApplication(),"Datos Incorrecotes", Toast.LENGTH_SHORT).show();
+                   Toast.makeText(getApplication(),"Datos Incorrectos", Toast.LENGTH_SHORT).show();
                }
            }
 

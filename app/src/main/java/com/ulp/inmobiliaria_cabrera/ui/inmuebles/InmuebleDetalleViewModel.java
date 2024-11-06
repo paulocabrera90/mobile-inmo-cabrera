@@ -188,8 +188,6 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
         loading.setValue(false);
         Gson gson = new Gson();
         String inmuebleJsonString = gson.toJson(inmueble);
-        RequestBody inmuebleJsonBody =
-                RequestBody.create(MediaType.parse("application/json; charset=utf-8"), inmuebleJsonString);
 
         Bitmap imgBit = selectedImgBitmap.getValue();
 
@@ -229,10 +227,9 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
                         loading.setValue(false);
                         if (response.isSuccessful()) {
                             inmuebleMutableLiveData.setValue(response.body());
-                            Toast.makeText(getApplication().getApplicationContext(), "Datos guardados", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplication().getApplicationContext(), "Datos actualizados", Toast.LENGTH_SHORT).show();
                             editEnabled.setValue(true);
                         } else if (response.code() == Constants.CODE_RESPONSE_UNAUTHORIZED) {
-                            // Token no válido, redirige a la pantalla de login
                             Toast.makeText(getApplication(), "Sesión expirada. Inicie sesión nuevamente.", Toast.LENGTH_SHORT).show();
                             PreferencesUtil.redirectToLogin(getApplication());
                         } else {
@@ -248,7 +245,6 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
                     }
                 });
             } else {
-                //api.crearInmueble(inmuebleJsonBody).enqueue(new Callback<Inmueble>() {
                 api.crearInmueble(activo, ambientes, coordenadaLat, coordenadaLon, direccion, fechaActualizacion,
                         fechaCreacion, idPropietario, idTipoInmueble, idTipoInmuebleUso, precio, imagePart)
                         .enqueue(new Callback<Inmueble>() {
@@ -257,9 +253,9 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
                         loading.setValue(false);
                         if (response.isSuccessful()) {
                             inmuebleMutableLiveData.setValue(response.body());
+                            Toast.makeText(getApplication().getApplicationContext(), "Datos guardados", Toast.LENGTH_SHORT).show();
                             editEnabled.setValue(true);
                         }else if (response.code() == Constants.CODE_RESPONSE_UNAUTHORIZED) {
-                            // Token no válido, redirige a la pantalla de login
                             Toast.makeText(getApplication(), "Sesión expirada. Inicie sesión nuevamente.", Toast.LENGTH_SHORT).show();
                             PreferencesUtil.redirectToLogin(getApplication());
                         } else {
