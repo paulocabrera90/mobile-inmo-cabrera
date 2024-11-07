@@ -45,7 +45,7 @@ public class InmuebleAdapter extends RecyclerView.Adapter<InmuebleAdapter.ViewHo
         holder.binding.textHabilitado
                 .setText("Estado: " + String.valueOf(inmueble.isActivo()?"Activo":"Inactivo"));
         holder.binding.textPrecio
-                .setText("Precio: $" + String.format("$%.2f", inmueble.getPrecio()));
+                .setText("Precio: " + String.format("$%.2f", inmueble.getPrecio()));
 
         int backgroundColor = !inmueble.isActivo() ? Color.parseColor("#ff7a5d") : Color.GRAY;
         holder.binding.cardViewInmueble.setCardBackgroundColor(backgroundColor);

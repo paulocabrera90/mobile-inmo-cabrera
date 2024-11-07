@@ -83,7 +83,7 @@ public class LoginActivityViewModel extends AndroidViewModel {
     }
 
     public void sensorG(float movi){
-        Log.d("Medicion del movimiento", String.valueOf(movi));
+        Log.d("Medicion: ", String.valueOf(movi));
         if(movi > 8 || movi < -12){
             activador++;
         }

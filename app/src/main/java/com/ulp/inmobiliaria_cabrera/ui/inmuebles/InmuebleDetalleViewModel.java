@@ -26,7 +26,11 @@ import com.ulp.inmobiliaria_cabrera.utils.PreferencesUtil;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.List;
+import java.util.Locale;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -93,7 +97,6 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
         }
         return uriMutableLiveData;
     }
-
 
     public LiveData<List<TipoInmuebleUso>> getTipoInmuebleUso() {
         if (listTipoInmuebleUsoMutableLiveData == null) {
@@ -187,11 +190,8 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
     public void saveInmueble(Inmueble inmueble, int idInmueble){
         loading.setValue(false);
         Gson gson = new Gson();
-        String inmuebleJsonString = gson.toJson(inmueble);
 
         Bitmap imgBit = selectedImgBitmap.getValue();
-
-        // Crear cada RequestBody a partir de los datos del inmueble
         RequestBody activo = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(inmueble.isActivo()));
         RequestBody ambientes = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(inmueble.getAmbientes()));
         RequestBody coordenadaLat = RequestBody.create(MediaType.parse("text/plain"), inmueble.getCoordenadaLat());
@@ -203,7 +203,7 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
         RequestBody idPropietario = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(inmueble.getIdPropietario()));
         RequestBody idTipoInmueble = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(inmueble.getIdTipoInmueble()));
         RequestBody idTipoInmuebleUso = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(inmueble.getIdTipoInmuebleUso()));
-        RequestBody precio = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(inmueble.getPrecio()));
+        RequestBody precio = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(inmueble.getPrecio()).replace(".", ","));
 
         try {
             MultipartBody.Part imagePart = null;
@@ -218,6 +218,7 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
                 }
             }
 
+
             if (idInmueble != 0) {
                 api.actualizarInmueble(activo, ambientes, coordenadaLat, coordenadaLon, direccion, fechaActualizacion,
                     fechaCreacion, id, idPropietario, idTipoInmueble, idTipoInmuebleUso, precio, imagePart)
@@ -228,13 +229,13 @@ public class InmuebleDetalleViewModel extends AndroidViewModel {
                         if (response.isSuccessful()) {
                             inmuebleMutableLiveData.setValue(response.body());
                             Toast.makeText(getApplication().getApplicationContext(), "Datos actualizados", Toast.LENGTH_SHORT).show();
-                            editEnabled.setValue(true);
+                           // editEnabled.setValue(true);
                         } else if (response.code() == Constants.CODE_RESPONSE_UNAUTHORIZED) {
                             Toast.makeText(getApplication(), "Sesión expirada. Inicie sesión nuevamente.", Toast.LENGTH_SHORT).show();
                             PreferencesUtil.redirectToLogin(getApplication());
                         } else {
                             Toast.makeText(getApplication(), "Error al obtener inmueble", Toast.LENGTH_SHORT).show();
-                            editEnabled.setValue(false);
+                           // editEnabled.setValue(false);
                         }
                     }
 

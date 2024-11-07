@@ -29,8 +29,11 @@ import com.ulp.inmobiliaria_cabrera.models.Inmueble;
 import com.ulp.inmobiliaria_cabrera.models.TipoInmueble;
 import com.ulp.inmobiliaria_cabrera.models.TipoInmuebleUso;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class InmuebleDetalleFragment extends Fragment {
 
@@ -99,10 +102,12 @@ public class InmuebleDetalleFragment extends Fragment {
         });
 
         viewModel.getInmueble().observe(
+
                 getViewLifecycleOwner(), inmueble  -> {
+
                     binding.editTextDireccion.setText(inmueble.getDireccion());
                     binding.editTextAmbientes.setText(String.valueOf(inmueble.getAmbientes()));
-                    binding.editTextPrecio.setText(String.valueOf(inmueble.getPrecio()));
+                    binding.editTextPrecio.setText(String.format("$%.2f", inmueble.getPrecio()));
                     binding.editTextLatitud.setText(inmueble.getCoordenadaLat());
                     binding.editTextLongitud.setText(inmueble.getCoordenadaLon());
                     binding.switchActivo.setChecked(inmueble.isActivo());
@@ -154,13 +159,14 @@ public class InmuebleDetalleFragment extends Fragment {
         });
 
         binding.buttonSave.setOnClickListener(view -> {
+            double price = parseCurrencyString(binding.editTextPrecio.getText().toString());
             Inmueble inmueble = new Inmueble(
                     binding.editTextDireccion.getText().toString(),
                     idTipoInmuebleUso,
                     idTipoInmueble,
                     Integer.parseInt(binding.editTextAmbientes.getText().toString()),
                     binding.editTextLatitud.getText().toString(),
-                    Double.parseDouble(binding.editTextPrecio.getText().toString()),
+                    price,
                     binding.editTextLongitud.getText().toString(),
                     ID_PROPIETARIO,
                     binding.switchActivo.isChecked()
@@ -242,4 +248,13 @@ public class InmuebleDetalleFragment extends Fragment {
         binding.getRoot().findViewById(R.id.loadingOverlay).setVisibility(View.GONE);
     }
 
+    private double parseCurrencyString(String currencyString) {
+        String cleanString = currencyString.replaceAll("[$,]", "");
+        try {
+            return Double.parseDouble(cleanString);
+        } catch (NumberFormatException e) {
+            Log.e("NumberFormat", "Parsing error on: " + cleanString, e);
+            return 0.0;
+        }
+    }
 }
