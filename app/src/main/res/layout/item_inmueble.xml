@@ -43,7 +43,8 @@
             android:layout_height="wrap_content"
             android:paddingTop="4dp"
             android:text="Habilitado: Sí"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
         <include
             android:id="@+id/loadingOverlay"
             layout="@layout/loading_overlay" />
